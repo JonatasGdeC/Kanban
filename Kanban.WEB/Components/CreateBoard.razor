@@ -1,0 +1,14 @@
+@using Kanban.WEB.Components.Dialogs
+@inject IDialogService DialogService
+
+<MudButton OnClick="OpenDialogAsync" Style="color: #635FC7">
+  + Create New Board
+</MudButton>
+
+@code {
+  private Task OpenDialogAsync()
+  {
+    var options = new DialogOptions { CloseOnEscapeKey = true };
+    return DialogService.ShowAsync<BoardDialog>("Simple Dialog", options);
+  }
+}

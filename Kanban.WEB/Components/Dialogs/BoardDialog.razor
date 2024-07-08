@@ -1,0 +1,75 @@
+<MudDialog Class="p-3" Style="width: 480px">
+  <TitleContent>
+    <MudText Class="fw-bold fs-4">
+      Add New Board
+    </MudText>
+  </TitleContent>
+  <DialogContent>
+    <MudForm>
+      <div class="mb-3">
+        <MudText Color="Color.Default">Name</MudText>
+        <MudTextField T="string" Required="true" Placeholder="e.g. Web Design" Variant="Variant.Outlined" RequiredError="Name is required!" Style="font-weight: bold; color: #000"/>
+      </div>
+      @if (Columns.Any())
+      {
+        <div>
+          <MudText Color="Color.Default">Columns</MudText>
+          @foreach (var column in Columns)
+          {
+            <div class="d-flex align-items-center mb-2">
+              <MudTextField T="string" Required="true" Placeholder="Column Name" Variant="Variant.Outlined" @bind-Value="column.Name" Class="flex-grow-1 me-2" RequiredError="Column name is required!" Style="font-weight: bold; color: #000"/>
+              <MudIconButton Icon="@Icons.Material.Filled.Close" Color="Color.Default" OnClick="() => RemoveColumn(column)"/>
+            </div>
+          }
+        </div>
+      }
+      <MudButton Class="button btnAdd" OnClick="AddColumn">+ Add New Column</MudButton>
+      <MudButton Class="button btnMain" ButtonType="ButtonType.Submit" OnClick="Submit">Create New Board</MudButton>
+    </MudForm>
+  </DialogContent>
+</MudDialog>
+
+@code {
+
+  [CascadingParameter] private MudDialogInstance MudDialog { get; set; }
+
+  private List<ColumnModel> Columns { get; set; } = new();
+
+  private void Submit() => MudDialog.Close(DialogResult.Ok(true));
+  private void AddColumn() => Columns.Add(new ColumnModel());
+  private void RemoveColumn(ColumnModel column) => Columns.Remove(column);
+
+  private class ColumnModel
+  {
+    public string Name { get; set; }
+  }
+}
+
+<style>
+  .button{
+    width: 100%;
+    border-radius: 20px;
+    font-size: 13px;
+    padding: 10px;
+  }
+
+  .btnAdd{
+    margin-top: 12px;
+    background-color: #A8A4FF;
+    color: #635FC7;
+    &:hover{
+      background-color: #A8A4FF;
+      opacity: 0.8;
+    }
+  }
+
+  .btnMain{
+    margin-top: 24px;
+    background-color: #635FC7;
+    color: #FFFFFF;
+    &:hover{
+      background-color: #635FC7;
+      opacity: 0.8;
+    }
+  }
+</style>

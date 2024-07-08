@@ -1,0 +1,34 @@
+<MudDrawer Open="OpenDawer" Overlay="false" Elevation="1" Variant="@DrawerVariant.Temporary">
+  <MudDrawerHeader>
+    <MudButton OnClick="ToggleDrawer">
+      <MudImage Width="150" Height="26" Src="./media/logo.png" Alt="Logo"/>
+    </MudButton>
+  </MudDrawerHeader>
+  <CreateBoard/>
+</MudDrawer>
+
+<MudButton OnClick="ToggleDrawer" Class="btnEye">
+  <MudIcon Icon="@Icons.Material.Filled.RemoveRedEye"/>
+</MudButton>
+
+@code{
+  private bool OpenDawer = true;
+  private void ToggleDrawer() => OpenDawer = !OpenDawer;
+}
+
+<style>
+  .btnEye{
+    position: fixed;
+    bottom: 20px;
+    left: 0;
+    width: 56px;
+    height: 48px;
+    background-color: #635FC7;
+    color: #FFF;
+    border-radius: 0 100px 100px 0;
+
+    &:hover{
+        background-color: #A8A4FF;
+    }
+  }
+</style>

@@ -1,0 +1,14 @@
+/home/jonatasgdec/RiderProjects/Kanban/Kanban.Shared.Models/bin/Debug/net8.0/Kanban.Shared.Models.deps.json
+/home/jonatasgdec/RiderProjects/Kanban/Kanban.Shared.Models/bin/Debug/net8.0/Kanban.Shared.Models.dll
+/home/jonatasgdec/RiderProjects/Kanban/Kanban.Shared.Models/bin/Debug/net8.0/Kanban.Shared.Models.pdb
+/home/jonatasgdec/RiderProjects/Kanban/Kanban.Shared.Models/obj/Debug/net8.0/Kanban.Shared.Models.GeneratedMSBuildEditorConfig.editorconfig
+/home/jonatasgdec/RiderProjects/Kanban/Kanban.Shared.Models/obj/Debug/net8.0/Kanban.Shared.Models.AssemblyInfoInputs.cache
+/home/jonatasgdec/RiderProjects/Kanban/Kanban.Shared.Models/obj/Debug/net8.0/Kanban.Shared.Models.AssemblyInfo.cs
+/home/jonatasgdec/RiderProjects/Kanban/Kanban.Shared.Models/obj/Debug/net8.0/Kanban.Shared.Models.csproj.CoreCompileInputs.cache
+/home/jonatasgdec/RiderProjects/Kanban/Kanban.Shared.Models/obj/Debug/net8.0/Kanban.Shared.Models.dll
+/home/jonatasgdec/RiderProjects/Kanban/Kanban.Shared.Models/obj/Debug/net8.0/refint/Kanban.Shared.Models.dll
+/home/jonatasgdec/RiderProjects/Kanban/Kanban.Shared.Models/obj/Debug/net8.0/Kanban.Shared.Models.pdb
+/home/jonatasgdec/RiderProjects/Kanban/Kanban.Shared.Models/obj/Debug/net8.0/ref/Kanban.Shared.Models.dll
+/home/jonatasgdec/RiderProjects/Kanban/Kanban.Shared.Models/bin/Debug/net8.0/Kanban.Shared.Models.runtimeconfig.json
+/home/jonatasgdec/RiderProjects/Kanban/Kanban.Shared.Models/obj/Debug/net8.0/Kanban.Shared.Models.csproj.AssemblyReference.cache
+/home/jonatasgdec/RiderProjects/Kanban/Kanban.Shared.Models/obj/Debug/net8.0/Kanban.Shared.Models.genruntimeconfig.cache
