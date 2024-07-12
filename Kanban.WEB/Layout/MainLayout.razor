@@ -1,10 +1,22 @@
 ﻿@inherits LayoutComponentBase
-
-
 <MudThemeProvider/>
 <MudPopoverProvider/>
 <MudDialogProvider/>
 <MudSnackbarProvider/>
 
-<NavManu/>
-@Body
+<MudLayout>
+  <Header Board="@selectedBoard"/>
+  <NavManu OnBoardSelected="HandleBoardSelected"/>
+  <MudMainContent>
+    @Body
+  </MudMainContent>
+</MudLayout>
+
+@code {
+  private BoardsResponse? selectedBoard;
+
+  private void HandleBoardSelected(BoardsResponse? board)
+  {
+    selectedBoard = board;
+  }
+}
