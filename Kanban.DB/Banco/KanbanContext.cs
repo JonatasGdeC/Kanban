@@ -19,7 +19,7 @@ namespace Kanban.DB.Banco
 
       modelBuilder.Entity<Tasks>()
         .HasOne(t => t.Column)
-        .WithMany(c => c.Tasks) // Aqui ajustamos para c.Tasks
+        .WithMany(c => c.Tasks)
         .HasForeignKey(t => t.ColumnId);
 
       modelBuilder.Entity<Subtasks>()

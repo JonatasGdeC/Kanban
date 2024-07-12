@@ -31,4 +31,9 @@ public class DAL<T> where T : class
     context.Set<T>().Remove(objeto);
     context.SaveChanges();
   }
+
+  public T? RecuperarPor(Func<T, bool> condicao)
+  {
+    return context.Set<T>().FirstOrDefault(condicao);
+  }
 }
