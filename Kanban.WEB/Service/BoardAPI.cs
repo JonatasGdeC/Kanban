@@ -1,6 +1,7 @@
 using System.Net.Http.Json;
 using Kanban.WEB.Request;
 using Kanban.WEB.Response;
+using Newtonsoft.Json;
 
 namespace Kanban.WEB.Service;
 
@@ -17,6 +18,15 @@ public class BoardAPI
   {
     return await
       _httpClient.GetFromJsonAsync<ICollection<BoardsResponse>>("boards");
+  }
+
+
+  public async Task<BoardsResponse> GetBoardsByIdAsync(int boardId)
+  {
+    var response = await _httpClient.GetAsync($"boards/{boardId}");
+    response.EnsureSuccessStatusCode();
+    var responseBody = await response.Content.ReadAsStringAsync();
+    return JsonConvert.DeserializeObject<BoardsResponse>(responseBody);
   }
 
   public async Task AddBoardAsync(BoardsRequest boards)

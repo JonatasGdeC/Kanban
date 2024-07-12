@@ -1,0 +1,29 @@
+@page "/{BoardId:int}"
+@inject BoardAPI BoardAPI
+@inject HttpClient HttpClient
+@inject NavigationManager NavigationManager
+
+@if (board != null)
+{
+  <PageTitle>Kanban - @board.Name</PageTitle>
+
+  <Header Board="@board"/>
+  <MudText>
+    @board.Name
+  </MudText>
+  <MudText>
+    @board.Id
+  </MudText>
+}
+
+@code {
+  [Parameter] public int BoardId { get; set; }
+  private BoardsResponse board;
+
+  protected override async Task OnParametersSetAsync()
+  {
+    HttpClient.BaseAddress = new Uri(NavigationManager.BaseUri);
+    board = await BoardAPI.GetBoardsByIdAsync(BoardId);
+    StateHasChanged();
+  }
+}

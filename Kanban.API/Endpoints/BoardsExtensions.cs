@@ -24,6 +24,16 @@ public static class BoardsExtensions
       return Results.Ok(listFromBoardsResponse);
     });
 
+    group.MapGet("/{id}", ([FromServices] DAL<Boards> dal, int id) =>
+    {
+      var board = dal.RecuperarPor(a => a.Id == id);
+      if(board is null)
+      {
+        return Results.NotFound();
+      }
+      return Results.Ok(board);
+    });
+
     group.MapPost("/",
     ([FromServices] DAL<Boards> dal, [FromServices] DAL<Columns> dalColumns,
       [FromBody] BoardsRequest boardsRequest) =>

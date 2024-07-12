@@ -1,20 +1,19 @@
 @inject BoardAPI BoardAPI
 
-<MudAppBar Elevation="1" Dense="false">
-  @if (Board != null)
-  {
+@if (Board != null)
+{
+  <MudAppBar Elevation="1" Dense="false" Color="Color.Transparent">
     <MudText Typo="Typo.h1" Class="fs-3 fw-bold">@Board.Name</MudText>
-    <MudText>@Board.Id</MudText>
-  }
-  <MudSpacer/>
-  <MudButton>
-    <MudText>+ Add New Task</MudText>
-  </MudButton>
-  <MudMenu Icon="@Icons.Material.Filled.MoreVert" Style="align-self: auto;">
-    <MudMenuItem>Edit Board</MudMenuItem>
-    <MudMenuItem OnClick="DeleteBoard">Delete Board</MudMenuItem>
-  </MudMenu>
-</MudAppBar>
+    <MudSpacer/>
+    <MudButton>
+      <MudText>+ Add New Task</MudText>
+    </MudButton>
+    <MudMenu Icon="@Icons.Material.Filled.MoreVert" Style="align-self: auto;">
+      <MudMenuItem>Edit Board</MudMenuItem>
+      <MudMenuItem OnClick="DeleteBoard">Delete Board</MudMenuItem>
+    </MudMenu>
+  </MudAppBar>
+}
 
 @code{
   [Parameter] public BoardsResponse? Board { get; set; }
@@ -25,4 +24,5 @@
     var parameters = new DialogParameters { { "BoardId", Board.Id } };
     return DialogService.ShowAsync<BoardDeleteDialog>("Delete Board", parameters, options);
   }
+
 }

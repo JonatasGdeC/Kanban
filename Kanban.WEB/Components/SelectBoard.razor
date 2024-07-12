@@ -28,6 +28,7 @@
   {
     selectedBoardId = boardsResponse.Id;
     await OnBoardSelected.InvokeAsync(boardsResponse);
+    navigationManager.NavigateTo($"/{boardsResponse.Id}");
     StateHasChanged();
   }
 }
