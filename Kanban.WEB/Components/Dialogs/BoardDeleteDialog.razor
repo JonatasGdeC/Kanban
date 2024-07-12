@@ -1,0 +1,57 @@
+@inject BoardAPI BoardAPI
+
+<MudDialog Class="p-3" Style="width: 480px">
+  <TitleContent>
+    <MudText Class="fw-bold fs-4" Color="Color.Error">
+      Delete this board?
+    </MudText>
+  </TitleContent>
+  <DialogContent>
+    <MudText>Are you sure you want to delete the ‘Platform Launch’ board? This action will remove all columns and tasks and cannot be reversed.</MudText>
+    <div class="actions">
+      <MudButton OnClick="Deletar">Delete</MudButton>
+      <MudButton OnClick="Cancel">Cancel</MudButton>
+    </div>
+  </DialogContent>
+</MudDialog>
+
+@code{
+  [CascadingParameter] private MudDialogInstance MudDialog { get; set; }
+  [Parameter] public int BoardId { get; set; }
+
+  private async Task Deletar()
+  {
+    await BoardAPI.DeleteBoardAsync(BoardId);
+    MudDialog.Close(DialogResult.Ok(true));
+    StateHasChanged();
+  }
+
+  private void Cancel() => MudDialog.Cancel();
+}
+
+<style>
+  .actions{
+    display: flex;
+    gap: 16px;
+    margin-top: 24px;
+
+    button{
+      width: 100%;
+      border-radius: 20px;
+      transition: all ease 0.5s;
+
+      &:nth-child(1){
+        background-color: #EA5555;
+        color: #FFFFFF;
+      }
+
+      &:nth-child(2){
+        color: #635FC7;
+      }
+
+      &:hover{
+        opacity: 0.6;
+      }
+    }
+  }
+</style>

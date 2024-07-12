@@ -1,3 +1,5 @@
+@inject BoardAPI BoardAPI
+
 <MudAppBar Elevation="1" Dense="false">
   @if (Board != null)
   {
@@ -10,10 +12,17 @@
   </MudButton>
   <MudMenu Icon="@Icons.Material.Filled.MoreVert" Style="align-self: auto;">
     <MudMenuItem>Edit Board</MudMenuItem>
-    <MudMenuItem>Delete Board</MudMenuItem>
+    <MudMenuItem OnClick="DeleteBoard">Delete Board</MudMenuItem>
   </MudMenu>
 </MudAppBar>
 
 @code{
   [Parameter] public BoardsResponse? Board { get; set; }
+
+  private Task DeleteBoard()
+  {
+    var options = new DialogOptions { CloseOnEscapeKey = true };
+    var parameters = new DialogParameters { { "BoardId", Board.Id } };
+    return DialogService.ShowAsync<BoardDeleteDialog>("Delete Board", parameters, options);
+  }
 }

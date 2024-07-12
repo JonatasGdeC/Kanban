@@ -23,4 +23,9 @@ public class BoardAPI
   {
     await _httpClient.PostAsJsonAsync("boards", boards);
   }
+
+  public async Task DeleteBoardAsync(int id)
+  {
+    await _httpClient.DeleteAsync($"boards/{id}");
+  }
 }
