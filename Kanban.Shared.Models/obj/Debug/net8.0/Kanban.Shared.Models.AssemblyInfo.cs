@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Kanban.Shared.Models")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cbe8068eb8160cd4a6aabf8e86837d5b2cc7d887")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e637315e17e30a56566859cf697ad2e142a14fde")]
 [assembly: System.Reflection.AssemblyProductAttribute("Kanban.Shared.Models")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Kanban.Shared.Models")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

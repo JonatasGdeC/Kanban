@@ -1,9 +1,22 @@
+@inject BoardAPI BoardAPI
+
 <MudDrawer Open="OpenDawer" Overlay="false" Elevation="1" Variant="@DrawerVariant.Temporary">
   <MudDrawerHeader>
     <MudButton OnClick="ToggleDrawer">
       <MudImage Width="150" Height="26" Src="./media/logo.png" Alt="Logo"/>
     </MudButton>
   </MudDrawerHeader>
+  @if (boards != null)
+  {
+    <MudText Class="textInfo">All Boards (@boards.Count())</MudText>
+    foreach (var board in boards)
+    {
+      <MudButton Class="@(selectedBoardId == board.Id ? "btnSelect active" : "btnSelect")" OnClick="@(() => SelectBoard(board.Id))">
+        <MudIcon Icon="@Icons.Material.Filled.Dashboard"/>
+        <MudText Class="ml-3">@board.Name</MudText>
+      </MudButton>
+    }
+  }
   <CreateBoard/>
 </MudDrawer>
 
@@ -14,9 +27,45 @@
 @code{
   private bool OpenDawer = true;
   private void ToggleDrawer() => OpenDawer = !OpenDawer;
+
+  private ICollection<BoardsResponse> boards;
+  private int? selectedBoardId;
+
+  protected override async Task OnParametersSetAsync()
+  {
+    boards = await BoardAPI.GetBoardsAsync();
+  }
+
+  private void SelectBoard(int boardId)
+  {
+    selectedBoardId = boardId;
+  }
 }
 
 <style>
+  .textInfo{
+    margin: 15px 56px 20px 20px;
+    font-weight: bold;
+    font-size: 12px;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+
+  .btnSelect{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    padding: 15px 32px;
+    border-radius: 0 100px 100px 0;
+    background-color: transparent;
+    color: #000;
+  }
+
+  .btnSelect.active{
+    background-color: #635FC7;
+    color: #FFF;
+  }
+
   .btnEye{
     position: fixed;
     bottom: 20px;
@@ -26,9 +75,9 @@
     background-color: #635FC7;
     color: #FFF;
     border-radius: 0 100px 100px 0;
+  }
 
-    &:hover{
-        background-color: #A8A4FF;
-    }
+  .btnEye:hover{
+    background-color: #A8A4FF;
   }
 </style>
