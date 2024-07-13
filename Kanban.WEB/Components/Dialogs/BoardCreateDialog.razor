@@ -27,7 +27,7 @@
         </div>
       }
       <MudButton Class="button btnAdd" OnClick="AddColumn">+ Add New Column</MudButton>
-      <MudButton Class="button btnMain" ButtonType="ButtonType.Submit" OnClick="AddBoard">Create New Board</MudButton>
+      <MudButton Class="button btnMain" OnClick="AddBoard">Create New Board</MudButton>
     </MudForm>
   </DialogContent>
 </MudDialog>
@@ -45,14 +45,23 @@
     public string Name { get; set; }
   }
 
-  private string Title;
+  private string? Title = "";
 
   private async Task AddBoard()
   {
-    var request = new BoardsRequest(Title!, DateTime.Today);
-    await BoardAPI.AddBoardAsync(request);
-    MudDialog.Close(DialogResult.Ok(true));
-    navigationManager.NavigateTo("/");
+    if (!string.IsNullOrWhiteSpace(Title))
+    {
+      var request = new BoardsRequest(Title, DateTime.Today);
+      await BoardAPI.AddBoardAsync(request);
+      MudDialog.Close(DialogResult.Ok(true));
+      navigationManager.NavigateTo("/");
+      Snackbar.Add("Board created successfully!", Severity.Success, options => { Snackbar.Configuration.PositionClass = Defaults.Classes.Position.BottomEnd; });
+      StateHasChanged();
+    }
+    else
+    {
+      Snackbar.Add("Add a name for the board!", Severity.Warning);
+    }
   }
 }
 
