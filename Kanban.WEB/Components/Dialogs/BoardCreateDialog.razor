@@ -1,5 +1,5 @@
 @using Kanban.WEB.Request
-@inject BoardAPI BoardAPI
+@inject BoardApi ColumnApi
 
 <MudDialog Class="p-3" Style="width: 480px">
   <TitleContent>
@@ -11,7 +11,7 @@
     <MudForm>
       <div class="mb-3">
         <MudText Color="Color.Default">Name</MudText>
-        <MudTextField T="string" Required="true" Placeholder="e.g. Web Design" Variant="Variant.Outlined" RequiredError="Name is required!" @bind-Value="@Title" Style="font-weight: bold; color: #000"/>
+        <MudTextField T="string" Required="true" Placeholder="e.g. Web Design" Variant="Variant.Outlined" RequiredError="Name is required!" @bind-Value="@_title" Style="font-weight: bold; color: #000"/>
       </div>
       @if (Columns.Any())
       {
@@ -45,22 +45,22 @@
     public string Name { get; set; }
   }
 
-  private string? Title = "";
+  private string? _title = "";
 
   private async Task AddBoard()
   {
-    if (!string.IsNullOrWhiteSpace(Title))
+    if (!string.IsNullOrWhiteSpace(_title))
     {
-      var request = new BoardsRequest(Title, DateTime.Today);
-      await BoardAPI.AddBoardAsync(request);
+      var request = new BoardsRequest(_title, DateTime.Today);
+      await ColumnApi.AddBoardAsync(request);
       MudDialog.Close(DialogResult.Ok(true));
-      navigationManager.NavigateTo("/");
+      NavigationManager.NavigateTo("/");
       Snackbar.Add("Board created successfully!", Severity.Success, options => { Snackbar.Configuration.PositionClass = Defaults.Classes.Position.BottomEnd; });
       StateHasChanged();
     }
     else
     {
-      Snackbar.Add("Add a name for the board!", Severity.Warning);
+      Snackbar.Add("Add a name for the board!", Severity.Warning, options => { Snackbar.Configuration.PositionClass = Defaults.Classes.Position.BottomEnd; });
     }
   }
 }

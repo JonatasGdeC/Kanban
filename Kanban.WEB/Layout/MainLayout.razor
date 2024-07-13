@@ -5,7 +5,7 @@
 <MudSnackbarProvider/>
 
 <MudLayout>
-  <Header Board="@selectedBoard"/>
+  <Header Board="@_selectedBoard"/>
   <NavManu OnBoardSelected="HandleBoardSelected"/>
   <MudMainContent>
     @Body
@@ -13,10 +13,10 @@
 </MudLayout>
 
 @code {
-  private BoardsResponse? selectedBoard;
+  private BoardsResponse? _selectedBoard;
 
   private void HandleBoardSelected(BoardsResponse? board)
   {
-    selectedBoard = board;
+    _selectedBoard = board;
   }
 }

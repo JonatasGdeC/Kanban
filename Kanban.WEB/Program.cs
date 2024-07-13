@@ -10,8 +10,8 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddMudServices();
 
-builder.Services.AddTransient<BoardAPI>();
-
+builder.Services.AddTransient<BoardApi>();
+builder.Services.AddTransient<ColumnsApi>();
 
 builder.Services.AddHttpClient("API", client =>
 {

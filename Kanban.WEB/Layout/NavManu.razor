@@ -1,4 +1,4 @@
-<MudDrawer Open="OpenDawer" Elevation="0" Variant="@DrawerVariant.Responsive">
+<MudDrawer Open="_openDawer" Elevation="0" Variant="@DrawerVariant.Responsive">
   <MudDrawerHeader>
     <MudButton OnClick="ToggleDrawer">
       <MudImage Width="150" Height="26" Src="./media/logo.png" Alt="Logo"/>
@@ -16,8 +16,8 @@
 @code{
   [Parameter] public EventCallback<BoardsResponse?> OnBoardSelected { get; set; }
 
-  private bool OpenDawer = true;
-  private void ToggleDrawer() => OpenDawer = !OpenDawer;
+  private bool _openDawer = true;
+  private void ToggleDrawer() => _openDawer = !_openDawer;
 }
 
 <style>

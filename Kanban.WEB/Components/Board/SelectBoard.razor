@@ -1,11 +1,11 @@
-@inject BoardAPI BoardAPI
+@inject BoardApi ColumnApi
 
-@if (boards != null)
+@if (_boards != null)
 {
-  <MudText Class="textInfo">All Boards (@boards.Count())</MudText>
-  foreach (var board in boards)
+  <MudText Class="textInfo">All Boards (@_boards.Count())</MudText>
+  foreach (var board in _boards)
   {
-    <MudButton Class="@(selectedBoardId == board.Id ? "btnSelect active" : "btnSelect")" OnClick="@(() => BoardSelect(board))">
+    <MudButton Class="@(_selectedBoardId == board.Id ? "btnSelect active" : "btnSelect")" OnClick="@(() => BoardSelect(board))">
       <MudIcon Icon="@Icons.Material.Filled.Dashboard"/>
       <MudText Class="ml-3">@board.Name</MudText>
     </MudButton>
@@ -13,22 +13,22 @@
 }
 
 @code{
-  private ICollection<BoardsResponse> boards;
-  private int? selectedBoardId;
+  private ICollection<BoardsResponse> _boards;
+  private int? _selectedBoardId;
 
   [Parameter] public EventCallback<BoardsResponse?> OnBoardSelected { get; set; }
 
   protected override async Task OnParametersSetAsync()
   {
-    boards = await BoardAPI.GetBoardsAsync();
+    _boards = await ColumnApi.GetBoardsAsync();
     StateHasChanged();
   }
 
   private async void BoardSelect(BoardsResponse boardsResponse)
   {
-    selectedBoardId = boardsResponse.Id;
+    _selectedBoardId = boardsResponse.Id;
     await OnBoardSelected.InvokeAsync(boardsResponse);
-    navigationManager.NavigateTo($"/{boardsResponse.Id}");
+    NavigationManager.NavigateTo($"/{boardsResponse.Id}");
     StateHasChanged();
   }
 }

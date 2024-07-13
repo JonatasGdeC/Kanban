@@ -1,4 +1,4 @@
-@inject BoardAPI BoardAPI
+@inject BoardApi ColumnApi
 
 <MudDialog Class="p-3" Style="width: 480px">
   <TitleContent>
@@ -21,9 +21,9 @@
 
   private async Task Deletar()
   {
-    await BoardAPI.DeleteBoardAsync(BoardId);
+    await ColumnApi.DeleteBoardAsync(BoardId);
     MudDialog.Close(DialogResult.Ok(true));
-    navigationManager.NavigateTo("/");
+    NavigationManager.NavigateTo("/");
     Snackbar.Add("Board deleted successfully!", Severity.Success);
     StateHasChanged();
   }

@@ -1,0 +1,31 @@
+@inject ColumnsApi ColumnsApi
+
+@if (_columns != null && _columns.Any())
+{
+  foreach (var column in _columns)
+  {
+    <MudText>@column.Name</MudText>
+  }
+}
+else
+{
+  <MudText>Cadastre uma coluna, please!</MudText>
+}
+
+@code {
+  [Parameter] public BoardsResponse? Board { get; set; }
+  private ICollection<ColumnsResponse>? _columns;
+
+  protected override async Task OnParametersSetAsync()
+  {
+    try
+    {
+      _columns = await ColumnsApi.GetColumnByBoardIdAsync(Board!.Id) ?? null;
+      StateHasChanged();
+    }
+    catch (Exception ex)
+    {
+      Console.WriteLine($"Error: {ex.Message}");
+    }
+  }
+}

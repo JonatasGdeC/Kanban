@@ -5,11 +5,11 @@ using Newtonsoft.Json;
 
 namespace Kanban.WEB.Service;
 
-public class BoardAPI
+public class BoardApi
 {
   private readonly HttpClient _httpClient;
 
-  public BoardAPI(IHttpClientFactory factory)
+  public BoardApi(IHttpClientFactory factory)
   {
     _httpClient = factory.CreateClient("API");
   }
@@ -19,7 +19,6 @@ public class BoardAPI
     return await
       _httpClient.GetFromJsonAsync<ICollection<BoardsResponse>>("boards");
   }
-
 
   public async Task<BoardsResponse> GetBoardsByIdAsync(int boardId)
   {
