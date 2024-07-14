@@ -1,0 +1,49 @@
+@inject ColumnsApi ColumnsApi
+
+<MudDialog Class="p-3" Style="width: 480px">
+  <TitleContent>
+    <MudText Class="fw-bold fs-4">
+      Add New Column
+    </MudText>
+  </TitleContent>
+  <DialogContent>
+    <MudForm>
+      <div class="mb-3">
+        <MudText Color="Color.Default">Columns</MudText>
+        <MudTextField T="string" Required="true" Placeholder="Column Name" Variant="Variant.Outlined" RequiredError="Name is required!" @bind-Value="@_columnName" Style="font-weight: bold; color: #000"/>
+      </div>
+      <MudButton Class="button btnMain" OnClick="CreateColumn">Create</MudButton>
+    </MudForm>
+  </DialogContent>
+</MudDialog>
+
+@code {
+  [Parameter] public int BoardId { get; set; }
+  [CascadingParameter] private MudDialogInstance MudDialog { get; set; }
+
+  private string? _columnName = "";
+
+  private async Task CreateColumn()
+  {
+    if (BoardId != 0)
+    {
+      if (!string.IsNullOrWhiteSpace(_columnName))
+      {
+        var columnRequest = new ColumnsRequest(BoardId, _columnName, 1);
+        await ColumnsApi.AddColumnAsync(columnRequest);
+        MudDialog.Close(DialogResult.Ok(true));
+        NavigationManager.NavigateTo($"/{BoardId}");
+        Snackbar.Add("Columns added successfully!", Severity.Success, options => { Snackbar.Configuration.PositionClass = Defaults.Classes.Position.BottomEnd; });
+        StateHasChanged();
+      }
+      else
+      {
+        Snackbar.Add("Add a name for the column!", Severity.Error, options => { Snackbar.Configuration.PositionClass = Defaults.Classes.Position.BottomEnd; });
+      }
+    }
+    else
+    {
+      Snackbar.Add("Board is null", Severity.Error, options => { Snackbar.Configuration.PositionClass = Defaults.Classes.Position.BottomEnd; });
+    }
+  }
+}

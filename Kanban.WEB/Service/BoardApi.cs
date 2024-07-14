@@ -28,9 +28,15 @@ public class BoardApi
     return JsonConvert.DeserializeObject<BoardsResponse>(responseBody);
   }
 
-  public async Task AddBoardAsync(BoardsRequest boards)
+  public async Task<int> AddBoardAsync(BoardsRequest request)
   {
-    await _httpClient.PostAsJsonAsync("boards", boards);
+    var response = await _httpClient.PostAsJsonAsync("boards", request);
+    response.EnsureSuccessStatusCode();
+    await Task.Delay(1000);
+    var boards = await GetBoardsAsync();
+    var lastBoard = boards.OrderByDescending(b => b.Id).FirstOrDefault();
+
+    return lastBoard?.Id ?? 0;
   }
 
   public async Task DeleteBoardAsync(int id)

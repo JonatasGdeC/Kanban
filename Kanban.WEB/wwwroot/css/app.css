@@ -75,3 +75,37 @@
 code {
     color: #c02d76;
 }
+
+body{
+  overflow-y: hidden;
+
+  .button{
+    width: 100%;
+    border-radius: 20px;
+    font-size: 13px;
+    padding: 10px;
+  }
+
+  .btnAdd{
+    margin-top: 12px;
+    background-color: #A8A4FF;
+    color: #635FC7;
+    &:hover{
+      background-color: #A8A4FF;
+      opacity: 0.8;
+    }
+  }
+
+  .btnMain{
+    margin-top: 24px;
+    background-color: #635FC7;
+    color: #FFFFFF;
+    &:hover{
+      background-color: #635FC7;
+      opacity: 0.8;
+    }
+  }
+}
+
+
+

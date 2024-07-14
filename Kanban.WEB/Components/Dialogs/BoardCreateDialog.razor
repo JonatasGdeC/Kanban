@@ -1,5 +1,6 @@
 @using Kanban.WEB.Request
-@inject BoardApi ColumnApi
+@inject BoardApi BoardApi
+@inject ColumnsApi ColumnsApi
 
 <MudDialog Class="p-3" Style="width: 480px">
   <TitleContent>
@@ -20,7 +21,7 @@
           @foreach (var column in Columns)
           {
             <div class="d-flex align-items-center mb-2">
-              <MudTextField T="string" Required="true" Placeholder="Column Name" Variant="Variant.Outlined" @bind-Value="column.Name" Class="flex-grow-1 me-2" RequiredError="Column name is required!" Style="font-weight: bold; color: #000"/>
+              <MudTextField T="string" Required="true" Placeholder="Column Name" Variant="Variant.Outlined" @bind-Value="@column.Name" Class="flex-grow-1 me-2" RequiredError="Column name is required!" Style="font-weight: bold; color: #000"/>
               <MudIconButton Icon="@Icons.Material.Filled.Close" Color="Color.Default" OnClick="() => RemoveColumn(column)"/>
             </div>
           }
@@ -52,7 +53,14 @@
     if (!string.IsNullOrWhiteSpace(_title))
     {
       var request = new BoardsRequest(_title, DateTime.Today);
-      await ColumnApi.AddBoardAsync(request);
+      var boardId = await BoardApi.AddBoardAsync(request);
+
+      foreach (var column in Columns)
+      {
+        var columnRequest = new ColumnsRequest(boardId, column.Name, 1);
+        await ColumnsApi.AddColumnAsync(columnRequest);
+      }
+
       MudDialog.Close(DialogResult.Ok(true));
       NavigationManager.NavigateTo("/");
       Snackbar.Add("Board created successfully!", Severity.Success, options => { Snackbar.Configuration.PositionClass = Defaults.Classes.Position.BottomEnd; });
@@ -66,30 +74,6 @@
 }
 
 <style>
-  .button{
-    width: 100%;
-    border-radius: 20px;
-    font-size: 13px;
-    padding: 10px;
-  }
 
-  .btnAdd{
-    margin-top: 12px;
-    background-color: #A8A4FF;
-    color: #635FC7;
-    &:hover{
-      background-color: #A8A4FF;
-      opacity: 0.8;
-    }
-  }
-
-  .btnMain{
-    margin-top: 24px;
-    background-color: #635FC7;
-    color: #FFFFFF;
-    &:hover{
-      background-color: #635FC7;
-      opacity: 0.8;
-    }
-  }
 </style>
+
