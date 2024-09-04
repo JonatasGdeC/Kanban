@@ -1,4 +1,4 @@
-@inject BoardApi ColumnApi
+@inject BoardApi BoardApi
 
 @if (_boards != null)
 {
@@ -20,7 +20,7 @@
 
   protected override async Task OnParametersSetAsync()
   {
-    _boards = await ColumnApi.GetBoardsAsync();
+    _boards = await BoardApi.GetBoardsAsync();
     StateHasChanged();
   }
 

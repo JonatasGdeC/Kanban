@@ -5,8 +5,8 @@
   <MudAppBar Elevation="1" Dense="false" Color="Color.Transparent">
     <MudText Typo="Typo.h1" Class="fs-3 fw-bold">@Board.Name</MudText>
     <MudSpacer/>
-    <MudButton Variant="Variant.Filled" Color="Color.Primary" Style="border-radius: 25px" Disabled="_disabled">
-      <MudText>+ Add New Task</MudText>
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" Style="border-radius: 25px" Disabled="@_disabled">
+      + Add New Task
     </MudButton>
     <MudMenu Icon="@Icons.Material.Filled.MoreVert" Style="align-self: auto;">
       <MudMenuItem>Edit Board</MudMenuItem>
@@ -17,9 +17,8 @@
 
 @code{
   [Parameter] public BoardsResponse? Board { get; set; }
-
   private ICollection<ColumnsResponse>? _columns;
-  private bool _disabled = false;
+  private bool _disabled = true;
 
   protected override async Task OnParametersSetAsync()
   {

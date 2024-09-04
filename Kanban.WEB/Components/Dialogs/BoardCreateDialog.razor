@@ -1,4 +1,3 @@
-@using Kanban.WEB.Request
 @inject BoardApi BoardApi
 @inject ColumnsApi ColumnsApi
 
@@ -35,18 +34,18 @@
 
 @code {
   [CascadingParameter] private MudDialogInstance MudDialog { get; set; }
-
   private List<ColumnModel> Columns { get; set; } = new();
   private void AddColumn() => Columns.Add(new ColumnModel());
   private void RemoveColumn(ColumnModel column) => Columns.Remove(column);
 
+  private ICollection<BoardsResponse> _boards;
+  private BoardsResponse? _lastBoards;
   private class ColumnModel
   {
     public string Name { get; set; }
   }
 
   private string? _title = "";
-
   private bool _errorTitleBoard = false;
   private bool _errorTitleColumn = false;
 
@@ -71,7 +70,6 @@
       }
 
       MudDialog.Close(DialogResult.Ok(true));
-      NavigationManager.NavigateTo("/");
       Snackbar.Add("Board created successfully!", Severity.Success, options => { Snackbar.Configuration.PositionClass = Defaults.Classes.Position.BottomEnd; });
       StateHasChanged();
     }

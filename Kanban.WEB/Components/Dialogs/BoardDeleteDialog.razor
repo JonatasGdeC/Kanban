@@ -23,7 +23,7 @@
   {
     await ColumnApi.DeleteBoardAsync(BoardId);
     MudDialog.Close(DialogResult.Ok(true));
-    NavigationManager.NavigateTo("/");
+    NavigationManager.NavigateTo($"/");
     Snackbar.Add("Board deleted successfully!", Severity.Success);
     StateHasChanged();
   }
