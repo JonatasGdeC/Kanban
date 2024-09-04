@@ -4,7 +4,7 @@ O Kanban Task Manager é uma aplicação projetada para ajudar na organização 
 
 | :placard: Vitrine.Dev |     |
 | -------------  | --- |
-| :sparkles: Nome        | **Titulo do meu projeto**
+| :sparkles: Nome        | **Kanban**
 | :label: Tecnologias | C#, HTML, CSS, Blazor, .NET, Entity Framework
 | :rocket: URL         | ---
 | :fire: Desafio     | [https://url-do-desafio.com.br](https://www.frontendmentor.io/challenges/kanban-task-management-web-app-wgQLt-HlbB)
