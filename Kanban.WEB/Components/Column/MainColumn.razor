@@ -7,7 +7,7 @@
     <ChildContent>
       @foreach (var column in _columns)
       {
-        <MudDropZone T="DropItem" Identifier="@column.Name" Class="rounded mud-background-gray pa-6 ma-8 " Style="width: 280px">
+        <MudDropZone T="DropItem" Identifier="@column.Name" Class="rounded ma-8" Style="width: 280px">
           <MudText Typo="Typo.h6" Class="mb-4">@column.Name</MudText>
         </MudDropZone>
       }

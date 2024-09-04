@@ -12,6 +12,7 @@ builder.Services.AddMudServices();
 
 builder.Services.AddTransient<BoardApi>();
 builder.Services.AddTransient<ColumnsApi>();
+builder.Services.AddTransient<TaskApi>();
 
 builder.Services.AddHttpClient("API", client =>
 {

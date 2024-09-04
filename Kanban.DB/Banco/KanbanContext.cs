@@ -30,13 +30,11 @@ namespace Kanban.DB.Banco
       base.OnModelCreating(modelBuilder);
     }
 
-    private string _connectionString =
-      "Server=tcp:projectkanbanserver.database.windows.net,1433;Initial Catalog=Kanban;Persist Security Info=False;User ID=Jonatas;Password=Carvalho@2003;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+    private string _connectionString = "Data Source=kanban.db";
 
     public KanbanContext()
     {
     }
-
     public KanbanContext(string connectionString)
     {
       _connectionString = connectionString;
@@ -44,7 +42,7 @@ namespace Kanban.DB.Banco
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-      optionsBuilder.UseSqlServer(_connectionString);
+      optionsBuilder.UseSqlite(_connectionString);
     }
   }
 }

@@ -1,11 +1,11 @@
-@inject BoardApi ColumnApi
+@inject ColumnsApi ColumnsApi
 
 @if (Board != null)
 {
   <MudAppBar Elevation="1" Dense="false" Color="Color.Transparent">
     <MudText Typo="Typo.h1" Class="fs-3 fw-bold">@Board.Name</MudText>
     <MudSpacer/>
-    <MudButton>
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" Style="border-radius: 25px" Disabled="_disabled">
       <MudText>+ Add New Task</MudText>
     </MudButton>
     <MudMenu Icon="@Icons.Material.Filled.MoreVert" Style="align-self: auto;">
@@ -18,11 +18,33 @@
 @code{
   [Parameter] public BoardsResponse? Board { get; set; }
 
+  private ICollection<ColumnsResponse>? _columns;
+  private bool _disabled = false;
+
+  protected override async Task OnParametersSetAsync()
+  {
+    try
+    {
+      _columns = await ColumnsApi.GetColumnByBoardIdAsync(Board.Id);
+      if (_columns != null && _columns.Any())
+      {
+        _disabled = false;
+      }
+      else
+      {
+        _disabled = true;
+      }
+    }
+    catch (Exception ex)
+    {
+      Console.WriteLine($"Error: {ex.Message}");
+    }
+  }
+
   private Task DeleteBoard()
   {
     var options = new DialogOptions { CloseOnEscapeKey = true };
     var parameters = new DialogParameters { { "BoardId", Board.Id } };
     return DialogService.ShowAsync<BoardDeleteDialog>("Delete Board", parameters, options);
   }
-
 }

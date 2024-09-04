@@ -12,7 +12,7 @@
     <MudForm>
       <div class="mb-3">
         <MudText Color="Color.Default">Name</MudText>
-        <MudTextField T="string" Required="true" Placeholder="e.g. Web Design" Variant="Variant.Outlined" RequiredError="Name is required!" @bind-Value="@_title" Style="font-weight: bold; color: #000"/>
+        <MudTextField T="string" Required="true" Placeholder="e.g. Web Design" Variant="Variant.Outlined" RequiredError="Name is required!" Error="@_errorTitleBoard" ErrorText="Name is required!" @bind-Value="@_title" Style="font-weight: bold; color: #000"/>
       </div>
       @if (Columns.Any())
       {
@@ -21,7 +21,7 @@
           @foreach (var column in Columns)
           {
             <div class="d-flex align-items-center mb-2">
-              <MudTextField T="string" Required="true" Placeholder="Column Name" Variant="Variant.Outlined" @bind-Value="@column.Name" Class="flex-grow-1 me-2" RequiredError="Column name is required!" Style="font-weight: bold; color: #000"/>
+              <MudTextField T="string" Required="true" Placeholder="Column Name" Variant="Variant.Outlined" @bind-Value="@column.Name" Class="flex-grow-1 me-2" RequiredError="Column name is required!" Error="_errorTitleColumn" ErrorText="Column name is required!" Style="font-weight: bold; color: #000"/>
               <MudIconButton Icon="@Icons.Material.Filled.Close" Color="Color.Default" OnClick="() => RemoveColumn(column)"/>
             </div>
           }
@@ -37,7 +37,6 @@
   [CascadingParameter] private MudDialogInstance MudDialog { get; set; }
 
   private List<ColumnModel> Columns { get; set; } = new();
-
   private void AddColumn() => Columns.Add(new ColumnModel());
   private void RemoveColumn(ColumnModel column) => Columns.Remove(column);
 
@@ -48,6 +47,9 @@
 
   private string? _title = "";
 
+  private bool _errorTitleBoard = false;
+  private bool _errorTitleColumn = false;
+
   private async Task AddBoard()
   {
     if (!string.IsNullOrWhiteSpace(_title))
@@ -57,8 +59,15 @@
 
       foreach (var column in Columns)
       {
-        var columnRequest = new ColumnsRequest(boardId, column.Name, 1);
-        await ColumnsApi.AddColumnAsync(columnRequest);
+        if (!string.IsNullOrWhiteSpace(column.Name))
+        {
+          var columnRequest = new ColumnsRequest(boardId, column.Name, 1);
+          await ColumnsApi.AddColumnAsync(columnRequest);
+        }
+        else
+        {
+          Snackbar.Add("Add a name for the column!", Severity.Error, options => { Snackbar.Configuration.PositionClass = Defaults.Classes.Position.BottomEnd; });
+        }
       }
 
       MudDialog.Close(DialogResult.Ok(true));
@@ -68,12 +77,8 @@
     }
     else
     {
-      Snackbar.Add("Add a name for the board!", Severity.Warning, options => { Snackbar.Configuration.PositionClass = Defaults.Classes.Position.BottomEnd; });
+      _errorTitleBoard = true;
+      Snackbar.Add("Add a name for the board!", Severity.Error, options => { Snackbar.Configuration.PositionClass = Defaults.Classes.Position.BottomEnd; });
     }
   }
 }
-
-<style>
-
-</style>
-

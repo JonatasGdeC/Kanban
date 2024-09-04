@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<KanbanContext>((options) => {
   options
-    .UseSqlServer(builder.Configuration["ConnectionStrings:KanbanDB"])
+    .UseSqlite(builder.Configuration["ConnectionStrings:KanbanDB"])
     .UseLazyLoadingProxies();
 });
 builder.Services.AddTransient<DAL<Boards>>();

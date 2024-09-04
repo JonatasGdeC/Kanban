@@ -26,10 +26,13 @@
 
   private async void BoardSelect(BoardsResponse boardsResponse)
   {
-    _selectedBoardId = boardsResponse.Id;
-    await OnBoardSelected.InvokeAsync(boardsResponse);
-    NavigationManager.NavigateTo($"/{boardsResponse.Id}");
-    StateHasChanged();
+    if (boardsResponse != null)
+    {
+      _selectedBoardId = boardsResponse.Id;
+      await OnBoardSelected.InvokeAsync(boardsResponse);
+      NavigationManager.NavigateTo($"/{boardsResponse.Id}");
+      StateHasChanged();
+    }
   }
 }
 

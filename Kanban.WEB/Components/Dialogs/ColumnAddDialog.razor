@@ -10,7 +10,7 @@
     <MudForm>
       <div class="mb-3">
         <MudText Color="Color.Default">Columns</MudText>
-        <MudTextField T="string" Required="true" Placeholder="Column Name" Variant="Variant.Outlined" RequiredError="Name is required!" @bind-Value="@_columnName" Style="font-weight: bold; color: #000"/>
+        <MudTextField T="string" Required="true" Placeholder="Column Name" Variant="Variant.Outlined" RequiredError="Name is required!" Error="@_error" ErrorText="Name is required!" @bind-Value="@_columnName" Style="font-weight: bold; color: #000"/>
       </div>
       <MudButton Class="button btnMain" OnClick="CreateColumn">Create</MudButton>
     </MudForm>
@@ -22,28 +22,23 @@
   [CascadingParameter] private MudDialogInstance MudDialog { get; set; }
 
   private string? _columnName = "";
+  private bool _error = false;
 
   private async Task CreateColumn()
   {
-    if (BoardId != 0)
+    if (!string.IsNullOrWhiteSpace(_columnName))
     {
-      if (!string.IsNullOrWhiteSpace(_columnName))
-      {
-        var columnRequest = new ColumnsRequest(BoardId, _columnName, 1);
-        await ColumnsApi.AddColumnAsync(columnRequest);
-        MudDialog.Close(DialogResult.Ok(true));
-        NavigationManager.NavigateTo($"/{BoardId}");
-        Snackbar.Add("Columns added successfully!", Severity.Success, options => { Snackbar.Configuration.PositionClass = Defaults.Classes.Position.BottomEnd; });
-        StateHasChanged();
-      }
-      else
-      {
-        Snackbar.Add("Add a name for the column!", Severity.Error, options => { Snackbar.Configuration.PositionClass = Defaults.Classes.Position.BottomEnd; });
-      }
+      var columnRequest = new ColumnsRequest(BoardId, _columnName, 1);
+      await ColumnsApi.AddColumnAsync(columnRequest);
+      MudDialog.Close(DialogResult.Ok(true));
+      NavigationManager.NavigateTo($"/{BoardId}");
+      Snackbar.Add("Columns added successfully!", Severity.Success, options => { Snackbar.Configuration.PositionClass = Defaults.Classes.Position.BottomEnd; });
+      StateHasChanged();
     }
     else
     {
-      Snackbar.Add("Board is null", Severity.Error, options => { Snackbar.Configuration.PositionClass = Defaults.Classes.Position.BottomEnd; });
+      _error = true;
+      Snackbar.Add("Add a name for the column!", Severity.Error, options => { Snackbar.Configuration.PositionClass = Defaults.Classes.Position.BottomEnd; });
     }
   }
 }
