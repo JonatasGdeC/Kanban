@@ -17,6 +17,9 @@ on:
       - 'src/Shared/**'
       - '.github/workflows/backend-deploy.yml'
     
+env:
+  IMAGE_NAME: ghcr.io/${{ github.repository }}/kanban-api
+
 jobs:
   build-and-test:
     name: Build
@@ -36,10 +39,45 @@ jobs:
 
       - name: Build solution
         run: dotnet build src/Backend/Kanban.Api/Kanban.Api.csproj --configuration Release --no-restore
-        
-  deploy:
+
+  build-and-push-image:
+    name: Build and push Docker image
     runs-on: ubuntu-latest
     needs: build-and-test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and push image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: Dockerfile
+          push: true
+          tags: |
+            ${{ env.IMAGE_NAME }}:latest
+            ${{ env.IMAGE_NAME }}:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build-and-push-image
     if: github.event_name == 'push' && github.ref == 'refs/heads/master'
 
     steps:
@@ -49,25 +87,20 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
+          command_timeout: 15m
+          envs: IMAGE_NAME
           script: |
             set -e
 
-            rm -f "$HOME/kanban/.git/index.lock" || true
+            echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
-            if [ ! -d "$HOME/kanban/.git" ]; then
-              rm -rf "$HOME/kanban"
-              git clone https://github.com/JonatasGdeC/Kanban.git "$HOME/kanban"
-            fi
-
-            cd "$HOME/kanban"
-
-            git checkout master
-            git pull origin master
-
-            docker build -t kanban-api -f Dockerfile .
+            docker pull $IMAGE_NAME:latest
 
             docker stop kanban-api || true
             docker rm kanban-api || true
+
+            mkdir -p "$HOME/kanban"
+            cd "$HOME/kanban"
 
             cat > .env << 'EOF'
             ASPNETCORE_ENVIRONMENT=Production
@@ -87,7 +120,7 @@ jobs:
               -p 8080:8080 \
               --restart unless-stopped \
               --env-file .env \
-              kanban-api
+              $IMAGE_NAME:latest
 
-            docker image prune -f
+            docker image prune -af --filter "until=24h"
             docker container prune -f
