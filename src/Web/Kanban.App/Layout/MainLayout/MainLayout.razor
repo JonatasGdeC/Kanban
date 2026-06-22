@@ -1,0 +1,50 @@
+@inherits LayoutComponentBase
+@using Kanban.App.Layout.HeaderLayout
+@using Kanban.App.Layout.NavMenu
+@using Kanban.App.Pages.Login.Main
+@using Microsoft.AspNetCore.Components.Authorization
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<div class="kanban-app @(_dark ? "dark" : "")">
+    @if (!_isAuthenticated)
+    {
+        <Login/>
+    }
+    else
+    {
+        <NavMenu Dark="_dark" DarkOnChanged="@(dark => _dark = dark)"
+                 SetCurrentBoard="@(SetCurrentBoard)"/>
+
+        <div class="main-content">
+            <HeaderLayout CurrentBoard="@_board"/>
+
+            <main class="board-area">
+                @Body
+            </main>
+        </div>
+
+        @if (_mobileSidebar)
+        {
+            <div class="mobile-overlay" @onclick="@(() => _mobileSidebar = false)">
+                <div class="mobile-sidebar-modal" @onclick:stopPropagation>
+                    <p class="sidebar-boards-label" style="padding:16px 24px 0; margin-bottom:16px;">
+                        ALL BOARDS (@BoardUseState.List().Count)
+                    </p>
+                    <ul class="board-nav-list" style="padding-right:0; margin-bottom:8px;">
+                    </ul>
+                    <div style="padding:0 16px 8px;">
+                        <div class="theme-switch">
+                            <AddIcon Name="KanbanIcon.Sun"/>
+                            <button class="toggle-btn" @onclick="@(() => _dark = !_dark)">
+                                <span class="toggle-thumb @(_dark ? "toggle-thumb--right" : "")"></span>
+                            </button>
+                            <AddIcon Name="KanbanIcon.Moon"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <ModalContainer/>
+    }
+</div>

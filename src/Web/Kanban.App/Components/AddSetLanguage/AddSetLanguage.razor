@@ -1,0 +1,11 @@
+<div class="lang-switcher">
+    <select class="lang-select" value="@_currentCulture" @onchange="@(e => NavigateToCulture(culture: e.Value!.ToString()!))">
+        @foreach (LangOption lang in _languages)
+        {
+            <option value="@lang.Code">
+                <img src="@lang.Flag" width="150" height="50" alt="@lang.Label"> 
+                <p>@lang.Label</p>
+            </option>
+        }
+    </select>
+</div>

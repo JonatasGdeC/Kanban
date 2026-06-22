@@ -1,0 +1,11 @@
+@if (ModalUseState.IsOpen && CurrentModal != null)
+{
+    <div class="modal-overlay" @onclick="ModalUseState.Close">
+        <DynamicComponent Type="@CurrentModal"/>
+    </div>
+}
+
+@if (ModalUseState.Current == ModalUseState.ModalType.BoardOptions)
+{
+    <BoardOptions/>
+}

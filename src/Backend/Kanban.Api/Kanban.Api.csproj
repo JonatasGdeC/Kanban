@@ -8,10 +8,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\Shared\Kanban.Communication\Kanban.Communication.csproj"/>
-        <ProjectReference Include="..\..\Shared\Kanban.Exception\Kanban.Exception.csproj"/>
-        <ProjectReference Include="..\Kanban.Application\Kanban.Application.csproj"/>
-        <ProjectReference Include="..\Kanban.Infrastructure\Kanban.Infrastructure.csproj"/>
+      <ProjectReference Include="..\..\Shared\Kanban.Communication\Kanban.Communication.csproj" />
+      <ProjectReference Include="..\..\Shared\Kanban.Exception\Kanban.Exception.csproj" />
+      <ProjectReference Include="..\Kanban.Application\Kanban.Application.csproj" />
+      <ProjectReference Include="..\Kanban.Domain\Kanban.Domain.csproj" />
+      <ProjectReference Include="..\Kanban.Infrastructure\Kanban.Infrastructure.csproj" />
     </ItemGroup>
 
     <ItemGroup>

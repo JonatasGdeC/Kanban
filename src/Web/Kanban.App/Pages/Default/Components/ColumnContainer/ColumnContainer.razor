@@ -1,0 +1,46 @@
+@using Kanban.App.Components.AddLoading
+@using Kanban.App.Pages.Default.Components.TaskCard
+@using Kanban.Communication.Dtos
+
+<div class="column @(DragColumnState.IsDragging && DragColumnState.HoveredColumnId == Column.Id && DragColumnState.DraggingColumn?.Id != Column.Id ? "column--swap-target" : "") @(DragColumnState.DraggingColumn?.Id == Column.Id ? "column--dragging" : "")"
+     @ondragover:preventDefault
+     @ondragover="@(OnDragOverColumn)"
+     @ondrop="@HandleDrop">
+
+    <div class="column-header @(DragColumnState.DraggingColumn?.Id == Column.Id ? "column-header--dragging" : "")"
+         draggable="true"
+         @ondragstart="@OnColumnDragStart"
+         @ondragstart:stopPropagation
+         @ondragend="@OnColumnDragEnd"
+         @ondragend:stopPropagation>
+        <span class="column-dot" style="background-color:@Column.Color"></span>
+        <span class="column-name">@Column.Name (@TaskUseState.List(columnId: Column.Id).Count)</span>
+    </div>
+
+    @{ List<TaskDto> tasks = TaskUseState.List(columnId: Column.Id).OrderBy(keySelector: t => t.Order).ToList(); }
+
+    @for (int i = 0; i < tasks.Count; i++)
+    {
+        TaskDto task = tasks[index: i];
+        int index = i;
+
+        <div class="drop-zone @(_dropIndex == index && DragTaskState.IsDragging ? "drop-zone--active" : "")"
+             @ondragover:preventDefault
+             @ondragover="@(() => OnDragOverTask(index: index))"
+             @ondragover:stopPropagation>
+        </div>
+
+        <TaskCard Task="@task" ColumnId="@Column.Id"/>
+    }
+
+    <div class="drop-zone @(_dropIndex == tasks.Count && DragTaskState.IsDragging ? "drop-zone--active" : "")"
+         @ondragover:preventDefault
+         @ondragover="@(() => OnDragOverTask(index: tasks.Count))"
+         @ondragover:stopPropagation>
+    </div>
+    
+    @if (_isLoading)
+    {
+        <AddLoading HeightContainer="100%"/>
+    }
+</div>

@@ -1,0 +1,67 @@
+/* =========================================
+   Responsive — Tablet (≤ 1024px)
+   ========================================= */
+@media (max-width: 1024px) {
+    :root {
+        --sidebar-w: 260px;
+        --header-h: 80px;
+    }
+
+    .header-board-name {
+        font-size: 20px;
+    }
+
+    .btn-add-task {
+        padding: 12px 18px;
+        font-size: 15px;
+    }
+}
+
+/* =========================================
+   Responsive — Mobile (≤ 767px)
+   ========================================= */
+@media (max-width: 767px) {
+    :root {
+        --header-h: 64px;
+    }
+
+    .sidebar {
+        display: none !important;
+    }
+
+    .show-sidebar-fab {
+        display: none !important;
+    }
+
+    .app-header {
+        padding: 0 16px;
+    }
+
+    .header-mobile-logo {
+        display: flex;
+    }
+
+    .header-board-name-wrapper {
+        cursor: pointer;
+    }
+
+    .header-chevron {
+        display: block;
+    }
+
+    .header-board-name {
+        font-size: 18px;
+        font-weight: 800;
+    }
+
+    .btn-add-task {
+        padding: 10px 18px;
+    }
+
+    .btn-add-task-text { display: none; }
+    .btn-add-task-icon { display: inline; }
+
+    .board-area {
+        padding: 16px;
+    }
+}

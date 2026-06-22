@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true"></xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+    <resheader name="version"><value>1.3</value></resheader>
+    <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+    <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+    <!-- Shared modal actions -->
+    <data name="SAVING" xml:space="preserve"><value>Saving…</value></data>
+    <data name="DELETING" xml:space="preserve"><value>Deleting…</value></data>
+    <data name="UPDATING" xml:space="preserve"><value>Updating…</value></data>
+    <data name="CANCEL_BTN" xml:space="preserve"><value>Cancel</value></data>
+    <data name="SAVE_CHANGES_BTN" xml:space="preserve"><value>Save Changes</value></data>
+    <data name="CANNOT_BE_REVERSED" xml:space="preserve"><value>cannot be reversed</value></data>
+    <data name="DELETE_BTN" xml:space="preserve"><value>Delete</value></data>
+    <data name="DELETE_CONFIRM_PRE" xml:space="preserve"><value>Are you sure you want to delete the</value></data>
+    <!-- Board modals -->
+    <data name="ADD_BOARD_TITLE" xml:space="preserve"><value>Add New Board</value></data>
+    <data name="BOARD_NAME_LABEL" xml:space="preserve"><value>Board Name</value></data>
+    <data name="BOARD_NAME_PLACEHOLDER" xml:space="preserve"><value>e.g. Web Design</value></data>
+    <data name="BOARD_COLUMNS_LABEL" xml:space="preserve"><value>Board Columns</value></data>
+    <data name="COLUMN_PLACEHOLDER" xml:space="preserve"><value>e.g. Todo</value></data>
+    <data name="ADD_NEW_COLUMN_BTN" xml:space="preserve"><value>+ Add New Column</value></data>
+    <data name="CREATE_BOARD_BTN" xml:space="preserve"><value>Create New Board</value></data>
+    <data name="ADD_BOARD_ERROR" xml:space="preserve"><value>Could not create the board. Please check the data and try again.</value></data>
+    <data name="EDIT_BOARD_TITLE" xml:space="preserve"><value>Edit Board</value></data>
+    <data name="EDIT_BOARD_ERROR" xml:space="preserve"><value>Could not update the board. Please check the data and try again.</value></data>
+    <data name="DELETE_BOARD_TITLE" xml:space="preserve"><value>Delete this board?</value></data>
+    <data name="DELETE_BOARD_CONFIRM_POST" xml:space="preserve"><value>board? This action will remove all columns and tasks and cannot be reversed.</value></data>
+    <data name="DELETE_BOARD_ERROR" xml:space="preserve"><value>Could not delete the board. Please try again.</value></data>
+    <data name="BOARD_OPTIONS_EDIT" xml:space="preserve"><value>Edit Board</value></data>
+    <data name="BOARD_OPTIONS_DELETE" xml:space="preserve"><value>Delete Board</value></data>
+    <!-- Task modals -->
+    <data name="ADD_TASK_TITLE" xml:space="preserve"><value>Add New Task</value></data>
+    <data name="TASK_TITLE_LABEL" xml:space="preserve"><value>Title</value></data>
+    <data name="TASK_TITLE_PLACEHOLDER" xml:space="preserve"><value>e.g. Take coffee break</value></data>
+    <data name="TASK_DESCRIPTION_LABEL" xml:space="preserve"><value>Description</value></data>
+    <data name="TASK_DESCRIPTION_PLACEHOLDER" xml:space="preserve"><value>e.g. It's always good to take a break.</value></data>
+    <data name="SUBTASKS_LABEL" xml:space="preserve"><value>Subtasks</value></data>
+    <data name="SUBTASK_PLACEHOLDER" xml:space="preserve"><value>e.g. Make coffee</value></data>
+    <data name="ADD_NEW_SUBTASK_BTN" xml:space="preserve"><value>+ Add New Subtask</value></data>
+    <data name="TASK_STATUS_LABEL" xml:space="preserve"><value>Status</value></data>
+    <data name="CREATE_TASK_BTN" xml:space="preserve"><value>Create Task</value></data>
+    <data name="ADD_TASK_ERROR" xml:space="preserve"><value>Could not create the task. Please check the data and try again.</value></data>
+    <data name="EDIT_TASK_TITLE" xml:space="preserve"><value>Edit Task</value></data>
+    <data name="EDIT_TASK_ERROR" xml:space="preserve"><value>Could not update the task. Please check the data and try again.</value></data>
+    <data name="ADD_SUBTASK_ERROR" xml:space="preserve"><value>Could not create the subtask. Please check the data and try again.</value></data>
+    <data name="UPDATE_SUBTASK_ERROR" xml:space="preserve"><value>Could not update the subtask. Please check the data and try again.</value></data>
+    <data name="DELETE_TASK_TITLE" xml:space="preserve"><value>Delete this task?</value></data>
+    <data name="DELETE_TASK_CONFIRM_POST" xml:space="preserve"><value>task and its subtasks? This action cannot be reversed.</value></data>
+    <data name="DELETE_TASK_ERROR" xml:space="preserve"><value>Could not delete the task. Please try again.</value></data>
+    <data name="VIEW_TASK_LOADING" xml:space="preserve"><value>Loading subtasks…</value></data>
+    <data name="VIEW_TASK_STATUS_LABEL" xml:space="preserve"><value>Current Status</value></data>
+    <data name="VIEW_TASK_EDIT" xml:space="preserve"><value>Edit Task</value></data>
+    <data name="VIEW_TASK_DELETE" xml:space="preserve"><value>Delete Task</value></data>
+    <!-- Edit Profile modal -->
+    <data name="EDIT_PROFILE_TITLE" xml:space="preserve"><value>Edit Profile</value></data>
+    <data name="PROFILE_EMAIL_LABEL" xml:space="preserve"><value>Email</value></data>
+    <data name="PROFILE_SUCCESS" xml:space="preserve"><value>Profile updated successfully.</value></data>
+    <data name="PROFILE_ERROR" xml:space="preserve"><value>Could not update the profile. Please try again.</value></data>
+    <data name="CHANGE_PASSWORD_TITLE" xml:space="preserve"><value>Change Password</value></data>
+    <data name="CURRENT_PASSWORD_LABEL" xml:space="preserve"><value>Current Password</value></data>
+    <data name="CURRENT_PASSWORD_PLACEHOLDER" xml:space="preserve"><value>Enter current password</value></data>
+    <data name="NEW_PASSWORD_LABEL" xml:space="preserve"><value>New Password</value></data>
+    <data name="CONFIRM_NEW_PASSWORD_LABEL" xml:space="preserve"><value>Confirm New Password</value></data>
+    <data name="UPDATE_PASSWORD_BTN" xml:space="preserve"><value>Update Password</value></data>
+    <data name="PASSWORD_MISMATCH" xml:space="preserve"><value>Passwords do not match.</value></data>
+    <data name="PASSWORD_UPDATE_SUCCESS" xml:space="preserve"><value>Password updated successfully.</value></data>
+    <data name="PASSWORD_UPDATE_ERROR" xml:space="preserve"><value>Could not update the password. Please try again.</value></data>
+    <data name="DANGER_ZONE_TITLE" xml:space="preserve"><value>Danger Zone</value></data>
+    <data name="DELETE_ACCOUNT_BTN" xml:space="preserve"><value>Delete Account</value></data>
+    <data name="DELETE_ACCOUNT_CONFIRM_PRE" xml:space="preserve"><value>Are you sure? This will permanently delete your account and all your data. This action</value></data>
+    <data name="YES_DELETE_ACCOUNT_BTN" xml:space="preserve"><value>Yes, Delete My Account</value></data>
+    <data name="DELETE_ACCOUNT_ERROR" xml:space="preserve"><value>Could not delete the account. Please try again.</value></data>
+</root>

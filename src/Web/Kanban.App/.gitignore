@@ -3,10 +3,10 @@
 ##
 ## Get latest from `dotnet new gitignore`
 
-.vercel
-
 # dotenv files
 .env
+
+.vercel
 
 # User-specific files
 *.rsuser
@@ -427,8 +427,9 @@ test-results/
 # Mac bundle stuff
 *.dmg
 *.app
-!src/Web/Kanban.App/
-!src/Web/Kanban.App/**
+
+!Kanban.App/
+!Kanban.App/**
 
 # content below from: https://github.com/github/gitignore/blob/main/Global/macOS.gitignore
 # General
@@ -496,3 +497,5 @@ Directory.Build.props
 build-output.txt
 build.ps1
 msbuild-output.txt
+.vercel
+.env*

@@ -1,0 +1,133 @@
+@using Kanban.Adapter.Auth
+@inject CookieAuthenticationStateProvider CookieAuth
+
+<div class="modal edit-profile-modal" @onclick:stopPropagation>
+    <h2 class="modal-title" style="margin-bottom:24px;">@ModalLocalizer[name: "EDIT_PROFILE_TITLE"]</h2>
+
+    <div class="form-group">
+        <label class="form-label">@LoginLocalizer[name: "NAME_LABEL"]</label>
+        <input class="form-input" type="text" placeholder="@LoginLocalizer[name: "NAME_PLACEHOLDER"]" @bind="_profileRequest.Name" @bind:event="oninput"/>
+    </div>
+
+    <div class="form-group">
+        <label class="form-label">@ModalLocalizer[name: "PROFILE_EMAIL_LABEL"]</label>
+        <input class="form-input" type="email" placeholder="@LoginLocalizer[name: "EMAIL_PLACEHOLDER"]" @bind="_profileRequest.Email" @bind:event="oninput"/>
+    </div>
+
+    <button type="button" class="btn-modal-primary"
+            disabled="@(string.IsNullOrWhiteSpace(value: _profileRequest.Name) || string.IsNullOrWhiteSpace(value: _profileRequest.Email) || _isSavingProfile)"
+            @onclick="@HandleUpdateProfile">
+        @(_isSavingProfile ? ModalLocalizer[name: "SAVING"] : ModalLocalizer[name: "SAVE_CHANGES_BTN"])
+    </button>
+
+    @if (_profileFeedbacks.Any())
+    {
+        <ul class="auth-error">
+            @foreach (string msg in _profileFeedbacks)
+            {
+                <li>@msg</li>
+            }
+        </ul>
+    }
+
+    @if (_profileSaved)
+    {
+        <p class="edit-profile-success">@ModalLocalizer[name: "PROFILE_SUCCESS"]</p>
+    }
+
+    <hr class="edit-profile-divider"/>
+
+    <h3 class="edit-profile-section-title">@ModalLocalizer[name: "CHANGE_PASSWORD_TITLE"]</h3>
+
+    <div class="form-group">
+        <label class="form-label">@ModalLocalizer[name: "CURRENT_PASSWORD_LABEL"]</label>
+        <div class="input-password-wrapper">
+            <input class="form-input" type="@(_showOld ? "text" : "password")"
+                   placeholder="@ModalLocalizer[name: "CURRENT_PASSWORD_PLACEHOLDER"]"
+                   @bind="_passwordRequest.OldPassword" @bind:event="oninput"/>
+            <button type="button" class="btn-toggle-pwd"
+                    @onclick="@(() => _showOld = !_showOld)">
+                <AddIcon Name="@(_showOld ? KanbanIcon.EyeOff : KanbanIcon.Eye)" Width="18" Height="13"/>
+            </button>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="form-label">@ModalLocalizer[name: "NEW_PASSWORD_LABEL"]</label>
+        <div class="input-password-wrapper">
+            <input class="form-input" type="@(_showNew ? "text" : "password")"
+                   placeholder="@LoginLocalizer[name: "RESET_NEW_PASSWORD_PLACEHOLDER"]"
+                   @bind="_passwordRequest.NewPassword" @bind:event="oninput"/>
+            <button type="button" class="btn-toggle-pwd"
+                    @onclick="@(() => _showNew = !_showNew)">
+                <AddIcon Name="@(_showNew ? KanbanIcon.EyeOff : KanbanIcon.Eye)" Width="18" Height="13"/>
+            </button>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="form-label">@ModalLocalizer[name: "CONFIRM_NEW_PASSWORD_LABEL"]</label>
+        <input class="form-input" type="@(_showNew ? "text" : "password")"
+               placeholder="@LoginLocalizer[name: "RESET_CONFIRM_PASSWORD_PLACEHOLDER"]"
+               @bind="_confirmNewPassword" @bind:event="oninput"/>
+    </div>
+
+    <button type="button" class="btn-modal-primary"
+            disabled="@(string.IsNullOrWhiteSpace(value: _passwordRequest.OldPassword) || string.IsNullOrWhiteSpace(value: _passwordRequest.NewPassword) || string.IsNullOrWhiteSpace(value: _confirmNewPassword) || _isSavingPassword)"
+            @onclick="HandleUpdatePassword">
+        @(_isSavingPassword ? ModalLocalizer[name: "UPDATING"] : ModalLocalizer[name: "UPDATE_PASSWORD_BTN"])
+    </button>
+
+    @if (_passwordFeedbacks.Any())
+    {
+        <ul class="auth-error">
+            @foreach (string msg in _passwordFeedbacks)
+            {
+                <li>@msg</li>
+            }
+        </ul>
+    }
+
+    @if (_passwordSaved)
+    {
+        <p class="edit-profile-success">@ModalLocalizer[name: "PASSWORD_UPDATE_SUCCESS"]</p>
+    }
+
+    <hr class="edit-profile-divider"/>
+
+    <h3 class="edit-profile-section-title edit-profile-section-title--danger">@ModalLocalizer[name: "DANGER_ZONE_TITLE"]</h3>
+
+    @if (!_confirmDelete)
+    {
+        <button type="button" class="btn-modal-danger" @onclick="@(() => _confirmDelete = true)">
+            @ModalLocalizer[name: "DELETE_ACCOUNT_BTN"]
+        </button>
+    }
+    else
+    {
+        <p class="modal-body-text" style="margin-bottom:16px;">
+            @ModalLocalizer[name: "DELETE_ACCOUNT_CONFIRM_PRE"] <strong>@ModalLocalizer[name: "CANNOT_BE_REVERSED"]</strong>.
+        </p>
+        <div class="modal-btn-row">
+            <button type="button" class="btn-modal-danger"
+                    disabled="@_isDeleting"
+                    @onclick="HandleDeleteAccount">
+                @(_isDeleting ? ModalLocalizer[name: "DELETING"] : ModalLocalizer[name: "YES_DELETE_ACCOUNT_BTN"])
+            </button>
+            <button type="button" class="btn-modal-secondary"
+                    @onclick="@(() => _confirmDelete = false)">
+                @ModalLocalizer[name: "CANCEL_BTN"]
+            </button>
+        </div>
+
+        @if (_deleteFeedbacks.Any())
+        {
+            <ul class="auth-error">
+                @foreach (string msg in _deleteFeedbacks)
+                {
+                    <li>@msg</li>
+                }
+            </ul>
+        }
+    }
+</div>

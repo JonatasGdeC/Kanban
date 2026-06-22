@@ -1,0 +1,71 @@
+@using Kanban.Adapter.Auth
+@using Kanban.Communication.Dtos
+@inject CookieAuthenticationStateProvider CookieAuth
+
+<aside class="sidebar @(!_sidebarVisible ? "sidebar--hidden" : "")">
+
+    <div class="sidebar-logo">
+        <AddIcon Name="KanbanIcon.Logo"/>
+        <span class="sidebar-logo-text">kanban</span>
+    </div>
+
+    @if (_isLoading)
+    {
+        <p class="sidebar-boards-label">@DefaultLocalizer[name: "SIDEBAR_LOADING"]</p>
+    }
+    else
+    {
+        <p class="sidebar-boards-label">@DefaultLocalizer[name: "SIDEBAR_ALL_BOARDS"] (@BoardUseState.List().Count)</p>
+
+        <ul class="board-nav-list">
+            @foreach (BoardDto board in BoardUseState.List())
+            {
+                <li>
+                    <button class="board-nav-item @(BoardIsActive(boardId: board.Id) ? "board-nav-item--active" : "")" @onclick="@(() => NavigateToBoard(boardId: board.Id))">
+                        <AddIcon Name="KanbanIcon.Board"/>
+                        @board.Name
+                    </button>
+                </li>
+            }
+
+            <li>
+                <button class="board-nav-item board-nav-item--new" @onclick="@(() => ModalUseState.Open(dialog: ModalUseState.ModalType.AddBoard))">
+                    <AddIcon Name="KanbanIcon.Board"/>
+                    @DefaultLocalizer[name: "SIDEBAR_CREATE_NEW_BOARD"]
+                </button>
+            </li>
+        </ul>
+    }
+
+    <div class="sidebar-bottom">
+        <div class="theme-switch">
+            <AddIcon Name="KanbanIcon.Sun"/>
+            <button class="toggle-btn" @onclick="ToggleDark">
+                <span class="toggle-thumb @(Dark ? "toggle-thumb--right" : "")"></span>
+            </button>
+            <AddIcon Name="KanbanIcon.Moon"/>
+        </div>
+
+        <button class="hide-sidebar-btn" @onclick="@(() => ModalUseState.Open(dialog: ModalUseState.ModalType.EditProfile))">
+            <AddIcon Name="KanbanIcon.User"/>
+            @DefaultLocalizer[name: "SIDEBAR_EDIT_PROFILE"]
+        </button>
+
+        <button class="hide-sidebar-btn sidebar-logout-btn" @onclick="HandleLogout">
+            <AddIcon Name="KanbanIcon.LogOut"/>
+            @DefaultLocalizer[name: "SIDEBAR_LOGOUT"]
+        </button>
+
+        <button class="hide-sidebar-btn" @onclick="ToggleSidebar">
+            <AddIcon Name="KanbanIcon.EyeOff"/>
+            @DefaultLocalizer[name: "SIDEBAR_HIDE"]
+        </button>
+    </div>
+</aside>
+
+@if (!_sidebarVisible)
+{
+    <button class="show-sidebar-fab" @onclick="@(() => _sidebarVisible = true)" title="@DefaultLocalizer[name: "SIDEBAR_SHOW"]">
+        <AddIcon Name="KanbanIcon.Eye" Fill="#ffffff"/>
+    </button>
+}

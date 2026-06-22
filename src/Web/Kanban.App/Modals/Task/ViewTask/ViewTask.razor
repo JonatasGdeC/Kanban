@@ -1,0 +1,73 @@
+@using Kanban.Communication.Dtos
+
+<div class="modal" @onclick:stopPropagation>
+
+    @if (_showTaskOptions)
+    {
+        <div class="task-options-overlay" @onclick="@(() => _showTaskOptions = false)"></div>
+        <div class="task-options-menu">
+            <button class="context-menu-item" @onclick="@(() => { _showTaskOptions = false; ModalUseState.Open(dialog: ModalUseState.ModalType.EditTask); })">
+                @ModalLocalizer[name: "VIEW_TASK_EDIT"]
+            </button>
+            <button class="context-menu-item context-menu-item--danger" @onclick="@(() => { _showTaskOptions = false; ModalUseState.Open(dialog: ModalUseState.ModalType.DeleteTask); })">
+                @ModalLocalizer[name: "VIEW_TASK_DELETE"]
+            </button>
+        </div>
+    }
+
+    <div class="modal-header">
+        <h2 class="modal-title" style="flex:1; padding-right:16px;">@ModalUseState.Task?.Name</h2>
+        <button class="btn-ellipsis" @onclick="@(() => _showTaskOptions = !_showTaskOptions)">
+            <AddIcon Name="KanbanIcon.EllipsisVertical"/>
+        </button>
+    </div>
+
+    @if (!string.IsNullOrWhiteSpace(value: ModalUseState.Task?.Description))
+    {
+        <p class="task-description">@ModalUseState.Task!.Description</p>
+    }
+
+    @if (!_subtasksLoaded)
+    {
+        <p class="modal-body-text" style="margin-bottom:16px;">@ModalLocalizer[name: "VIEW_TASK_LOADING"]</p>
+    }
+    else if (_subtasks.Count > 0)
+    {
+        <p class="subtask-section-label" style="margin-bottom:16px;">
+            @ModalLocalizer[name: "SUBTASKS_LABEL"] (@_subtasks.Count(predicate: s => s.IsDone) @DefaultLocalizer[name: "OF_LABEL"] @_subtasks.Count)
+        </p>
+        @foreach (SubTaskDto sub in _subtasks)
+        {
+            <label class="subtask-check-item">
+                <input type="checkbox" class="subtask-check-input" checked="@sub.IsDone"
+                       @onchange="@(async _ => await ToggleSubtask(sub: sub))"
+                       @onclick:stopPropagation/>
+                <span class="subtask-check-label @(sub.IsDone ? "subtask-check-label--done" : "")">
+                    @sub.Name
+                </span>
+            </label>
+        }
+    }
+
+    <div class="form-group" style="margin-top:24px; margin-bottom:0;">
+        <label class="form-label">@ModalLocalizer[name: "VIEW_TASK_STATUS_LABEL"]</label>
+        <select class="form-input form-select"
+                value="@_columnId"
+                @onchange="HandleUpdateTaskStatus">
+            @foreach (ColumnDto status in Columns.OrderBy(keySelector: col => col.Order))
+            {
+                <option value="@status.Id">@status.Name</option>
+            }
+        </select>
+    </div>
+
+    @if (_listFeedbacks.Any())
+    {
+        <ul class="auth-error">
+            @foreach (string feedback in _listFeedbacks)
+            {
+                <li>@feedback</li>
+            }
+        </ul>
+    }
+</div>

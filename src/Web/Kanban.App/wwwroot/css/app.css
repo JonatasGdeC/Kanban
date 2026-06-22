@@ -1,0 +1,38 @@
+@import "imports/design-system.css";
+@import "imports/modal.css";
+@import "imports/sidebar.css";
+@import "imports/header.css";
+@import "imports/board.css";
+@import "imports/drag.css";
+@import "imports/forms.css";
+@import "imports/auth.css";
+@import "imports/blazor.css";
+@import "imports/responsive.css";
+@import "imports/loading-screen.css";
+@import "imports/login-showcase.css";
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+h1:focus {
+    outline: none;
+    margin: 0;
+    padding: 0;
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+}
+
+ul {
+    list-style: none;
+}

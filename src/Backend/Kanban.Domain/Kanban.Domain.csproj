@@ -7,7 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\Kanban.Communication\Kanban.Communication.csproj" />
     </ItemGroup>
 
 </Project>

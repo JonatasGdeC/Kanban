@@ -1,0 +1,206 @@
+.sidebar {
+    width: var(--sidebar-w);
+    min-width: var(--sidebar-w);
+    background-color: var(--bg-sidebar);
+    border-right: 1px solid var(--divider);
+    display: flex;
+    flex-direction: column;
+    transition: width 0.3s ease, min-width 0.3s ease, border-color 0.2s;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.sidebar--hidden {
+    width: 0;
+    min-width: 0;
+    border-right: none;
+}
+
+.sidebar-logo {
+    padding: 32px 32px 54px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-shrink: 0;
+}
+
+.sidebar-logo-text {
+    font-size: 25.19px;
+    font-weight: 800;
+    letter-spacing: -0.32px;
+    color: var(--text-primary);
+    white-space: nowrap;
+    transition: color 0.2s;
+}
+
+.sidebar-boards-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2.4px;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    padding: 0 0 0 32px;
+    margin-bottom: 19px;
+    white-space: nowrap;
+}
+
+.board-nav-list {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 24px;
+}
+
+.board-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+    padding: 14px 24px 14px 32px;
+    background: none;
+    border: none;
+    border-radius: 0 100px 100px 0;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    transition: background-color 0.15s, color 0.15s;
+    text-align: left;
+}
+
+.board-nav-item:hover {
+    background-color: rgba(99, 95, 199, 0.1);
+    color: var(--purple);
+}
+
+.dark .board-nav-item:hover {
+    background-color: var(--white);
+    color: var(--purple);
+}
+
+.board-nav-item--active {
+    background-color: var(--purple) !important;
+    color: var(--white) !important;
+}
+
+.board-nav-item--new {
+    color: var(--purple);
+}
+
+.board-nav-item--new:hover {
+    background-color: transparent !important;
+    color: var(--purple-hover) !important;
+}
+
+/* Sidebar bottom */
+.sidebar-bottom {
+    padding: 16px 24px 32px;
+    flex-shrink: 0;
+}
+
+.theme-switch {
+    background-color: var(--bg-body);
+    border-radius: 6px;
+    padding: 14px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 23px;
+    margin-bottom: 8px;
+    color: var(--text-secondary);
+    transition: background-color 0.2s;
+}
+
+.toggle-btn {
+    width: 40px;
+    height: 20px;
+    background-color: var(--purple);
+    border: none;
+    border-radius: 10px;
+    position: relative;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background-color 0.15s;
+}
+
+.toggle-btn:hover {
+    background-color: var(--purple-hover);
+}
+
+.toggle-thumb {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    background: white;
+    border-radius: 50%;
+    top: 3px;
+    left: 3px;
+    transition: left 0.2s;
+    pointer-events: none;
+}
+
+.toggle-thumb--right {
+    left: 23px;
+}
+
+.hide-sidebar-btn {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 14px 0 14px 8px;
+    background: none;
+    border: none;
+    border-radius: 0 100px 100px 0;
+    width: calc(100% + 24px);
+    margin-left: -8px;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    transition: background-color 0.15s, color 0.15s;
+    white-space: nowrap;
+}
+
+.hide-sidebar-btn:hover {
+    background-color: rgba(99, 95, 199, 0.1);
+    color: var(--purple);
+}
+
+.dark .hide-sidebar-btn:hover {
+    background-color: var(--white);
+    color: var(--purple);
+}
+
+.sidebar-logout-btn:hover {
+    background-color: rgba(234, 85, 85, 0.1) !important;
+    color: var(--red) !important;
+}
+
+.dark .sidebar-logout-btn:hover {
+    background-color: rgba(234, 85, 85, 0.15) !important;
+    color: var(--red) !important;
+}
+
+/* Show sidebar FAB */
+.show-sidebar-fab {
+    position: fixed;
+    bottom: 32px;
+    left: 0;
+    width: 56px;
+    height: 48px;
+    background-color: var(--purple);
+    border: none;
+    border-radius: 0 24px 24px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 20;
+    transition: background-color 0.15s;
+}
+
+.show-sidebar-fab:hover {
+    background-color: var(--purple-hover);
+}
+
+.mobile-theme-switch {
+    padding: 0 16px;
+    margin-top: 4px;
+}

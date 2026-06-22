@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true"></xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+    <resheader name="version"><value>1.3</value></resheader>
+    <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+    <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+    <data name="LOGIN_PAGE_TITLE" xml:space="preserve"><value>Bem-vindo de volta</value></data>
+    <data name="LOGIN_CARD_TITLE" xml:space="preserve"><value>Bem-vindo de volta!</value></data>
+    <data name="REGISTER_PAGE_TITLE" xml:space="preserve"><value>Criar Conta</value></data>
+    <data name="REGISTER_CARD_TITLE" xml:space="preserve"><value>Criar conta</value></data>
+    <data name="LOGIN" xml:space="preserve"><value>Login</value></data>
+    <data name="SIGN_UP" xml:space="preserve"><value>Criar conta</value></data>
+    <data name="RESET_PASSWORD" xml:space="preserve"><value>Redefinir senha</value></data>
+    <data name="RESET_PAGE_TITLE" xml:space="preserve"><value>Redefinir Senha</value></data>
+    <data name="RESET_CARD_TITLE" xml:space="preserve"><value>Redefinir senha</value></data>
+    <data name="EMAIL_ADDRESS_LABEL" xml:space="preserve"><value>Endereço de e-mail</value></data>
+    <data name="EMAIL_PLACEHOLDER" xml:space="preserve"><value>ex: alex@email.com</value></data>
+    <data name="PASSWORD_LABEL" xml:space="preserve"><value>Senha</value></data>
+    <data name="PASSWORD_PLACEHOLDER" xml:space="preserve"><value>Digite sua senha</value></data>
+    <data name="SHOW_PASSWORD" xml:space="preserve"><value>Mostrar senha</value></data>
+    <data name="HIDE_PASSWORD" xml:space="preserve"><value>Ocultar senha</value></data>
+    <data name="NAME_LABEL" xml:space="preserve"><value>Nome</value></data>
+    <data name="NAME_PLACEHOLDER" xml:space="preserve"><value>ex: Alex Johnson</value></data>
+    <data name="LOGIN_BTN" xml:space="preserve"><value>Entrar</value></data>
+    <data name="LOGIN_BTN_LOADING" xml:space="preserve"><value>Carregando...</value></data>
+    <data name="LOGIN_ERROR_GENERIC" xml:space="preserve"><value>Não foi possível entrar em sua conta. Verifique suas credenciais e tente novamente.</value></data>
+    <data name="ALREADY_HAVE_ACCOUNT" xml:space="preserve"><value>Já tem uma conta? </value></data>
+    <data name="DONT_HAVE_ACCOUNT" xml:space="preserve"><value>Não tem uma conta? </value></data>
+    <data name="CONFIRM_PASSWORD_LABEL" xml:space="preserve"><value>Confirmar senha</value></data>
+    <data name="CONFIRM_PASSWORD_PLACEHOLDER" xml:space="preserve"><value>Repita sua senha</value></data>
+    <data name="REGISTER_BTN" xml:space="preserve"><value>Criar Conta</value></data>
+    <data name="REGISTER_BTN_LOADING" xml:space="preserve"><value>Criando conta...</value></data>
+    <data name="REGISTER_PASSWORD_MISMATCH" xml:space="preserve"><value>As senhas devem ser iguais.</value></data>
+    <data name="REGISTER_ERROR_GENERIC" xml:space="preserve"><value>Não foi possível criar sua conta. Verifique os dados e tente novamente.</value></data>
+    <data name="RESET_FORGOT_PASSWORD" xml:space="preserve"><value>Esqueceu a senha?</value></data>
+    <data name="RESET_SEND_CODE" xml:space="preserve"><value>Enviar código</value></data>
+    <data name="RESET_SENDING" xml:space="preserve"><value>Enviando...</value></data>
+    <data name="RESET_EMAIL_LABEL" xml:space="preserve"><value>Endereço de e-mail</value></data>
+    <data name="RESET_EMAIL_PLACEHOLDER" xml:space="preserve"><value>ex: alex@email.com</value></data>
+    <data name="RESET_CODE_HINT" xml:space="preserve"><value>Enviamos um código de 6 dígitos para</value></data>
+    <data name="RESET_CODE_HINT2" xml:space="preserve"><value>Insira-o abaixo para continuar.</value></data>
+    <data name="RESET_CODE_LABEL" xml:space="preserve"><value>Código de verificação</value></data>
+    <data name="RESET_VERIFY_CODE" xml:space="preserve"><value>Verificar código</value></data>
+    <data name="RESET_VERIFYING" xml:space="preserve"><value>Verificando...</value></data>
+    <data name="RESET_DIDNT_RECEIVE" xml:space="preserve"><value>Não recebeu?</value></data>
+    <data name="RESET_RESEND" xml:space="preserve"><value>Reenviar</value></data>
+    <data name="RESET_NEW_PASSWORD_LABEL" xml:space="preserve"><value>Nova senha</value></data>
+    <data name="RESET_NEW_PASSWORD_PLACEHOLDER" xml:space="preserve"><value>Digite a nova senha</value></data>
+    <data name="RESET_CONFIRM_PASSWORD_LABEL" xml:space="preserve"><value>Confirme a nova senha</value></data>
+    <data name="RESET_CONFIRM_PASSWORD_PLACEHOLDER" xml:space="preserve"><value>Repita a nova senha</value></data>
+    <data name="RESET_NEW_PASSWORD_BTN" xml:space="preserve"><value>Redefinir senha</value></data>
+    <data name="RESET_SAVING" xml:space="preserve"><value>Salvando...</value></data>
+    <data name="RESET_SUCCESS_TITLE" xml:space="preserve"><value>Senha atualizada!</value></data>
+    <data name="RESET_SUCCESS_DESC" xml:space="preserve"><value>Sua senha foi redefinida com sucesso. Agora você pode entrar com suas novas credenciais.</value></data>
+    <data name="RESET_BACK_TO_LOGIN" xml:space="preserve"><value>Voltar ao Login</value></data>
+    <!-- KanbanShowcase -->
+    <data name="SHOWCASE_S1_LABEL" xml:space="preserve"><value>Organizar</value></data>
+    <data name="SHOWCASE_S1_TITLE" xml:space="preserve"><value>Visualize seu fluxo de trabalho</value></data>
+    <data name="SHOWCASE_S1_DESC" xml:space="preserve"><value>Arraste tarefas entre colunas para acompanhar o progresso. Seu projeto inteiro de uma só vez.</value></data>
+    <data name="SHOWCASE_S1_C1_NAME" xml:space="preserve"><value>A Fazer</value></data>
+    <data name="SHOWCASE_S1_C1_T1" xml:space="preserve"><value>Mockups de design</value></data>
+    <data name="SHOWCASE_S1_C1_T2" xml:space="preserve"><value>Endpoints de API</value></data>
+    <data name="SHOWCASE_S1_C1_T3" xml:space="preserve"><value>Escrever testes</value></data>
+    <data name="SHOWCASE_S1_C2_NAME" xml:space="preserve"><value>Em Progresso</value></data>
+    <data name="SHOWCASE_S1_C2_T1" xml:space="preserve"><value>Módulo de autenticação</value></data>
+    <data name="SHOWCASE_S1_C2_T2" xml:space="preserve"><value>UI do painel</value></data>
+    <data name="SHOWCASE_S1_C3_NAME" xml:space="preserve"><value>Concluído</value></data>
+    <data name="SHOWCASE_S1_C3_T1" xml:space="preserve"><value>Configuração do projeto</value></data>
+    <data name="SHOWCASE_S1_C3_T2" xml:space="preserve"><value>Esquema do banco</value></data>
+    <data name="SHOWCASE_S2_LABEL" xml:space="preserve"><value>Colaborar</value></data>
+    <data name="SHOWCASE_S2_TITLE" xml:space="preserve"><value>Mantenha o time alinhado</value></data>
+    <data name="SHOWCASE_S2_DESC" xml:space="preserve"><value>Quadros, colunas e tarefas — todos sabem o que está acontecendo e o que vem a seguir.</value></data>
+    <data name="SHOWCASE_S2_C1_NAME" xml:space="preserve"><value>Backlog</value></data>
+    <data name="SHOWCASE_S2_C1_T1" xml:space="preserve"><value>App mobile</value></data>
+    <data name="SHOWCASE_S2_C1_T2" xml:space="preserve"><value>Modo escuro</value></data>
+    <data name="SHOWCASE_S2_C1_T3" xml:space="preserve"><value>Exportar PDF</value></data>
+    <data name="SHOWCASE_S2_C2_NAME" xml:space="preserve"><value>Revisão</value></data>
+    <data name="SHOWCASE_S2_C2_T1" xml:space="preserve"><value>Landing page</value></data>
+    <data name="SHOWCASE_S2_C2_T2" xml:space="preserve"><value>Onboarding</value></data>
+    <data name="SHOWCASE_S2_C3_NAME" xml:space="preserve"><value>Lançado</value></data>
+    <data name="SHOWCASE_S2_C3_T1" xml:space="preserve"><value>Lançamento v1.0</value></data>
+    <data name="SHOWCASE_S2_C3_T2" xml:space="preserve"><value>Testes beta</value></data>
+    <data name="SHOWCASE_S3_LABEL" xml:space="preserve"><value>Foco</value></data>
+    <data name="SHOWCASE_S3_TITLE" xml:space="preserve"><value>Divida o trabalho em subtarefas</value></data>
+    <data name="SHOWCASE_S3_DESC" xml:space="preserve"><value>Quebre tarefas grandes em etapas menores. Acompanhe o que foi feito e o que ainda precisa de atenção.</value></data>
+    <data name="SHOWCASE_S3_C1_NAME" xml:space="preserve"><value>A Fazer</value></data>
+    <data name="SHOWCASE_S3_C1_T1" xml:space="preserve"><value>Escrever docs</value></data>
+    <data name="SHOWCASE_S3_C1_T2" xml:space="preserve"><value>Revisão de código</value></data>
+    <data name="SHOWCASE_S3_C1_T3" xml:space="preserve"><value>Deploy</value></data>
+    <data name="SHOWCASE_S3_C2_NAME" xml:space="preserve"><value>Fazendo</value></data>
+    <data name="SHOWCASE_S3_C2_T1" xml:space="preserve"><value>Corrigir bug de login</value></data>
+    <data name="SHOWCASE_S3_C3_NAME" xml:space="preserve"><value>Concluído</value></data>
+    <data name="SHOWCASE_S3_C3_T1" xml:space="preserve"><value>Configurar CI/CD</value></data>
+    <data name="SHOWCASE_S3_C3_T2" xml:space="preserve"><value>Testes unitários</value></data>
+    <data name="SHOWCASE_S3_C3_T3" xml:space="preserve"><value>Migração de banco</value></data>
+    <data name="RESET_SEND_ERROR" xml:space="preserve"><value>Não foi possível enviar o código. Tente novamente.</value></data>
+    <data name="RESET_VERIFY_ERROR" xml:space="preserve"><value>Código inválido ou expirado. Verifique e tente novamente.</value></data>
+    <data name="RESET_PASSWORDS_MISMATCH" xml:space="preserve"><value>As senhas devem ser iguais.</value></data>
+    <data name="RESET_GENERIC_ERROR" xml:space="preserve"><value>Não foi possível redefinir sua senha. Tente novamente.</value></data>
+</root>

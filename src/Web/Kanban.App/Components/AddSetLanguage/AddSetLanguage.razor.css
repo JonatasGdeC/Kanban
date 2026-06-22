@@ -1,0 +1,32 @@
+.lang-switcher {
+    display: flex;
+    align-items: center;
+    background-color: var(--bg-body);
+    border-radius: 6px;
+    padding: 4px;
+    gap: 2px;
+}
+
+.lang-select {
+    appearance: none;
+    background-color: var(--bg-body);
+    border: 1px solid var(--divider);
+    border-radius: 6px;
+    padding: 7px 32px 7px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: inherit;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7'%3E%3Cpath stroke='%23828FA3' stroke-width='2' fill='none' d='m1 1 4 4 4-4'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+}
+
+.lang-select:hover,
+.lang-select:focus {
+    outline: none;
+    border-color: var(--purple);
+    color: var(--text-primary);
+}
