@@ -1,0 +1,148 @@
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 200;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 48px 16px 24px;
+    overflow-y: auto;
+}
+
+.modal {
+    background: var(--bg-surface);
+    border-radius: 6px;
+    padding: 32px;
+    width: 100%;
+    max-width: 480px;
+    position: relative;
+    flex-shrink: 0;
+    transition: background-color 0.2s;
+}
+
+.modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.modal-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.35;
+}
+
+.modal-title--danger { color: var(--red); }
+
+.edit-profile-modal {
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+
+/* =========================================
+   Mobile Sidebar Modal
+   ========================================= */
+.mobile-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    padding-top: 72px;
+}
+
+.mobile-sidebar-modal {
+    background-color: var(--bg-sidebar);
+    border-radius: 8px;
+    width: 264px;
+    max-height: calc(100vh - 88px);
+    overflow-y: auto;
+    padding-bottom: 16px;
+    transition: background-color 0.2s;
+}
+
+.mobile-sidebar-modal .sidebar-boards-label {
+    padding: 16px 24px 0;
+    margin-bottom: 16px;
+}
+
+.mobile-sidebar-modal .board-nav-list {
+    padding-right: 0;
+}
+
+
+/* =========================================
+   Modal action buttons
+   ========================================= */
+.btn-modal-primary {
+    display: block;
+    width: 100%;
+    padding: 13px;
+    background-color: var(--purple);
+    color: var(--white);
+    border: none;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.15s;
+    font-family: inherit;
+}
+
+.btn-modal-primary:hover:not(:disabled) { background-color: var(--purple-hover); }
+.btn-modal-primary:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.btn-modal-danger {
+    display: block;
+    width: 100%;
+    padding: 13px;
+    background-color: var(--red);
+    color: var(--white);
+    border: none;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.15s;
+    font-family: inherit;
+}
+
+.btn-modal-danger:hover { background-color: var(--red-hover); }
+
+.btn-modal-secondary {
+    display: block;
+    width: 100%;
+    padding: 13px;
+    background-color: rgba(99, 95, 199, 0.1);
+    color: var(--purple);
+    border: none;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.15s;
+    font-family: inherit;
+}
+
+.dark .btn-modal-secondary { background-color: var(--white); }
+.btn-modal-secondary:hover { background-color: rgba(99, 95, 199, 0.25); }
+
+.modal-btn-row {
+    display: flex;
+    align-items: center;
+    margin-top: 24px;
+    gap: 16px;
+}
+
+.modal-body-text {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    line-height: 1.65;
+}

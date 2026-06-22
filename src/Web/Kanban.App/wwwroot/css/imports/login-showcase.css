@@ -1,0 +1,225 @@
+/* =========================================
+   Auth Two-Panel Layout
+   ========================================= */
+.auth-layout {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.auth-panel {
+    width: 500px;
+    min-width: 420px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 32px;
+    background-color: var(--bg-surface);
+    border-right: 1px solid var(--divider);
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.auth-panel .auth-card {
+    box-shadow: none;
+    padding: 0;
+    max-width: 100%;
+}
+
+.auth-showcase {
+    flex: 1;
+    background: linear-gradient(135deg, var(--bg-body) 0%, color-mix(in srgb, var(--bg-body) 85%, var(--purple)) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    transition: background 0.2s;
+}
+
+/* =========================================
+   Showcase Component
+   ========================================= */
+.showcase {
+    width: 100%;
+    max-width: 600px;
+    padding: 48px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.showcase-slides {
+    position: relative;
+    min-height: 380px;
+}
+
+/* =========================================
+   Slide Transitions
+   ========================================= */
+.showcase-slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    opacity: 0;
+    transform: translateX(32px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    pointer-events: none;
+}
+
+.showcase-slide--active {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+}
+
+.showcase-slide--exit {
+    opacity: 0;
+    transform: translateX(-32px);
+}
+
+/* =========================================
+   Mini Board
+   ========================================= */
+.showcase-board {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.showcase-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.showcase-col-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+}
+
+.showcase-col-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.showcase-col-name {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.showcase-card {
+    background-color: var(--bg-surface);
+    border-radius: 6px;
+    padding: 10px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-primary);
+    box-shadow: 0 2px 6px rgba(54, 78, 126, 0.08);
+    animation: card-in 0.4s ease both;
+    transition: background-color 0.2s;
+}
+
+.showcase-card:nth-child(2) { animation-delay: 0.05s; }
+.showcase-card:nth-child(3) { animation-delay: 0.10s; }
+.showcase-card:nth-child(4) { animation-delay: 0.15s; }
+
+@keyframes card-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* =========================================
+   Slide Text
+   ========================================= */
+.showcase-text {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.showcase-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--purple);
+}
+
+.showcase-title {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--text-primary);
+    line-height: 1.3;
+    transition: color 0.2s;
+}
+
+.showcase-desc {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    line-height: 1.65;
+}
+
+/* =========================================
+   Dots Navigation
+   ========================================= */
+.showcase-dots {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+.showcase-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--white);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.showcase-dot:hover {
+    background-color: var(--purple-hover);
+    transform: scale(1.2);
+}
+
+.showcase-dot--active {
+    background-color: var(--purple);
+    transform: scale(1.2);
+}
+
+/* =========================================
+   Responsive — esconde showcase em mobile
+   ========================================= */
+@media (max-width: 900px) {
+    .auth-layout {
+        flex-direction: column;
+    }
+
+    .auth-panel {
+        width: 100%;
+        min-width: unset;
+        border-right: none;
+        border-bottom: 1px solid var(--divider);
+        padding: 32px 24px;
+    }
+
+    .auth-showcase {
+        display: none;
+    }
+}

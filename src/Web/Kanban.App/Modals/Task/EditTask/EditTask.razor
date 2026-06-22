@@ -1,0 +1,72 @@
+@using Kanban.Communication.Dtos
+@using Kanban.Communication.Requests.SubTask
+
+<div class="modal" @onclick:stopPropagation>
+    <h2 class="modal-title" style="margin-bottom:24px;">@ModalLocalizer[name: "EDIT_TASK_TITLE"]</h2>
+
+    <div class="form-group">
+        <label class="form-label">@ModalLocalizer[name: "TASK_TITLE_LABEL"]</label>
+        <input class="form-input" type="text" placeholder="@ModalLocalizer[name: "TASK_TITLE_PLACEHOLDER"]" @bind="_taskRequest.Name" @bind:event="oninput"/>
+    </div>
+
+    <div class="form-group">
+        <label class="form-label">@ModalLocalizer[name: "TASK_DESCRIPTION_LABEL"]</label>
+        <textarea class="form-input form-textarea" placeholder="@ModalLocalizer[name: "TASK_DESCRIPTION_PLACEHOLDER"]"
+                  @bind="_taskRequest.Description" @bind:event="oninput"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label class="form-label">@ModalLocalizer[name: "SUBTASKS_LABEL"]</label>
+        @foreach (KeyValuePair<Guid, UpdateSubTaskRequest> subTasks in _subtaskUpdateRequest)
+        {
+            <div class="subtask-row">
+                <input class="form-input" type="text" placeholder="@ModalLocalizer[name: "SUBTASK_PLACEHOLDER"]" value="@subTasks.Value.Name"
+                       @onchange="@(e => subTasks.Value.Name = e.Value?.ToString() ?? "")"
+                       @onblur="@(() => SubmitUpdateSubTask(subTaskId: subTasks.Key, request: subTasks.Value))"/>
+                <button type="button" class="btn-remove-subtask" @onclick="@(() => HandleRemoveSubTask(subTaskId: subTasks.Key))">
+                    <AddIcon Name="KanbanIcon.Close"/>
+                </button>
+            </div>
+        }
+
+        @foreach (RegisterSubTaskRequest subTaskRegister in _subTaskRegisterRequests)
+        {
+            <div class="subtask-row">
+                <input class="form-input" type="text" placeholder="@ModalLocalizer[name: "SUBTASK_PLACEHOLDER"]" value="@subTaskRegister.Name" @onchange="@(e => subTaskRegister.Name = e.Value?.ToString() ?? "")"/>
+                <button type="button" class="btn-remove-subtask" @onclick="@(() => HandleRemoveRegisterSubTask(request: subTaskRegister))">
+                    <AddIcon Name="KanbanIcon.Close"/>
+                </button>
+            </div>
+        }
+
+        <button type="button" class="btn-add-subtask" @onclick="@(HandleAddRegisterSubTask)">
+            @ModalLocalizer[name: "ADD_NEW_SUBTASK_BTN"]
+        </button>
+    </div>
+
+    <div class="form-group">
+        <label class="form-label">@ModalLocalizer[name: "TASK_STATUS_LABEL"]</label>
+        <select class="form-input form-select" @bind="_taskRequest.ColumnId">
+            @foreach (ColumnDto status in Columns.OrderBy(keySelector: col => col.Order))
+            {
+                <option value="@status.Id">@status.Name</option>
+            }
+        </select>
+    </div>
+
+    <button type="button" class="btn-modal-primary"
+            disabled="@(string.IsNullOrWhiteSpace(value: _taskRequest.Name) || _isSubmitting)"
+            @onclick="SubmitUpdateTask">
+        @(_isSubmitting ? ModalLocalizer[name: "SAVING"] : ModalLocalizer[name: "SAVE_CHANGES_BTN"])
+    </button>
+
+    @if (_listFeedbacks.Any())
+    {
+        <ul class="auth-error">
+            @foreach (string feedback in _listFeedbacks)
+            {
+                <li>@feedback</li>
+            }
+        </ul>
+    }
+</div>

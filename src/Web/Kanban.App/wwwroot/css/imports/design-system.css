@@ -1,0 +1,60 @@
+:root {
+    --purple:        #635FC7;
+    --purple-hover:  #A8A4FF;
+    --black:         #000112;
+    --very-dark-grey:#20212C;
+    --dark-grey:     #2B2C37;
+    --lines-dark:    #3E3F4E;
+    --medium-grey:   #828FA3;
+    --lines-light:   #E4EBFA;
+    --light-bg:      #F4F7FD;
+    --white:         #FFFFFF;
+    --red:           #EA5555;
+    --red-hover:     #FF9898;
+
+    /* Semantic tokens — light */
+    --bg-body:       var(--light-bg);
+    --bg-surface:    var(--white);
+    --bg-sidebar:    var(--white);
+    --text-primary:  var(--black);
+    --text-secondary:var(--medium-grey);
+    --divider:       var(--lines-light);
+    --col-new-from:  #E9EFFA;
+    --col-new-to:    rgba(233, 239, 250, 0.5);
+
+    --sidebar-w:     300px;
+    --header-h:      96px;
+}
+
+/* Dark Mode */
+.dark {
+    --bg-body:       var(--very-dark-grey);
+    --bg-surface:    var(--dark-grey);
+    --bg-sidebar:    var(--dark-grey);
+    --text-primary:  var(--white);
+    --divider:       var(--lines-dark);
+    --col-new-from:  rgba(43, 44, 55, 0.25);
+    --col-new-to:    rgba(43, 44, 55, 0.125);
+}
+
+/* =========================================
+   App Container
+   ========================================= */
+.kanban-app {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+    background-color: var(--bg-body);
+    transition: background-color 0.2s;
+}
+
+/* =========================================
+   Main Content
+   ========================================= */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    min-width: 0;
+}

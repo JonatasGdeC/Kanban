@@ -1,0 +1,93 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'src/Backend/**'
+      - 'src/Shared/**'
+      - '.github/workflows/backend-deploy.yml'
+
+  pull_request:
+    branches:
+      - master
+    paths:
+      - 'src/Backend/**'
+      - 'src/Shared/**'
+      - '.github/workflows/backend-deploy.yml'
+    
+jobs:
+  build-and-test:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore src/Backend/Kanban.Api/Kanban.Api.csproj
+
+      - name: Build solution
+        run: dotnet build src/Backend/Kanban.Api/Kanban.Api.csproj --configuration Release --no-restore
+        
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build-and-test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+
+    steps:
+      - name: Deploy na EC2
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            set -e
+
+            rm -f "$HOME/kanban/.git/index.lock" || true
+
+            if [ ! -d "$HOME/kanban/.git" ]; then
+              rm -rf "$HOME/kanban"
+              git clone https://github.com/JonatasGdeC/Kanban.git "$HOME/kanban"
+            fi
+
+            cd "$HOME/kanban"
+
+            git checkout master
+            git pull origin master
+
+            docker build -t kanban-api -f Dockerfile .
+
+            docker stop kanban-api || true
+            docker rm kanban-api || true
+
+            cat > .env << 'EOF'
+            ASPNETCORE_ENVIRONMENT=Production
+            ConnectionStrings__connection=${{ secrets.DB_CONNECTION_STRING }}
+            Settings__Jwt__SigningKey=${{ secrets.JWT_SIGNING_KEY }}
+            Settings__Jwt__ExpiresMinutes=30
+            Settings__PasswordResetToken__ExpiresMinutes=15
+            EmailSettings__Host=smtp.gmail.com
+            EmailSettings__Port=465
+            EmailSettings__Username=${{ secrets.EMAIL_USERNAME }}
+            EmailSettings__Password=${{ secrets.EMAIL_PASSWORD }}
+            EmailSettings__From=${{ secrets.EMAIL_FROM }}
+            EOF
+
+            docker run -d \
+              --name kanban-api \
+              -p 8080:8080 \
+              --restart unless-stopped \
+              --env-file .env \
+              kanban-api
+
+            docker image prune -f
+            docker container prune -f

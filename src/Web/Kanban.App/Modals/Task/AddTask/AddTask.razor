@@ -1,0 +1,60 @@
+@using Kanban.Communication.Dtos
+@using Kanban.Communication.Requests.SubTask
+
+<div class="modal" @onclick:stopPropagation>
+    <h2 class="modal-title" style="margin-bottom:24px;">@ModalLocalizer[name: "ADD_TASK_TITLE"]</h2>
+
+    <div class="form-group">
+        <label class="form-label">@ModalLocalizer[name: "TASK_TITLE_LABEL"]</label>
+        <input class="form-input" type="text" placeholder="@ModalLocalizer[name: "TASK_TITLE_PLACEHOLDER"]" @bind="_registerTaskRequest.Name" @bind:event="oninput"/>
+    </div>
+
+    <div class="form-group">
+        <label class="form-label">@ModalLocalizer[name: "TASK_DESCRIPTION_LABEL"]</label>
+        <textarea class="form-input form-textarea" placeholder="@ModalLocalizer[name: "TASK_DESCRIPTION_PLACEHOLDER"]" @bind="_registerTaskRequest.Description" @bind:event="oninput"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label class="form-label">@ModalLocalizer[name: "SUBTASKS_LABEL"]</label>
+        @foreach (RegisterSubTaskRequest subtaskRequest in _subTaskRegisterRequests)
+        {
+            <div class="subtask-row">
+                <input class="form-input" type="text" placeholder="@ModalLocalizer[name: "SUBTASK_PLACEHOLDER"]" value="@subtaskRequest.Name"
+                       @onchange="@(e => subtaskRequest.Name = e.Value?.ToString() ?? "")"/>
+                <button type="button" class="btn-remove-subtask" @onclick="@(() => HandleRemoveSubTaskRequest(request: subtaskRequest))">
+                    <AddIcon Name="KanbanIcon.Close"/>
+                </button>
+            </div>
+        }
+
+        <button type="button" class="btn-add-subtask" @onclick="@HandleAddNewSubTaskRequest">
+            @ModalLocalizer[name: "ADD_NEW_SUBTASK_BTN"]
+        </button>
+    </div>
+
+    <div class="form-group">
+        <label class="form-label">@ModalLocalizer[name: "TASK_STATUS_LABEL"]</label>
+        <select class="form-input form-select" @bind="_selectedColumnId">
+            @foreach (ColumnDto col in Columns.OrderBy(keySelector: col => col.Order))
+            {
+                <option value="@col.Id">@col.Name</option>
+            }
+        </select>
+    </div>
+
+    <button type="button" class="btn-modal-primary"
+            disabled="@(string.IsNullOrWhiteSpace(value: _registerTaskRequest.Name) || _isSubmitting)"
+            @onclick="HandleSubmit">
+        @(_isSubmitting ? ModalLocalizer[name: "SAVING"] : ModalLocalizer[name: "CREATE_TASK_BTN"])
+    </button>
+
+    @if (_listFeedbacks.Any())
+    {
+        <ul class="auth-error">
+            @foreach (string feedback in _listFeedbacks)
+            {
+                <li>@feedback</li>
+            }
+        </ul>
+    }
+</div>

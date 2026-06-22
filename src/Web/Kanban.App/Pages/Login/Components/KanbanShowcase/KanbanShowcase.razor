@@ -1,0 +1,39 @@
+<div class="showcase">
+    <div class="showcase-slides">
+        @for (int i = 0; i < _slides.Length; i++)
+        {
+            int idx = i;
+            <div class="showcase-slide @(_activeSlide == idx ? "showcase-slide--active" : "") @(_previousSlide == idx ? "showcase-slide--exit" : "")">
+                <div class="showcase-board">
+                    @foreach (ShowcaseColumn col in _slides[idx].Columns)
+                    {
+                        <div class="showcase-col">
+                            <div class="showcase-col-header">
+                                <span class="showcase-col-dot" style="background:@col.Color"></span>
+                                <span class="showcase-col-name">@col.Name</span>
+                            </div>
+                            @foreach (string card in col.Cards)
+                            {
+                                <div class="showcase-card">@card</div>
+                            }
+                        </div>
+                    }
+                </div>
+                <div class="showcase-text">
+                    <p class="showcase-label">@_slides[idx].Label</p>
+                    <h2 class="showcase-title">@_slides[idx].Title</h2>
+                    <p class="showcase-desc">@_slides[idx].Description</p>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="showcase-dots">
+        @for (int i = 0; i < _slides.Length; i++)
+        {
+            int idx = i;
+            <button class="showcase-dot @(_activeSlide == idx ? "showcase-dot--active" : "")"
+                    @onclick="@(() => GoTo(index: idx))"/>
+        }
+    </div>
+</div>

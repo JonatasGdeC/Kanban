@@ -1,0 +1,208 @@
+.form-group { margin-bottom: 24px; }
+
+.form-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+}
+
+.form-input {
+    width: 100%;
+    background: transparent;
+    border: 1px solid rgba(130, 143, 163, 0.25);
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-primary);
+    font-family: inherit;
+    line-height: 1.5;
+    transition: border-color 0.15s;
+}
+
+.dark .form-input { border-color: rgba(130, 143, 163, 0.25); }
+.form-input::placeholder { color: var(--text-primary); opacity: 0.25; }
+.form-input:focus { outline: none; border-color: var(--purple); }
+
+.form-textarea { resize: vertical; min-height: 112px; }
+
+.form-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7'%3E%3Cpath stroke='%23635FC7' stroke-width='2' fill='none' d='m1 1 4 4 4-4'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    padding-right: 40px;
+    cursor: pointer;
+    background-color: transparent;
+}
+
+/* Subtask rows */
+.subtask-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 12px;
+}
+
+.subtask-row .form-input { flex: 1; }
+
+.btn-remove-subtask {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    flex-shrink: 0;
+    transition: color 0.15s;
+}
+
+.btn-remove-subtask:hover { color: var(--red); }
+
+.btn-add-subtask {
+    width: 100%;
+    padding: 12px;
+    background-color: rgba(99, 95, 199, 0.1);
+    color: var(--purple);
+    border: none;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.15s;
+    font-family: inherit;
+}
+
+.dark .btn-add-subtask { background-color: var(--white); }
+.btn-add-subtask:hover { background-color: rgba(99, 95, 199, 0.25); }
+.dark .btn-add-subtask:hover { background-color: rgba(255,255,255,0.85); }
+
+/* View task specific */
+.task-description {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    margin-bottom: 24px;
+}
+
+.subtask-section-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2.4px;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+}
+
+.subtask-check-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px;
+    background-color: var(--bg-body);
+    border-radius: 4px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: background-color 0.15s;
+    user-select: none;
+}
+
+.subtask-check-item:hover { background-color: rgba(99, 95, 199, 0.25); }
+
+.subtask-check-input {
+    width: 16px;
+    height: 16px;
+    min-width: 16px;
+    appearance: none;
+    border: 2px solid var(--divider);
+    border-radius: 2px;
+    cursor: pointer;
+    position: relative;
+    transition: background-color 0.15s, border-color 0.15s;
+    flex-shrink: 0;
+}
+
+.subtask-check-input:checked {
+    background-color: var(--purple);
+    border-color: var(--purple);
+}
+
+.subtask-check-input:checked::after {
+    content: '';
+    position: absolute;
+    left: 3px;
+    top: 0px;
+    width: 5px;
+    height: 9px;
+    border: 2px solid white;
+    border-top: none;
+    border-left: none;
+    transform: rotate(45deg);
+}
+
+.subtask-check-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-primary);
+    transition: color 0.15s;
+    line-height: 1.4;
+}
+
+.subtask-check-label--done {
+    color: var(--text-secondary);
+    text-decoration: line-through;
+}
+
+/* Column color picker in board form */
+.col-color-swatch {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.col-color-picker {
+    width: 38px;
+    height: 38px;
+    padding: 2px;
+    border: none;
+    border-radius: 6px;
+    background: none;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+/* Edit profile */
+.edit-profile-divider {
+    border: none;
+    border-top: 1px solid var(--lines-light);
+    margin: 24px 0;
+}
+
+.dark .edit-profile-divider {
+    border-top-color: var(--lines-dark);
+}
+
+.edit-profile-section-title {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2.4px;
+    text-transform: uppercase;
+    color: var(--medium-grey);
+    margin-bottom: 16px;
+}
+
+.edit-profile-success {
+    font-size: 12px;
+    color: #28a745;
+    margin-top: 8px;
+    font-weight: 500;
+}
+
+.edit-profile-section-title--danger {
+    color: var(--red);
+}

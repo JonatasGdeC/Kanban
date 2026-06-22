@@ -1,0 +1,89 @@
+.app-header {
+    height: var(--header-h);
+    min-height: var(--header-h);
+    background-color: var(--bg-sidebar);
+    border-bottom: 1px solid var(--divider);
+    display: flex;
+    align-items: center;
+    padding: 0 32px 0 24px;
+    gap: 16px;
+    flex-shrink: 0;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.header-mobile-logo {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    margin-right: 8px;
+}
+
+.header-board-name-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    cursor: default;
+}
+
+.header-board-name {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-primary);
+    transition: color 0.2s;
+    line-height: 1;
+}
+
+.header-chevron {
+    display: none;
+    transition: transform 0.2s;
+}
+
+.header-chevron--up {
+    transform: rotate(180deg);
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.btn-add-task {
+    background-color: var(--purple);
+    color: var(--white);
+    border: none;
+    border-radius: 24px;
+    padding: 15px 24px;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1;
+    transition: background-color 0.15s;
+    white-space: nowrap;
+}
+
+.btn-add-task:disabled {
+    opacity: 0.5;
+}
+
+.btn-add-task:hover {
+    background-color: var(--purple-hover);
+}
+
+.btn-add-task-text { display: inline; }
+.btn-add-task-icon { display: none; font-size: 20px; line-height: 1; }
+
+.btn-ellipsis {
+    background: none;
+    border: none;
+    padding: 4px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* lang-switcher inside header uses surface bg instead of body */
+.app-header .lang-switcher {
+    background-color: var(--bg-body);
+    border: 1px solid var(--divider);
+}

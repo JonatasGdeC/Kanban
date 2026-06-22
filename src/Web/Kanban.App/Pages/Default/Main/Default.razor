@@ -1,0 +1,48 @@
+@page "/"
+@page "/{boardId:guid}"
+@using Kanban.App.Components.AddLoading
+@using Kanban.App.Pages.Default.Components.ColumnContainer
+@using Kanban.Communication.Dtos
+
+<PageTitle>Kanban @(_currentBoard != null ? $"- {_currentBoard.Name}" : null)</PageTitle>
+
+<div class="columns-wrapper"
+     @ondrop="@OnColumnDrop"
+     @ondragover:preventDefault>
+    @if (_isBoardLoading)
+    {
+        <AddLoading/>
+    }
+    else if (!CurrentColumns.Any())
+    {
+        if (_currentBoardId.HasValue)
+        {
+            <div class="empty-board">
+                <p class="empty-board-text">@DefaultLocalizer[name: "EMPTY_BOARD_NO_COLUMNS"]</p>
+                <button class="btn-add-task" @onclick="@OpenEditBoard">
+                    @DefaultLocalizer[name: "EMPTY_BOARD_ADD_COLUMN"]
+                </button>
+            </div>
+        }
+        else
+        {
+            <div class="empty-board">
+                <p class="empty-board-text">@DefaultLocalizer[name: "EMPTY_BOARD_NO_BOARD"]</p>
+                <button class="btn-add-task" @onclick="@(() => ModalUseState.Open(dialog: ModalUseState.ModalType.AddBoard))">
+                    @DefaultLocalizer[name: "EMPTY_BOARD_ADD_BOARD"]
+                </button>
+            </div>
+        }
+    }
+    else
+    {
+        @foreach (ColumnDto col in CurrentColumns.OrderBy(keySelector: c => c.Order))
+        {
+            <ColumnContainer Column="@col"/>
+        }
+
+        <button class="new-column-btn" @onclick="@(OpenEditBoard)">
+            @DefaultLocalizer[name: "NEW_COLUMN_BTN"]
+        </button>
+    }
+</div>

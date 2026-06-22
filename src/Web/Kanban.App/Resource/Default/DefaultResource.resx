@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true"></xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+    <resheader name="version"><value>1.3</value></resheader>
+    <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+    <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+    <!-- Sidebar -->
+    <data name="SIDEBAR_LOADING" xml:space="preserve"><value>Loading...</value></data>
+    <data name="SIDEBAR_ALL_BOARDS" xml:space="preserve"><value>ALL BOARDS</value></data>
+    <data name="SIDEBAR_CREATE_NEW_BOARD" xml:space="preserve"><value>+ Create New Board</value></data>
+    <data name="SIDEBAR_EDIT_PROFILE" xml:space="preserve"><value>Edit Profile</value></data>
+    <data name="SIDEBAR_LOGOUT" xml:space="preserve"><value>Log Out</value></data>
+    <data name="SIDEBAR_HIDE" xml:space="preserve"><value>Hide Sidebar</value></data>
+    <data name="SIDEBAR_SHOW" xml:space="preserve"><value>Show Sidebar</value></data>
+    <!-- Header -->
+    <data name="HEADER_ADD_TASK" xml:space="preserve"><value>+ Add New Task</value></data>
+    <data name="HEADER_BOARD_OPTIONS" xml:space="preserve"><value>Board options</value></data>
+    <!-- Board page -->
+    <data name="EMPTY_BOARD_NO_COLUMNS" xml:space="preserve"><value>This board is empty. Create a new column to get started.</value></data>
+    <data name="EMPTY_BOARD_ADD_COLUMN" xml:space="preserve"><value>+ Add New Column</value></data>
+    <data name="EMPTY_BOARD_NO_BOARD" xml:space="preserve"><value>Create a new board to get started.</value></data>
+    <data name="EMPTY_BOARD_ADD_BOARD" xml:space="preserve"><value>+ Add New Board</value></data>
+    <data name="NEW_COLUMN_BTN" xml:space="preserve"><value>+ New Column</value></data>
+    <!-- TaskCard / shared board UI -->
+    <data name="SUBTASKS_COUNT" xml:space="preserve"><value>subtasks</value></data>
+    <data name="OF_LABEL" xml:space="preserve"><value>of</value></data>
+    <!-- Not Found -->
+    <data name="NOT_FOUND_TITLE" xml:space="preserve"><value>Not Found</value></data>
+    <data name="NOT_FOUND_MESSAGE" xml:space="preserve"><value>Sorry, the content you are looking for does not exist.</value></data>
+</root>

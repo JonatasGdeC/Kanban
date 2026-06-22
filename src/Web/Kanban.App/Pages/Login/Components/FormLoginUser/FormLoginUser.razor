@@ -1,0 +1,27 @@
+@using Kanban.Adapter.Auth
+@inject CookieAuthenticationStateProvider CookieAuthenticationStateProvider
+
+<div class="form-group">
+    <label class="form-label">@LoginLocalizer[name: "EMAIL_ADDRESS_LABEL"]</label>
+    <input class="form-input" type="email" placeholder="@LoginLocalizer[name: "EMAIL_PLACEHOLDER"]"
+           @bind="_loginRequest.Email" @bind:event="oninput"/>
+</div>
+
+<div class="form-group">
+    <label class="form-label">@LoginLocalizer[name: "PASSWORD_LABEL"]</label>
+    <div class="input-password-wrapper">
+        <input class="form-input" type="@(_showPwd ? "text" : "password")"
+               placeholder="@LoginLocalizer[name: "PASSWORD_PLACEHOLDER"]"
+               @bind="_loginRequest.Password" @bind:event="oninput"/>
+        <button type="button" class="btn-toggle-pwd"
+                @onclick="@(() => _showPwd = !_showPwd)"
+                title="@(_showPwd ? LoginLocalizer[name: "HIDE_PASSWORD"] : LoginLocalizer[name: "SHOW_PASSWORD"])">
+            <AddIcon Name="@(_showPwd ? KanbanIcon.EyeOff : KanbanIcon.Eye)" Width="18" Height="13"/>
+        </button>
+    </div>
+</div>
+
+<button type="button" class="btn-modal-primary auth-submit-btn"
+        @onclick="HandleLoginAsync" disabled="@(!CanSubmit)">
+    @(_isSubmitting ? LoginLocalizer[name: "LOGIN_BTN_LOADING"] : LoginLocalizer[name: "LOGIN_BTN"])
+</button>

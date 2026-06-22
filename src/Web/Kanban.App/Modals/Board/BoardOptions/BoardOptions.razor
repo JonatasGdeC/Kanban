@@ -1,0 +1,9 @@
+<div class="board-options-overlay" @onclick="@(() => ModalUseState.Close())"></div>
+<div class="board-options-menu">
+    <button class="context-menu-item" @onclick="@(() => ModalUseState.Open(dialog: ModalUseState.ModalType.EditBoard))">
+        @ModalLocalizer[name: "BOARD_OPTIONS_EDIT"]
+    </button>
+    <button class="context-menu-item context-menu-item--danger" @onclick="@(() => ModalUseState.Open(dialog: ModalUseState.ModalType.DeleteBoard))">
+        @ModalLocalizer[name: "BOARD_OPTIONS_DELETE"]
+    </button>
+</div>

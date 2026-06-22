@@ -1,0 +1,56 @@
+
+@using Kanban.Communication.Requests.Column
+
+<div class="modal" @onclick:stopPropagation>
+    <h2 class="modal-title" style="margin-bottom:24px;">
+        @ModalLocalizer[name: "EDIT_BOARD_TITLE"]
+    </h2>
+
+    <div class="form-group">
+        <label class="form-label">@ModalLocalizer[name: "BOARD_NAME_LABEL"]</label>
+        <input class="form-input" type="text" placeholder="@ModalLocalizer[name: "BOARD_NAME_PLACEHOLDER"]" @bind="_boardRequest.Name" @bind:event="oninput"/>
+    </div>
+
+    <div class="form-group">
+        <label class="form-label">@ModalLocalizer[name: "BOARD_COLUMNS_LABEL"]</label>
+        @foreach (KeyValuePair<Guid, UpdateColumnRequest> columnRequest in _columnUpdateRequest)
+        {
+            <div class="subtask-row">
+                <input type="color" class="col-color-picker" value="@columnRequest.Value.Color"
+                       @oninput="@(e => columnRequest.Value.Color = e.Value?.ToString() ?? columnRequest.Value.Color)"/>
+                <input class="form-input" type="text" placeholder="@ModalLocalizer[name: "COLUMN_PLACEHOLDER"]" @bind="@columnRequest.Value.Name"/>
+                <button type="button" class="btn-remove-subtask" @onclick="@(() => HandleRemoveColumnInBoard(columnId: columnRequest.Key))">
+                    <AddIcon Name="KanbanIcon.Close"/>
+                </button>
+            </div>
+        }
+
+        @foreach (RegisterColumnRequest columnRequest in _columnRegisterRequest)
+        {
+            <div class="subtask-row">
+                <input type="color" class="col-color-picker" value="@columnRequest.Color"
+                       @oninput="@(e => columnRequest.Color = e.Value?.ToString() ?? columnRequest.Color)"/>
+                <input class="form-input" type="text" placeholder="@ModalLocalizer[name: "COLUMN_PLACEHOLDER"]" @bind="@columnRequest.Name"/>
+                <button type="button" class="btn-remove-subtask" @onclick="@(() => HandleRemoveColumnInBoard(columnRequest: columnRequest))">
+                    <AddIcon Name="KanbanIcon.Close"/>
+                </button>
+            </div>
+        }
+
+        <button type="button" class="btn-add-subtask" @onclick="@AddNewRegisterColumnRequest">@ModalLocalizer[name: "ADD_NEW_COLUMN_BTN"]</button>
+    </div>
+
+    <button type="button" class="btn-modal-primary" disabled="@(string.IsNullOrWhiteSpace(value: _boardRequest.Name) || _isSubmitting)" @onclick="@HandleUpdateBoard">
+        @(_isSubmitting ? ModalLocalizer[name: "SAVING"] : ModalLocalizer[name: "SAVE_CHANGES_BTN"])
+    </button>
+
+    @if (_listFeedbacks.Any())
+    {
+        <ul class="auth-error">
+            @foreach (string feedback in _listFeedbacks)
+            {
+                <li>@feedback</li>
+            }
+        </ul>
+    }
+</div>

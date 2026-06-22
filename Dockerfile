@@ -1,19 +1,23 @@
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 
-COPY . .
+COPY Kanban.sln ./
+COPY src/Backend ./src/Backend
+COPY src/Shared ./src/Shared
 
-RUN dotnet restore src/Kanban.Api/Kanban.Api.csproj
-RUN dotnet publish src/Kanban.Api/Kanban.Api.csproj -c Release -o /app/publish
+RUN dotnet restore src/Backend/Kanban.Api/Kanban.Api.csproj
 
-FROM mcr.microsoft.com/dotnet/aspnet:10.0
+RUN dotnet publish src/Backend/Kanban.Api/Kanban.Api.csproj \
+    -c Release \
+    -o /app/publish \
+    --no-restore
+
+FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS final
 WORKDIR /app
 
 COPY --from=build /app/publish .
 
-EXPOSE 8080
-
 ENV ASPNETCORE_URLS=http://+:8080
-ENV DOTNET_HOSTBUILDER__RELOADCONFIGONCHANGE=false
+EXPOSE 8080
 
 ENTRYPOINT ["dotnet", "Kanban.Api.dll"]

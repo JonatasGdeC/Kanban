@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true"></xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+    <resheader name="version"><value>1.3</value></resheader>
+    <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+    <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+    <data name="SAVING" xml:space="preserve"><value>Salvando…</value></data>
+    <data name="DELETING" xml:space="preserve"><value>Excluindo…</value></data>
+    <data name="UPDATING" xml:space="preserve"><value>Atualizando…</value></data>
+    <data name="CANCEL_BTN" xml:space="preserve"><value>Cancelar</value></data>
+    <data name="SAVE_CHANGES_BTN" xml:space="preserve"><value>Salvar Alterações</value></data>
+    <data name="CANNOT_BE_REVERSED" xml:space="preserve"><value>não pode ser desfeita</value></data>
+    <data name="DELETE_BTN" xml:space="preserve"><value>Excluir</value></data>
+    <data name="DELETE_CONFIRM_PRE" xml:space="preserve"><value>Tem certeza que deseja excluir</value></data>
+    <data name="ADD_BOARD_TITLE" xml:space="preserve"><value>Adicionar Novo Quadro</value></data>
+    <data name="BOARD_NAME_LABEL" xml:space="preserve"><value>Nome do Quadro</value></data>
+    <data name="BOARD_NAME_PLACEHOLDER" xml:space="preserve"><value>ex: Web Design</value></data>
+    <data name="BOARD_COLUMNS_LABEL" xml:space="preserve"><value>Colunas do Quadro</value></data>
+    <data name="COLUMN_PLACEHOLDER" xml:space="preserve"><value>ex: A Fazer</value></data>
+    <data name="ADD_NEW_COLUMN_BTN" xml:space="preserve"><value>+ Adicionar Coluna</value></data>
+    <data name="CREATE_BOARD_BTN" xml:space="preserve"><value>Criar Novo Quadro</value></data>
+    <data name="ADD_BOARD_ERROR" xml:space="preserve"><value>Não foi possível criar o quadro. Verifique os dados e tente novamente.</value></data>
+    <data name="EDIT_BOARD_TITLE" xml:space="preserve"><value>Editar Quadro</value></data>
+    <data name="EDIT_BOARD_ERROR" xml:space="preserve"><value>Não foi possível atualizar o quadro. Verifique os dados e tente novamente.</value></data>
+    <data name="DELETE_BOARD_TITLE" xml:space="preserve"><value>Excluir este quadro?</value></data>
+    <data name="DELETE_BOARD_CONFIRM_POST" xml:space="preserve"><value>quadro? Esta ação removerá todas as colunas e tarefas e não pode ser desfeita.</value></data>
+    <data name="DELETE_BOARD_ERROR" xml:space="preserve"><value>Não foi possível excluir o quadro. Tente novamente.</value></data>
+    <data name="BOARD_OPTIONS_EDIT" xml:space="preserve"><value>Editar Quadro</value></data>
+    <data name="BOARD_OPTIONS_DELETE" xml:space="preserve"><value>Excluir Quadro</value></data>
+    <data name="ADD_TASK_TITLE" xml:space="preserve"><value>Adicionar Nova Tarefa</value></data>
+    <data name="TASK_TITLE_LABEL" xml:space="preserve"><value>Título</value></data>
+    <data name="TASK_TITLE_PLACEHOLDER" xml:space="preserve"><value>ex: Fazer uma pausa</value></data>
+    <data name="TASK_DESCRIPTION_LABEL" xml:space="preserve"><value>Descrição</value></data>
+    <data name="TASK_DESCRIPTION_PLACEHOLDER" xml:space="preserve"><value>ex: Sempre é bom fazer uma pausa.</value></data>
+    <data name="SUBTASKS_LABEL" xml:space="preserve"><value>Subtarefas</value></data>
+    <data name="SUBTASK_PLACEHOLDER" xml:space="preserve"><value>ex: Fazer café</value></data>
+    <data name="ADD_NEW_SUBTASK_BTN" xml:space="preserve"><value>+ Adicionar Subtarefa</value></data>
+    <data name="TASK_STATUS_LABEL" xml:space="preserve"><value>Status</value></data>
+    <data name="CREATE_TASK_BTN" xml:space="preserve"><value>Criar Tarefa</value></data>
+    <data name="ADD_TASK_ERROR" xml:space="preserve"><value>Não foi possível criar a tarefa. Verifique os dados e tente novamente.</value></data>
+    <data name="EDIT_TASK_TITLE" xml:space="preserve"><value>Editar Tarefa</value></data>
+    <data name="EDIT_TASK_ERROR" xml:space="preserve"><value>Não foi possível atualizar a tarefa. Verifique os dados e tente novamente.</value></data>
+    <data name="ADD_SUBTASK_ERROR" xml:space="preserve"><value>Não foi possível criar a subtarefa. Verifique os dados e tente novamente.</value></data>
+    <data name="UPDATE_SUBTASK_ERROR" xml:space="preserve"><value>Não foi possível atualizar a subtarefa. Verifique os dados e tente novamente.</value></data>
+    <data name="DELETE_TASK_TITLE" xml:space="preserve"><value>Excluir esta tarefa?</value></data>
+    <data name="DELETE_TASK_CONFIRM_POST" xml:space="preserve"><value>tarefa e suas subtarefas? Esta ação não pode ser desfeita.</value></data>
+    <data name="DELETE_TASK_ERROR" xml:space="preserve"><value>Não foi possível excluir a tarefa. Tente novamente.</value></data>
+    <data name="VIEW_TASK_LOADING" xml:space="preserve"><value>Carregando subtarefas…</value></data>
+    <data name="VIEW_TASK_STATUS_LABEL" xml:space="preserve"><value>Status Atual</value></data>
+    <data name="VIEW_TASK_EDIT" xml:space="preserve"><value>Editar Tarefa</value></data>
+    <data name="VIEW_TASK_DELETE" xml:space="preserve"><value>Excluir Tarefa</value></data>
+    <data name="EDIT_PROFILE_TITLE" xml:space="preserve"><value>Editar Perfil</value></data>
+    <data name="PROFILE_EMAIL_LABEL" xml:space="preserve"><value>E-mail</value></data>
+    <data name="PROFILE_SUCCESS" xml:space="preserve"><value>Perfil atualizado com sucesso.</value></data>
+    <data name="PROFILE_ERROR" xml:space="preserve"><value>Não foi possível atualizar o perfil. Tente novamente.</value></data>
+    <data name="CHANGE_PASSWORD_TITLE" xml:space="preserve"><value>Alterar Senha</value></data>
+    <data name="CURRENT_PASSWORD_LABEL" xml:space="preserve"><value>Senha Atual</value></data>
+    <data name="CURRENT_PASSWORD_PLACEHOLDER" xml:space="preserve"><value>Digite a senha atual</value></data>
+    <data name="NEW_PASSWORD_LABEL" xml:space="preserve"><value>Nova Senha</value></data>
+    <data name="CONFIRM_NEW_PASSWORD_LABEL" xml:space="preserve"><value>Confirmar Nova Senha</value></data>
+    <data name="UPDATE_PASSWORD_BTN" xml:space="preserve"><value>Atualizar Senha</value></data>
+    <data name="PASSWORD_MISMATCH" xml:space="preserve"><value>As senhas não coincidem.</value></data>
+    <data name="PASSWORD_UPDATE_SUCCESS" xml:space="preserve"><value>Senha atualizada com sucesso.</value></data>
+    <data name="PASSWORD_UPDATE_ERROR" xml:space="preserve"><value>Não foi possível atualizar a senha. Tente novamente.</value></data>
+    <data name="DANGER_ZONE_TITLE" xml:space="preserve"><value>Zona de Risco</value></data>
+    <data name="DELETE_ACCOUNT_BTN" xml:space="preserve"><value>Excluir Conta</value></data>
+    <data name="DELETE_ACCOUNT_CONFIRM_PRE" xml:space="preserve"><value>Tem certeza? Isso excluirá permanentemente sua conta e todos os seus dados. Esta ação</value></data>
+    <data name="YES_DELETE_ACCOUNT_BTN" xml:space="preserve"><value>Sim, Excluir Minha Conta</value></data>
+    <data name="DELETE_ACCOUNT_ERROR" xml:space="preserve"><value>Não foi possível excluir a conta. Tente novamente.</value></data>
+</root>

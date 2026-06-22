@@ -1,0 +1,79 @@
+@using Kanban.App.Pages.Login.Components.FormLoginUser
+@using Kanban.App.Pages.Login.Components.FormRegisterUser
+@using Kanban.App.Pages.Login.Components.FormResetPassword
+@using Kanban.App.Pages.Login.Components.KanbanShowcase
+@using Kanban.App.Components.AddSetLanguage
+
+<PageTitle>@PageTitle — Kanban</PageTitle>
+
+<div class="auth-layout">
+    <div class="auth-panel">
+        <div class="auth-card">
+            <div class="auth-card-header">
+                <h1 class="auth-title">@CardTitle</h1>
+                <AddSetLanguage/>
+            </div>
+
+            @if (_mode == AuthMode.Register)
+            {
+                <FormRegisterUser OnFeedbacksChanged="@(feedbacks => _listFeedbacks = feedbacks)"/>
+            }
+            else if (_mode == AuthMode.Reset)
+            {
+                <FormResetPassword OnFeedbacksChanged="@(feedbacks => _listFeedbacks = feedbacks)"
+                                   OnBackToLogin="@GoToLogin"/>
+            }
+            else
+            {
+                <FormLoginUser OnFeedbacksChanged="@(feedbacks => _listFeedbacks = feedbacks)"/>
+            }
+
+            @if (_listFeedbacks.Any())
+            {
+                <ul class="auth-error">
+                    @foreach (string feedback in _listFeedbacks)
+                    {
+                        <li>@feedback</li>
+                    }
+                </ul>
+            }
+
+            @if (_mode == AuthMode.Register)
+            {
+                <p class="auth-switch-text">
+                    @LoginLocalizer[name: "ALREADY_HAVE_ACCOUNT"]
+                    <button type="button" class="auth-switch-link" @onclick="@GoToLogin">@LoginLocalizer[name: "LOGIN"]</button>
+                </p>
+            }
+
+            @if (_mode == AuthMode.Login)
+            {
+                <p class="auth-switch-text">
+                    @LoginLocalizer[name: "DONT_HAVE_ACCOUNT"]
+                    <button type="button" class="auth-switch-link" @onclick="@GoToRegister">@LoginLocalizer[name: "SIGN_UP"]</button>
+                </p>
+                
+                <p class="auth-switch-text">
+                    <button type="button" class="auth-switch-link" @onclick="@GoToReset">@LoginLocalizer[name: "RESET_FORGOT_PASSWORD"]</button>
+                </p>
+            }
+
+            @if (_mode == AuthMode.Reset)
+            {
+                <p class="auth-switch-text">
+                    @LoginLocalizer[name: "ALREADY_HAVE_ACCOUNT"]
+                    <button type="button" class="auth-switch-link" @onclick="@GoToLogin">@LoginLocalizer[name: "LOGIN"]</button>
+                </p>
+
+                <p class="auth-switch-text">
+                    @LoginLocalizer[name: "DONT_HAVE_ACCOUNT"]
+                    <button type="button" class="auth-switch-link" @onclick="@GoToRegister">@LoginLocalizer[name: "SIGN_UP"]</button>
+                </p>
+            }
+        </div>
+    </div>
+
+    <div class="auth-showcase">
+        <KanbanShowcase/>
+    </div>
+</div>

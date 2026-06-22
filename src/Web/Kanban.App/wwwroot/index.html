@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Kanban</title>
+    <base href="/"/>
+    <link rel="preload" id="webassembly"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="css/app.css"/>
+    <link rel="icon" type="image/svg" href="favicon.svg"/>
+    <link href="Kanban.App.styles.css" rel="stylesheet"/>
+    <script type="importmap"></script>
+</head>
+
+<body>
+<div id="app">
+    <div id="app-loader">
+        <div class="loader-inner">
+            <div class="loader-logo">
+                <svg width="30" height="31" xmlns="http://www.w3.org/2000/svg">
+                    <g fill="#635FC7" fill-rule="evenodd">
+                        <rect width="7.5" height="31" rx="2.5"/>
+                        <rect x="11.25" y="0" width="7.5" height="23.5" rx="2.5"/>
+                        <rect x="22.5" y="0" width="7.5" height="15" rx="2.5"/>
+                    </g>
+                </svg>
+                <span class="loader-logo-text">kanban</span>
+            </div>
+            <div class="loader-bar-wrap">
+                <div class="loader-bar-fill"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="blazor-error-ui">
+    An unhandled error has occurred.
+    <a href="." class="reload">Reload</a>
+    <span class="dismiss">🗙</span>
+</div>
+<script src="_content/Kanban.Adapter/Auth/authCookies.js"></script>
+<script src="_framework/blazor.webassembly#[.{fingerprint}].js"></script>
+</body>
+
+</html>
