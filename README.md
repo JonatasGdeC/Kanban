@@ -94,7 +94,7 @@ src
 
 ## Executando Localmente
 
-> É necessário ter o PostgreSQL instalado e rodando na máquina para executar a API localmente.
+> É necessário ter o [PostgreSQL](https://www.postgresql.org/download/) instalado e rodando na máquina para executar a API localmente.
 
 
 ### Clonar o repositório
