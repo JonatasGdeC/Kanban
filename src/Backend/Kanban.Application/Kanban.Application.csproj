@@ -7,9 +7,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Kanban.Communication\Kanban.Communication.csproj" />
+      <ProjectReference Include="..\..\Shared\Kanban.Communication\Kanban.Communication.csproj" />
+      <ProjectReference Include="..\..\Shared\Kanban.Exception\Kanban.Exception.csproj" />
       <ProjectReference Include="..\Kanban.Domain\Kanban.Domain.csproj" />
-      <ProjectReference Include="..\Kanban.Exception\Kanban.Exception.csproj" />
     </ItemGroup>
 
     <ItemGroup>
