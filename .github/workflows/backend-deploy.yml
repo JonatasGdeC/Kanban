@@ -18,7 +18,7 @@ on:
       - '.github/workflows/backend-deploy.yml'
     
 env:
-  IMAGE_NAME: ghcr.io/${{ github.repository }}/kanban-api
+  IMAGE_NAME: ghcr.io/jonatasgdec/kanban/kanban-api
 
 jobs:
   build-and-test:
