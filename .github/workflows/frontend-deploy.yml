@@ -1,0 +1,96 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'src/Web/**'
+      - 'src/Shared/**'
+      - '.github/workflows/frontend-deploy.yml'
+
+  pull_request:
+    branches:
+      - master
+    paths:
+      - 'src/Web/**'
+      - 'src/Shared/**'
+      - '.github/workflows/frontend-deploy.yml'
+
+jobs:
+  build:
+    name: Build Frontend
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Restore
+        run: dotnet restore src/Web/Kanban.App/Kanban.App.csproj
+
+      - name: Build
+        run: dotnet build src/Web/Kanban.App/Kanban.App.csproj --configuration Release --no-restore
+
+  deploy:
+    name: Deploy to Vercel
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Restore
+        run: dotnet restore src/Web/Kanban.App/Kanban.App.csproj
+
+      - name: Create production appsettings
+        run: |
+          mkdir -p src/Web/Kanban.App/wwwroot
+          cat > src/Web/Kanban.App/wwwroot/appsettings.Production.json << EOF
+          {
+            "ApiBaseUrl": "${{ secrets.FRONTEND_API_BASE_URL }}"
+          }
+          EOF
+
+      - name: Publish
+        run: dotnet publish src/Web/Kanban.App/Kanban.App.csproj -c Release -o publish
+
+      - name: Add Vercel files
+        run: |
+          cat > publish/wwwroot/vercel.json << 'EOF'
+          {
+            "rewrites": [
+              {
+                "source": "/(.*)",
+                "destination": "/index.html"
+              }
+            ]
+          }
+          EOF
+
+          mkdir -p publish/wwwroot/.vercel
+
+          cat > publish/wwwroot/.vercel/project.json << EOF
+          {
+            "orgId": "${{ secrets.FRONTEND_VERCEL_ORG_ID }}",
+            "projectId": "${{ secrets.FRONTEND_VERCEL_PROJECT_ID }}"
+          }
+          EOF
+
+      - name: Deploy to Vercel
+        run: |
+          npm install -g vercel
+          cd publish/wwwroot
+          vercel deploy --prod --yes --token=${{ secrets.FRONTEND_VERCEL_TOKEN }}
