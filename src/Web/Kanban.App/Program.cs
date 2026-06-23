@@ -1,4 +1,6 @@
 using System.Globalization;
+using Fluxor;
+using Fluxor.Blazor.Web.ReduxDevTools;
 using Kanban.Adapter;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -20,6 +22,12 @@ builder.Services.AddScoped<SubTaskUseState>();
 builder.Services.AddScoped<DragTaskState>();
 builder.Services.AddScoped<DragColumnState>();
 
+builder.Services.AddFluxor(configure: options =>
+{
+    options.ScanAssemblies(assemblyToScan: typeof(Program).Assembly);
+    options.UseReduxDevTools();
+});
+
 builder.Services.AddAdapter(builder: builder);
 
 WebAssemblyHost host = builder.Build();
@@ -30,4 +38,4 @@ CultureInfo culture = new(name: cultureName);
 CultureInfo.DefaultThreadCurrentCulture = culture;
 CultureInfo.DefaultThreadCurrentUICulture = culture;
 
-await builder.Build().RunAsync();
+await host.RunAsync();

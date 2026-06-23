@@ -16,10 +16,14 @@ public class TaskUseState : UseStateOnChange
     public void Set(Guid columnId, List<TaskDto> tasks)
     {
         foreach ((Guid columnId, Guid taskId) key in _listTasks.Keys.Where(predicate: k => k.columnId == columnId).ToList())
+        {
             _listTasks.Remove(key: key);
+        }
 
         foreach (TaskDto task in tasks)
+        {
             _listTasks[key: (columnId, task.Id)] = task;
+        }
 
         Notify();
     }

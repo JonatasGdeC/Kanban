@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 
 namespace Kanban.App.Layout.MainLayout;
 
-public partial class MainLayout : IDisposable
+public partial class MainLayout
 {
     private BoardDto? _board;
     private bool _isAuthenticated;

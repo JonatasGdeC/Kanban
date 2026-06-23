@@ -72,7 +72,9 @@ public partial class EditTask
             bool isChangingColumn = _taskRequest.ColumnId != Task.ColumnId;
 
             if (isChangingColumn)
+            {
                 _taskRequest.Order = TaskUseState.List(columnId: _taskRequest.ColumnId).Count;
+            }
 
             await TaskServiceApi.Update(id: Task.Id, request: _taskRequest);
 

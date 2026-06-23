@@ -1,4 +1,5 @@
 @using Kanban.App.Components.AddSetLanguage
+@inherits FluxorComponent
 
 <header class="app-header">
     <div class="header-mobile-logo">
@@ -6,17 +7,19 @@
     </div>
 
     <div class="header-board-name-wrapper" @onclick="@(() => _mobileSidebar = !_mobileSidebar)">
-        <h1 class="header-board-name">@(CurrentBoard?.Name ?? "Kanban")</h1>
+        <h1 class="header-board-name">
+            @(BoardState.Value.Board != null ? BoardState.Value.Board.Name : "Kanban")
+        </h1>
         <AddIcon Name="KanbanIcon.ChevronDown" CssClass="@($"header-chevron {(_mobileSidebar ? "header-chevron--up" : "")}")"/>
     </div>
 
     <div class="header-actions">
         <AddSetLanguage/>
-        <button class="btn-add-task" disabled="@(CurrentBoard == null)"
+        <button class="btn-add-task" disabled="@(BoardState.Value.Board == null)"
                 @onclick="@(() => ModalUseState.Open(dialog: ModalUseState.ModalType.AddTask))">
             <span class="btn-add-task-text">@DefaultLocalizer[name: "HEADER_ADD_TASK"]</span>
         </button>
-        <button class="btn-ellipsis" disabled="@(CurrentBoard == null)" @onclick="@(() => ModalUseState.Open(dialog: ModalUseState.ModalType.BoardOptions))" title="@DefaultLocalizer[name: "HEADER_BOARD_OPTIONS"]">
+        <button class="btn-ellipsis" disabled="@(BoardState.Value.Board == null)" @onclick="@(() => ModalUseState.Open(dialog: ModalUseState.ModalType.BoardOptions))" title="@DefaultLocalizer[name: "HEADER_BOARD_OPTIONS"]">
             <AddIcon Name="KanbanIcon.EllipsisVertical"/>
         </button>
     </div>

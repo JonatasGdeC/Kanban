@@ -23,7 +23,11 @@ public partial class AddSetLanguage
 
     private async Task NavigateToCulture(string culture)
     {
-        if (_currentCulture == culture) return;
+        if (_currentCulture == culture)
+        {
+            return;
+        }
+
         await JsRuntime.InvokeVoidAsync(identifier: "localStorage.setItem", args: ["culture", culture]);
         NavigationManager.NavigateTo(uri: NavigationManager.Uri, forceLoad: true);
     }

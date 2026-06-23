@@ -43,7 +43,11 @@ public partial class ColumnContainer : IDisposable
 
     private void OnDragOverTask(int index)
     {
-        if (!DragTaskState.IsDragging) return;
+        if (!DragTaskState.IsDragging)
+        {
+            return;
+        }
+
         _dropIndex = index;
     }
 
@@ -55,10 +59,15 @@ public partial class ColumnContainer : IDisposable
             return;
         }
 
-        if (!DragTaskState.IsDragging) return;
+        if (!DragTaskState.IsDragging)
+        {
+            return;
+        }
 
         if (_dropIndex == -1)
+        {
             _dropIndex = 0;
+        }
     }
 
     private async Task HandleDrop()
@@ -70,7 +79,10 @@ public partial class ColumnContainer : IDisposable
             return;
         }
 
-        if (!DragTaskState.IsDragging) return;
+        if (!DragTaskState.IsDragging)
+        {
+            return;
+        }
 
         TaskDto dragged = DragTaskState.DraggingTask!;
         Guid sourceColumnId = DragTaskState.SourceColumnId;

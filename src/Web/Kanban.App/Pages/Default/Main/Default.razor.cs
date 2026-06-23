@@ -1,3 +1,4 @@
+using Kanban.App.FluxorState.Action.Board;
 using Kanban.App.UseState;
 using Kanban.Communication.Dtos;
 using Kanban.Communication.Requests.Column;
@@ -16,13 +17,13 @@ public partial class Default : IDisposable
     private Guid? _currentBoardId;
     private bool _isBoardLoading = true;
 
-    protected override void OnInitialized()
-    {
-        BoardUseState.OnChange += StateHasChanged;
-        ColumnUseState.OnChange += StateHasChanged;
-        ModalUseState.Board = _currentBoard;
-        ModalUseState.Columns = CurrentColumns;
-    }
+    // protected override void OnInitialized()
+    // {
+    //     BoardUseState.OnChange += StateHasChanged;
+    //     ColumnUseState.OnChange += StateHasChanged;
+    //     ModalUseState.Board = _currentBoard;
+    //     ModalUseState.Columns = CurrentColumns;
+    // }
 
     protected override async Task OnParametersSetAsync()
     {
@@ -34,18 +35,19 @@ public partial class Default : IDisposable
             {
                 ClearUseStates();
                 
-                GetBoardByIdResponse? response = await BoardServiceApi.GetById(id: BoardId.Value);
-                if (response != null)
-                {
-                    _currentBoard = response.Board;
-                    BoardUseState.Set(board: response.Board);
-                    ColumnUseState.Set(boardId: _currentBoard.Id, columns: response.Columns);
-
-                    ModalUseState.Board = response.Board;
-                    ModalUseState.Columns = response.Columns;
-                }
-
+                Dispatcher.Dispatch(action: new LoadBoardAction(BoardId: BoardId.Value));
                 _currentBoardId = BoardId;
+
+                // GetBoardByIdResponse? response = await BoardServiceApi.GetById(id: BoardId.Value);
+                // if (response != null)
+                // {
+                //     _currentBoard = response.Board;
+                //     BoardUseState.Set(board: response.Board);
+                //     ColumnUseState.Set(boardId: _currentBoard.Id, columns: response.Columns);
+                //
+                //     ModalUseState.Board = response.Board;
+                //     ModalUseState.Columns = response.Columns;
+                // }
             }
         }
         catch { /* silently ignore load errors */ }
@@ -57,17 +59,26 @@ public partial class Default : IDisposable
 
     private async Task OnColumnDrop()
     {
-        if (!DragColumnState.IsDragging || !BoardId.HasValue) return;
+        if (!DragColumnState.IsDragging || !BoardId.HasValue)
+        {
+            return;
+        }
 
         ColumnDto dragged = DragColumnState.DraggingColumn!;
         Guid? hoveredId = DragColumnState.HoveredColumnId;
 
         DragColumnState.Clear();
 
-        if (hoveredId == null || hoveredId == dragged.Id) return;
+        if (hoveredId == null || hoveredId == dragged.Id)
+        {
+            return;
+        }
 
         ColumnDto? target = CurrentColumns.FirstOrDefault(predicate: c => c.Id == hoveredId);
-        if (target == null) return;
+        if (target == null)
+        {
+            return;
+        }
 
         // Swap otimista no state
         ColumnUseState.Set(boardId: BoardId.Value, column: dragged with { Order = target.Order });

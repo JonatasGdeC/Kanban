@@ -1,10 +1,13 @@
-using Kanban.Communication.Dtos;
+using Fluxor;
+using Fluxor.Blazor.Web.Components;
+using Kanban.App.FluxorState.State.Board;
 using Microsoft.AspNetCore.Components;
 
 namespace Kanban.App.Layout.HeaderLayout;
 
-public partial class HeaderLayout
+public partial class HeaderLayout : FluxorComponent
 {
-    [Parameter] public BoardDto? CurrentBoard { get; set; }
+    [Inject] private IState<BoardState> BoardState { get; set; } = default!;
+
     private bool _mobileSidebar;
 }
