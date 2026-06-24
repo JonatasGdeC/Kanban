@@ -1,5 +1,6 @@
 using Fluxor.Blazor.Web.Components;
-using Kanban.App.FluxorState.Action.Board.GetAll;
+using Kanban.App.FluxorState.Board.Action;
+using Kanban.Communication.Responses.Board;
 using Microsoft.AspNetCore.Components;
 
 namespace Kanban.App.Layout.NavMenu;
@@ -11,10 +12,20 @@ public partial class NavMenu : FluxorComponent
 
     private bool _sidebarVisible = true;
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        base.OnInitialized();
+        await base.OnInitializedAsync();
         Dispatcher.Dispatch(action: new GetAllBoardsAction());
+
+        try
+        {
+            GetAllBoardsResponse? response = await BoardServiceApi.GetAll();
+            if (response != null)
+            {
+                Dispatcher.Dispatch(action: new GetAllBoardsSuccessAction(Boards: response.ListBoards));
+            }
+        }
+        catch { /* ignored */ }
     }
 
     private void NavigateToBoard(Guid boardId)

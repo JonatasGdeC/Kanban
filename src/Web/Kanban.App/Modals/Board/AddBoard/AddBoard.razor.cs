@@ -1,4 +1,5 @@
 using Kanban.Adapter.Exceptions;
+using Kanban.App.FluxorState.Board.Action;
 using Kanban.Communication.Dtos;
 using Kanban.Communication.Requests.Board;
 using Kanban.Communication.Requests.Column;
@@ -9,28 +10,26 @@ using System.Threading.Tasks;
 public partial class AddBoard
 {
     private bool _isSubmitting;
-    private List<string> _listFeedbacks = [];
     private readonly RegisterBoardRequest _boardRequest = new() { Name = string.Empty };
     private readonly List<RegisterColumnRequest> _columnRegisterRequest = [];
+    private List<string> _listFeedbacks = [];
 
     private async Task HandleSubmitBoard()
     {
         _isSubmitting = true;
-        _listFeedbacks = [];
 
         try
         {
             BoardDto board = await BoardServiceApi.Register(board: _boardRequest);
+            Dispatcher.Dispatch(action: new RegisterBoardSuccessAction(Board: board));
 
             foreach (RegisterColumnRequest request in _columnRegisterRequest)
             {
-                ColumnDto column = await ColumnServiceApi.Register(boardId: board.Id, request: request);
-                ColumnUseState.Set(boardId: board.Id, column: column);
+                // ColumnDto column = await ColumnServiceApi.Register(boardId: board.Id, request: request);
+                // ColumnUseState.Set(boardId: board.Id, column: column);
             }
 
             NavigationManager.NavigateTo(uri: $"/{board.Id}");
-            ModalUseState.Board = board;
-            ModalUseState.Columns = ColumnUseState.List(boardId: board.Id).ToList();
             ModalUseState.Close();
         }
         catch (ApiException exception) when (exception.ErrorMessages.Count > 0)

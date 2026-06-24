@@ -27,7 +27,7 @@
             <div class="mobile-overlay" @onclick="@(() => _mobileSidebar = false)">
                 <div class="mobile-sidebar-modal" @onclick:stopPropagation>
                     <p class="sidebar-boards-label" style="padding:16px 24px 0; margin-bottom:16px;">
-                        ALL BOARDS (@BoardUseState.List().Count)
+                        ALL BOARDS (@BoardListState.Value.Boards.Count)
                     </p>
                     <ul class="board-nav-list" style="padding-right:0; margin-bottom:8px;">
                     </ul>

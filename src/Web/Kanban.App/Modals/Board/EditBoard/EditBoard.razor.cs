@@ -1,7 +1,6 @@
 
 using Kanban.Adapter.Exceptions;
-
-
+using Kanban.App.FluxorState.Board.Action;
 using Kanban.Communication.Dtos;
 using Kanban.Communication.Requests.Board;
 using Kanban.Communication.Requests.Column;
@@ -12,7 +11,7 @@ using System.Threading.Tasks;
 
 public partial class EditBoard
 {
-    private BoardDto Board => ModalUseState.Board!;
+    private BoardDto Board => BoardState.Value.Board!;
     private List<ColumnDto> Columns => ModalUseState.Columns;
 
     private bool _isSubmitting;
@@ -70,6 +69,7 @@ public partial class EditBoard
                 Id = Board.Id,
                 Name = _boardRequest.Name
             };
+            Dispatcher.Dispatch(action: new UpdateBoardSuccessAction(Board: updateBoard));
 
             int order = 0;
             foreach ((Guid id, UpdateColumnRequest req) in _columnUpdateRequest)

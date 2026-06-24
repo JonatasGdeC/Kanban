@@ -1,9 +1,9 @@
 using Fluxor.Blazor.Web.Components;
-using Kanban.App.FluxorState.Action.Board;
-using Kanban.App.FluxorState.Action.Board.GetById;
+using Kanban.App.FluxorState.Board.Action;
 using Kanban.App.UseState;
 using Kanban.Communication.Dtos;
 using Kanban.Communication.Requests.Column;
+using Kanban.Communication.Responses.Board;
 using Microsoft.AspNetCore.Components;
 
 namespace Kanban.App.Pages.Default.Main;
@@ -16,23 +16,22 @@ public partial class Default : FluxorComponent
 
     private Guid? _currentBoardId;
 
-    protected override void OnParametersSet()
+    protected override async Task OnParametersSetAsync()
     {
         if (BoardId.HasValue && BoardId.Value != _currentBoardId)
         {
-            Dispatcher.Dispatch(action: new GetBoardByIdAction(BoardId: BoardId.Value));
             _currentBoardId = BoardId;
+            Dispatcher.Dispatch(action: new GetBoardByIdAction(BoardId: BoardId.Value));
 
-            // GetBoardByIdResponse? response = await BoardServiceApi.GetById(id: BoardId.Value);
-            // if (response != null)
-            // {
-            //     _currentBoard = response.Board;
-            //     BoardUseState.Set(board: response.Board);
-            //     ColumnUseState.Set(boardId: _currentBoard.Id, columns: response.Columns);
-            //
-            //     ModalUseState.Board = response.Board;
-            //     ModalUseState.Columns = response.Columns;
-            // }
+            try
+            {
+                GetBoardByIdResponse? response = await BoardServiceApi.GetById(id: BoardId.Value);
+                if (response?.Board != null)
+                {
+                    Dispatcher.Dispatch(action: new GetBoardByIdSuccessAction(Board: response.Board));
+                }
+            }
+            catch { /* ignored */ }
         }
     }
 
