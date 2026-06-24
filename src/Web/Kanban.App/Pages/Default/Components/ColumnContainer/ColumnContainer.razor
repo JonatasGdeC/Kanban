@@ -1,6 +1,7 @@
 @using Kanban.App.Components.AddLoading
 @using Kanban.App.Pages.Default.Components.TaskCard
 @using Kanban.Communication.Dtos
+@inherits FluxorComponent
 
 <div class="column @(DragColumnState.IsDragging && DragColumnState.HoveredColumnId == Column.Id && DragColumnState.DraggingColumn?.Id != Column.Id ? "column--swap-target" : string.Empty) @(DragColumnState.DraggingColumn?.Id == Column.Id ? "column--dragging" : string.Empty)"
      @ondragover:preventDefault
@@ -14,14 +15,12 @@
          @ondragend="@OnColumnDragEnd"
          @ondragend:stopPropagation>
         <span class="column-dot" style="background-color:@Column.Color"></span>
-        <span class="column-name">@Column.Name (@TaskUseState.List(columnId: Column.Id).Count)</span>
+        <span class="column-name">@Column.Name (@TaskListState.Value.Tasks.Count)</span>
     </div>
 
-    @{ List<TaskDto> tasks = TaskUseState.List(columnId: Column.Id).OrderBy(keySelector: t => t.Order).ToList(); }
-
-    @for (int i = 0; i < tasks.Count; i++)
+    @for (int i = 0; i < TaskListState.Value.Tasks.Count; i++)
     {
-        TaskDto task = tasks[index: i];
+        TaskDto task = TaskListState.Value.Tasks[index: i];
         int index = i;
 
         <div class="drop-zone @(_dropIndex == index && DragTaskState.IsDragging ? "drop-zone--active" : string.Empty)"
@@ -33,9 +32,9 @@
         <TaskCard Task="@task" ColumnId="@Column.Id"/>
     }
 
-    <div class="drop-zone @(_dropIndex == tasks.Count && DragTaskState.IsDragging ? "drop-zone--active" : string.Empty)"
+    <div class="drop-zone @(_dropIndex == TaskListState.Value.Tasks.Count && DragTaskState.IsDragging ? "drop-zone--active" : string.Empty)"
          @ondragover:preventDefault
-         @ondragover="@(() => OnDragOverTask(index: tasks.Count))"
+         @ondragover="@(() => OnDragOverTask(index: TaskListState.Value.Tasks.Count))"
          @ondragover:stopPropagation>
     </div>
     

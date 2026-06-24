@@ -1,7 +1,7 @@
 <div class="modal" @onclick:stopPropagation>
     <h2 class="modal-title modal-title--danger" style="margin-bottom:24px;">@ModalLocalizer[name: "DELETE_TASK_TITLE"]</h2>
     <p class="modal-body-text">
-        @ModalLocalizer[name: "DELETE_CONFIRM_PRE"] '<strong>@ModalUseState.Task?.Name</strong>' @ModalLocalizer[name: "DELETE_TASK_CONFIRM_POST"]
+        @ModalLocalizer[name: "DELETE_CONFIRM_PRE"] '<strong>@TaskState.Value.Task</strong>' @ModalLocalizer[name: "DELETE_TASK_CONFIRM_POST"]
     </p>
     <div class="modal-btn-row">
         <button type="button" class="btn-modal-danger"

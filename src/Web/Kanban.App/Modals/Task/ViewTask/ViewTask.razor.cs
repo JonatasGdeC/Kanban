@@ -1,4 +1,6 @@
 using Kanban.Adapter.Exceptions;
+using Kanban.App.FluxorState.SubTask.Action;
+using Kanban.App.FluxorState.Task.Action;
 using Kanban.Communication.Dtos;
 using Kanban.Communication.Requests.SubTask;
 using Kanban.Communication.Requests.Task;
@@ -40,7 +42,7 @@ public partial class ViewTask
             IsDone = !sub.IsDone
         };
         
-        SubTaskUseState.Set(taskId: Task.Id, subTask: subTaskUpdate);
+        Dispatcher.Dispatch(action: new UpdateSubTaskSuccessAction(SubTask: subTaskUpdate));
     }
 
     private async Task HandleUpdateTaskStatus(ChangeEventArgs e)
@@ -49,7 +51,7 @@ public partial class ViewTask
 
         try
         {
-            int newOrder = TaskUseState.List(columnId: newColumnId).Count;
+            int newOrder = TaskListState.Value.Tasks.Count;
 
             await TaskServiceApi.Update(id: Task.Id, request: new UpdateTaskRequest
             {
@@ -68,8 +70,7 @@ public partial class ViewTask
                 ColumnId = newColumnId
             };
 
-            TaskUseState.Remove(columnId: Task.ColumnId, itemId: taskUpdate.Id);
-            TaskUseState.Set(columnId: taskUpdate.ColumnId, task: taskUpdate);
+            Dispatcher.Dispatch(action: new UpdateTaskSuccessAction(Task: taskUpdate));
             _columnId = newColumnId;
         }
         catch (ApiException exception) when (exception.ErrorMessages.Count > 0)

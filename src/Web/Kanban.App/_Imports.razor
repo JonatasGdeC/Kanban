@@ -26,6 +26,8 @@
 @using Kanban.App.Components.AddIcon
 @using Kanban.App.FluxorState.Board.State
 @using Kanban.App.FluxorState.Column.State
+@using Kanban.App.FluxorState.SubTask.State
+@using Kanban.App.FluxorState.Task.State
 @using Kanban.App.Resource
 @using Kanban.App.Resource.Login
 @using Kanban.App.Resource.Default
@@ -44,8 +46,6 @@
 @inject TaskServiceApi TaskServiceApi
 @inject SubTaskServiceApi SubTaskServiceApi
 
-@inject TaskUseState TaskUseState
-@inject SubTaskUseState SubTaskUseState
 @inject ModalUseState ModalUseState
 @inject DragTaskState DragTaskState
 @inject DragColumnState DragColumnState
@@ -56,3 +56,6 @@
 @inject IState<BoardListState> BoardListState
 @inject IState<ColumnState> ColumnState
 @inject IState<ColumnListState> ColumnListState
+@inject IState<TaskState> TaskState
+@inject IState<TaskListState> TaskListState
+@inject IState<SubTaskListState> SubTaskListState

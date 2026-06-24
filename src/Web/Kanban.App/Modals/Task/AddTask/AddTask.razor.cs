@@ -1,4 +1,7 @@
 using Kanban.Adapter.Exceptions;
+using Kanban.App.FluxorState.SubTask.Action;
+using Kanban.App.FluxorState.Task.Action;
+using Kanban.App.UseState;
 using Kanban.Communication.Dtos;
 using Kanban.Communication.Requests.SubTask;
 using Kanban.Communication.Requests.Task;
@@ -8,7 +11,7 @@ using System.Threading.Tasks;
 
 public partial class AddTask
 {
-    private List<ColumnDto> Columns => ModalUseState.Columns;
+    private List<ColumnDto> Columns => ColumnListState.Value.Columns;
 
     private bool _isSubmitting;
     private List<string> _listFeedbacks = [];
@@ -29,12 +32,12 @@ public partial class AddTask
         try
         {
             TaskDto task = await TaskServiceApi.Register(columnId: _selectedColumnId, request: _registerTaskRequest);
-            TaskUseState.Set(columnId: _selectedColumnId, task: task);
-
+            Dispatcher.Dispatch(action: new RegisterTaskSuccessAction(Task: task));
+            
             foreach (RegisterSubTaskRequest subTaskRequest in _subTaskRegisterRequests)
             {
                 SubTaskDto subTask = await SubTaskServiceApi.Register(taskId: task.Id, request: subTaskRequest);
-                SubTaskUseState.Set(taskId: task.Id, subTask: subTask);
+                Dispatcher.Dispatch(action: new RegisterSubTaskSuccessAction(SubTask: subTask));
             }
 
             ModalUseState.Close();

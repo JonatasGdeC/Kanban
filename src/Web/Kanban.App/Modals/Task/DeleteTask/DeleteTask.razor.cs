@@ -1,4 +1,4 @@
-
+using Kanban.App.FluxorState.Task.Action;
 using Kanban.Communication.Dtos;
 
 namespace Kanban.App.Modals.Task.DeleteTask;
@@ -19,7 +19,7 @@ public partial class DeleteTask
         try
         {
             await TaskServiceApi.Delete(id: Task.Id);
-            TaskUseState.Remove(columnId: Task.ColumnId, itemId: Task.Id);
+            Dispatcher.Dispatch(action: new DeleteTaskSuccessAction(TaskId: Task.Id));
             ModalUseState.Close();
         }
         catch

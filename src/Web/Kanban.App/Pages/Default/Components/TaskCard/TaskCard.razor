@@ -1,13 +1,15 @@
+@inherits FluxorComponent
+
 <div class="task-card @(DragTaskState.DraggingTask?.Id == Task.Id ? "task-card--dragging" : string.Empty)"
      draggable="true"
      @ondragstart="@OnDragStart"
      @ondragend="@OnDragEnd"
      @onclick="@OpenViewTask">
     <p class="task-card-title">@Task.Name</p>
-    @if (SubTaskUseState.List(taskId: Task.Id).ToList().Any())
+    @if (SubTaskListState.Value.SubTasks.Any())
     {
         <p class="task-card-subtasks">
-            @SubTaskUseState.List(taskId: Task.Id).Count(predicate: s => s.IsDone) @DefaultLocalizer[name: "OF_LABEL"] @SubTaskUseState.List(taskId: Task.Id).ToList().Count @DefaultLocalizer[name: "SUBTASKS_COUNT"]
+            @SubTaskListState.Value.SubTasks.Count(predicate: st => st.IsDone) @DefaultLocalizer[name: "OF_LABEL"] @SubTaskListState.Value.SubTasks.Count @DefaultLocalizer[name: "SUBTASKS_COUNT"]
         </p>
     }
 </div>
