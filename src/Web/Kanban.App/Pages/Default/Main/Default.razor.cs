@@ -1,77 +1,72 @@
+using Fluxor.Blazor.Web.Components;
+using Kanban.App.FluxorState.Board.Action;
+using Kanban.App.FluxorState.Column.Action;
 using Kanban.App.UseState;
 using Kanban.Communication.Dtos;
 using Kanban.Communication.Requests.Column;
 using Kanban.Communication.Responses.Board;
+using Kanban.Communication.Responses.Column;
 using Microsoft.AspNetCore.Components;
 
 namespace Kanban.App.Pages.Default.Main;
 
-public partial class Default : IDisposable
+public partial class Default : FluxorComponent
 {
     [Parameter] public Guid? BoardId { get; set; }
-
-    private BoardDto? _currentBoard;
-    private List<ColumnDto> CurrentColumns => BoardId.HasValue ? ColumnUseState.List(boardId: BoardId.Value).ToList() : [];
-
+    
     private Guid? _currentBoardId;
-    private bool _isBoardLoading = true;
-
-    protected override void OnInitialized()
-    {
-        BoardUseState.OnChange += StateHasChanged;
-        ColumnUseState.OnChange += StateHasChanged;
-        ModalUseState.Board = _currentBoard;
-        ModalUseState.Columns = CurrentColumns;
-    }
 
     protected override async Task OnParametersSetAsync()
     {
-        _isBoardLoading = true;
-      
-        try
+        if (BoardId.HasValue && BoardId.Value != _currentBoardId)
         {
-            if (BoardId.HasValue && BoardId.Value != _currentBoardId)
+            _currentBoardId = BoardId;
+            Dispatcher.Dispatch(action: new GetBoardByIdAction(BoardId: BoardId.Value));
+
+            try
             {
-                ClearUseStates();
-                
-                GetBoardByIdResponse? response = await BoardServiceApi.GetById(id: BoardId.Value);
-                if (response != null)
+                GetBoardByIdResponse? getBoardByIdResponse = await BoardServiceApi.GetById(id: BoardId.Value);
+                if (getBoardByIdResponse?.Board != null)
                 {
-                    _currentBoard = response.Board;
-                    BoardUseState.Set(board: response.Board);
-                    ColumnUseState.Set(boardId: _currentBoard.Id, columns: response.Columns);
-
-                    ModalUseState.Board = response.Board;
-                    ModalUseState.Columns = response.Columns;
+                    Dispatcher.Dispatch(action: new GetBoardByIdSuccessAction(Board: getBoardByIdResponse.Board));
+                    
+                    Dispatcher.Dispatch(action: new GetAllColumnsAction(BoardId: _currentBoardId.Value));
+                    GetAllColumnsResponse? getAllColumnsResponse = await ColumnServiceApi.GetAll(boardId: _currentBoardId.Value);
+                    if (getAllColumnsResponse != null)
+                    {
+                        Dispatcher.Dispatch(action: new GetAllColumnsSuccessAction(Columns: getAllColumnsResponse.ListColumns));
+                    }
                 }
-
-                _currentBoardId = BoardId;
             }
-        }
-        catch { /* silently ignore load errors */ }
-        finally
-        {
-            _isBoardLoading = false;
+            catch { /* ignored */ }
         }
     }
 
     private async Task OnColumnDrop()
     {
-        if (!DragColumnState.IsDragging || !BoardId.HasValue) return;
+        if (!DragColumnState.IsDragging || !BoardId.HasValue)
+        {
+            return;
+        }
 
         ColumnDto dragged = DragColumnState.DraggingColumn!;
         Guid? hoveredId = DragColumnState.HoveredColumnId;
 
         DragColumnState.Clear();
 
-        if (hoveredId == null || hoveredId == dragged.Id) return;
+        if (hoveredId == null || hoveredId == dragged.Id)
+        {
+            return;
+        }
 
-        ColumnDto? target = CurrentColumns.FirstOrDefault(predicate: c => c.Id == hoveredId);
-        if (target == null) return;
+        ColumnDto? target = ColumnListState.Value.Columns.FirstOrDefault(predicate: c => c.Id == hoveredId);
+        if (target == null)
+        {
+            return;
+        }
 
-        // Swap otimista no state
-        ColumnUseState.Set(boardId: BoardId.Value, column: dragged with { Order = target.Order });
-        ColumnUseState.Set(boardId: BoardId.Value, column: target with { Order = dragged.Order });
+        Dispatcher.Dispatch(action: new UpdateColumnSuccessAction(Column: dragged with { Order = target.Order }));
+        Dispatcher.Dispatch(action: new UpdateColumnSuccessAction(Column: target with { Order = dragged.Order }));
 
         try
         {
@@ -84,29 +79,13 @@ public partial class Default : IDisposable
         }
         catch
         {
-            // Reverte o swap no state em caso de erro
-            ColumnUseState.Set(boardId: BoardId.Value, column: dragged with { Order = dragged.Order });
-            ColumnUseState.Set(boardId: BoardId.Value, column: target with { Order = target.Order });
+            Dispatcher.Dispatch(action: new UpdateColumnSuccessAction(Column: dragged with { Order = dragged.Order }));
+            Dispatcher.Dispatch(action: new UpdateColumnSuccessAction(Column: target with { Order = target.Order }));
         }
     }
 
     private void OpenEditBoard()
     {
-        ModalUseState.Board = _currentBoard;
-        ModalUseState.Columns = CurrentColumns;
         ModalUseState.Open(dialog: ModalUseState.ModalType.EditBoard);
-    }
-
-    private void ClearUseStates()
-    {
-        ColumnUseState.Clear();
-        TaskUseState.Clear();
-        SubTaskUseState.Clear();
-    }
-
-    public void Dispose()
-    {
-        BoardUseState.OnChange -= StateHasChanged;
-        ColumnUseState.OnChange -= StateHasChanged;
     }
 }

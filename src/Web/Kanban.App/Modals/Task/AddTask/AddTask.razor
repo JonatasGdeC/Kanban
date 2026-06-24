@@ -20,7 +20,7 @@
         {
             <div class="subtask-row">
                 <input class="form-input" type="text" placeholder="@ModalLocalizer[name: "SUBTASK_PLACEHOLDER"]" value="@subtaskRequest.Name"
-                       @onchange="@(e => subtaskRequest.Name = e.Value?.ToString() ?? "")"/>
+                       @onchange="@(e => subtaskRequest.Name = e.Value?.ToString() ?? string.Empty)"/>
                 <button type="button" class="btn-remove-subtask" @onclick="@(() => HandleRemoveSubTaskRequest(request: subtaskRequest))">
                     <AddIcon Name="KanbanIcon.Close"/>
                 </button>

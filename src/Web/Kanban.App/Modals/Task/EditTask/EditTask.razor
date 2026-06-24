@@ -21,7 +21,7 @@
         {
             <div class="subtask-row">
                 <input class="form-input" type="text" placeholder="@ModalLocalizer[name: "SUBTASK_PLACEHOLDER"]" value="@subTasks.Value.Name"
-                       @onchange="@(e => subTasks.Value.Name = e.Value?.ToString() ?? "")"
+                       @onchange="@(e => subTasks.Value.Name = e.Value?.ToString() ?? string.Empty)"
                        @onblur="@(() => SubmitUpdateSubTask(subTaskId: subTasks.Key, request: subTasks.Value))"/>
                 <button type="button" class="btn-remove-subtask" @onclick="@(() => HandleRemoveSubTask(subTaskId: subTasks.Key))">
                     <AddIcon Name="KanbanIcon.Close"/>
@@ -32,7 +32,7 @@
         @foreach (RegisterSubTaskRequest subTaskRegister in _subTaskRegisterRequests)
         {
             <div class="subtask-row">
-                <input class="form-input" type="text" placeholder="@ModalLocalizer[name: "SUBTASK_PLACEHOLDER"]" value="@subTaskRegister.Name" @onchange="@(e => subTaskRegister.Name = e.Value?.ToString() ?? "")"/>
+                <input class="form-input" type="text" placeholder="@ModalLocalizer[name: "SUBTASK_PLACEHOLDER"]" value="@subTaskRegister.Name" @onchange="@(e => subTaskRegister.Name = e.Value?.ToString() ?? string.Empty)"/>
                 <button type="button" class="btn-remove-subtask" @onclick="@(() => HandleRemoveRegisterSubTask(request: subTaskRegister))">
                     <AddIcon Name="KanbanIcon.Close"/>
                 </button>

@@ -1,4 +1,8 @@
 using Kanban.Adapter.Exceptions;
+using Kanban.App.FluxorState.Board.Action;
+using Kanban.App.FluxorState.SubTask.Action;
+using Kanban.App.FluxorState.Task.Action;
+using Kanban.App.UseState;
 using Kanban.Communication.Dtos;
 using Kanban.Communication.Requests.SubTask;
 using Kanban.Communication.Requests.Task;
@@ -14,7 +18,7 @@ public partial class EditTask
     
     private bool _isSubmitting;
     private List<string> _listFeedbacks = [];
-    private readonly UpdateTaskRequest _taskRequest = new() { Name = "" };
+    private readonly UpdateTaskRequest _taskRequest = new() { Name = string.Empty };
     private readonly Dictionary<Guid, UpdateSubTaskRequest> _subtaskUpdateRequest = new();
     private readonly List<RegisterSubTaskRequest> _subTaskRegisterRequests = [];
 
@@ -61,7 +65,7 @@ public partial class EditTask
     private async Task HandleRemoveSubTask(Guid subTaskId)
     {
         await SubTaskServiceApi.Delete(id: subTaskId);
-        SubTaskUseState.Remove(taskId: Task.Id, subTaskId: subTaskId);
+        Dispatcher.Dispatch(action: new DeleteSubTaskSuccessAction(SubTaskId: subTaskId));
         _subtaskUpdateRequest.Remove(key: subTaskId);
     }
 
@@ -72,10 +76,11 @@ public partial class EditTask
             bool isChangingColumn = _taskRequest.ColumnId != Task.ColumnId;
 
             if (isChangingColumn)
-                _taskRequest.Order = TaskUseState.List(columnId: _taskRequest.ColumnId).Count;
+            {
+                _taskRequest.Order = TaskListState.Value.Tasks.Count;
+            }
 
             await TaskServiceApi.Update(id: Task.Id, request: _taskRequest);
-
             TaskDto taskUpdate = new()
             {
                 Id = Task.Id,
@@ -84,9 +89,8 @@ public partial class EditTask
                 ColumnId = _taskRequest.ColumnId,
                 Order = _taskRequest.Order
             };
-
-            TaskUseState.Remove(columnId: Task.ColumnId, itemId: taskUpdate.Id);
-            TaskUseState.Set(columnId: taskUpdate.ColumnId, task: taskUpdate);
+            
+            Dispatcher.Dispatch(action: new UpdateTaskSuccessAction(Task: taskUpdate));
         }
         catch (ApiException exception) when (exception.ErrorMessages.Count > 0)
         {
@@ -105,7 +109,7 @@ public partial class EditTask
         try
         {
             SubTaskDto response = await SubTaskServiceApi.Register(taskId: Task.Id, request: request);
-            SubTaskUseState.Set(taskId: Task.Id, subTask: response);
+            Dispatcher.Dispatch(action: new RegisterSubTaskSuccessAction(TaskId: Task.Id,SubTask: response));
         }
         catch (ApiException exception) when (exception.ErrorMessages.Count > 0)
         {
@@ -120,7 +124,7 @@ public partial class EditTask
     }
 
     private void HandleRemoveRegisterSubTask(RegisterSubTaskRequest request) => _subTaskRegisterRequests.Remove(item: request);
-    private void HandleAddRegisterSubTask() => _subTaskRegisterRequests.Add(item: new RegisterSubTaskRequest { Name = "" });
+    private void HandleAddRegisterSubTask() => _subTaskRegisterRequests.Add(item: new RegisterSubTaskRequest { Name = string.Empty });
 
     private async Task SubmitUpdateSubTask(Guid subTaskId, UpdateSubTaskRequest request)
     {
@@ -133,7 +137,8 @@ public partial class EditTask
                 Name = request.Name,
                 IsDone = request.IsDone
             };
-            SubTaskUseState.Set(taskId: Task.Id, subTask: subTaskUpdate);
+            
+            Dispatcher.Dispatch(action: new UpdateSubTaskSuccessAction(SubTask: subTaskUpdate));
         }
         catch (ApiException exception) when (exception.ErrorMessages.Count > 0)
         {

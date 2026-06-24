@@ -3,17 +3,18 @@
 @using Kanban.App.Components.AddLoading
 @using Kanban.App.Pages.Default.Components.ColumnContainer
 @using Kanban.Communication.Dtos
+@inherits FluxorComponent
 
-<PageTitle>Kanban @(_currentBoard != null ? $"- {_currentBoard.Name}" : null)</PageTitle>
+<PageTitle>Kanban @(BoardState.Value.Board != null ? $"- {BoardState.Value.Board.Name}" : null)</PageTitle>
 
 <div class="columns-wrapper"
      @ondrop="@OnColumnDrop"
      @ondragover:preventDefault>
-    @if (_isBoardLoading)
+    @if (BoardState.Value.IsLoading)
     {
         <AddLoading/>
     }
-    else if (!CurrentColumns.Any())
+    else if (!ColumnListState.Value.Columns.Any())
     {
         if (_currentBoardId.HasValue)
         {
@@ -36,7 +37,7 @@
     }
     else
     {
-        @foreach (ColumnDto col in CurrentColumns.OrderBy(keySelector: c => c.Order))
+        @foreach (ColumnDto col in ColumnListState.Value.Columns.OrderBy(keySelector: c => c.Order))
         {
             <ColumnContainer Column="@col"/>
         }

@@ -1,27 +1,33 @@
+using Fluxor.Blazor.Web.Components;
+using Kanban.App.FluxorState.SubTask.Action;
 using Kanban.App.UseState;
 using Kanban.Communication.Dtos;
-using Kanban.Communication.Responses.Task;
+using Kanban.Communication.Responses.SubTask;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 
 namespace Kanban.App.Pages.Default.Components.TaskCard;
 
-public partial class TaskCard : IDisposable
+public partial class TaskCard : FluxorComponent
 {
     [Parameter] public required TaskDto Task { get; set; }
     [Parameter] public required Guid ColumnId { get; set; }
 
+    private List<SubTaskDto> TaskSubTasks =>
+        SubTaskListState.Value.SubTasksByTaskId.GetValueOrDefault(key: Task.Id, defaultValue: []);
+
     protected override async Task OnInitializedAsync()
     {
-        SubTaskUseState.OnChange += StateHasChanged;
+        await base.OnInitializedAsync();
 
         try
         {
-            GetTaskByIdResponse? response = await TaskServiceApi.GetById(id: Task.Id);
-            if (response != null)
+            Dispatcher.Dispatch(action: new GetAllSubTasksAction(TaskId: Task.Id));
+            GetAllSubTasksResponse? getAllSubTasksResponse = await SubTaskServiceApi.GetAll(taskId: Task.Id);
+
+            if (getAllSubTasksResponse != null)
             {
-                Task = response.Task;
-                SubTaskUseState.Set(taskId: Task.Id, subTasks: response.SubTasks);
+                Dispatcher.Dispatch(action: new GetAllSubTasksSuccessAction(TaskId: Task.Id, SubTasks: getAllSubTasksResponse.ListSubTasks));
             }
         }
         catch { /* silently ignore load errors */ }
@@ -45,12 +51,7 @@ public partial class TaskCard : IDisposable
         }
         
         ModalUseState.Task = Task;
-        ModalUseState.Subtasks = SubTaskUseState.List(taskId: Task.Id).ToList();
+        ModalUseState.Subtasks = TaskSubTasks;
         ModalUseState.Open(dialog: ModalUseState.ModalType.ViewTask);
-    }
-
-    public void Dispose()
-    {
-        SubTaskUseState.OnChange -= StateHasChanged;
     }
 }

@@ -3,7 +3,7 @@
         @for (int i = 0; i < _slides.Length; i++)
         {
             int idx = i;
-            <div class="showcase-slide @(_activeSlide == idx ? "showcase-slide--active" : "") @(_previousSlide == idx ? "showcase-slide--exit" : "")">
+            <div class="showcase-slide @(_activeSlide == idx ? "showcase-slide--active" : string.Empty) @(_previousSlide == idx ? "showcase-slide--exit" : string.Empty)">
                 <div class="showcase-board">
                     @foreach (ShowcaseColumn col in _slides[idx].Columns)
                     {
@@ -32,7 +32,7 @@
         @for (int i = 0; i < _slides.Length; i++)
         {
             int idx = i;
-            <button class="showcase-dot @(_activeSlide == idx ? "showcase-dot--active" : "")"
+            <button class="showcase-dot @(_activeSlide == idx ? "showcase-dot--active" : string.Empty)"
                     @onclick="@(() => GoTo(index: idx))"/>
         }
     </div>

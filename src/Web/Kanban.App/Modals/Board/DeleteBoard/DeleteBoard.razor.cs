@@ -1,4 +1,4 @@
-
+using Kanban.App.FluxorState.Board.Action;
 using Kanban.Communication.Dtos;
 
 namespace Kanban.App.Modals.Board.DeleteBoard;
@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 public partial class DeleteBoard
 {
-    private BoardDto Board => ModalUseState.Board!;
-
+    private BoardDto Board => BoardState.Value.Board!;
+    
     private bool _isSubmitting;
     private List<string> _listFeedbacks = [];
 
@@ -19,11 +19,10 @@ public partial class DeleteBoard
 
         try
         {
-            Guid currentBoardId = Board.Id;
-            
-            await BoardServiceApi.Delete(id: currentBoardId);
+            Guid boardId = Board.Id;
+            await BoardServiceApi.Delete(id: boardId);
+            Dispatcher.Dispatch(action: new DeleteBoardSuccessAction(BoardId: boardId));
             ModalUseState.Board = null;
-            BoardUseState.Remove(itemId: currentBoardId);
             NavigationManager.NavigateTo(uri: "/");
             ModalUseState.Close();
         }

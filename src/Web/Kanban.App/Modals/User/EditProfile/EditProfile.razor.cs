@@ -9,8 +9,8 @@ using System.Security.Claims;
 
 public partial class EditProfile
 {
-    private readonly UpdateUserRequest _profileRequest = new() { Name = "", Email = "" };
-    private readonly UpdatePasswordRequest _passwordRequest = new() { OldPassword = "", NewPassword = "" };
+    private readonly UpdateUserRequest _profileRequest = new() { Name = string.Empty, Email = string.Empty };
+    private readonly UpdatePasswordRequest _passwordRequest = new() { OldPassword = string.Empty, NewPassword = string.Empty };
     private string _confirmNewPassword = string.Empty;
 
     private bool _isSavingProfile;

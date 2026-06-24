@@ -1,3 +1,5 @@
+using Fluxor.Blazor.Web.Components;
+using Kanban.App.FluxorState.Task.Action;
 using Kanban.Communication.Dtos;
 using Kanban.Communication.Requests.Task;
 using Kanban.Communication.Responses.Task;
@@ -6,28 +8,37 @@ using Microsoft.AspNetCore.Components.Web;
 
 namespace Kanban.App.Pages.Default.Components.ColumnContainer;
 
-public partial class ColumnContainer : IDisposable
+public partial class ColumnContainer : FluxorComponent
 {
     [Parameter] public required ColumnDto Column { get; set; }
+
+    private List<TaskDto> ColumnTasks => TaskListState.Value.Tasks
+        .Where(predicate: t => t.ColumnId == Column.Id)
+        .OrderBy(keySelector: t => t.Order)
+        .ToList();
 
     private int _dropIndex = -1;
     private bool _isLoading = true;
 
     protected override async Task OnInitializedAsync()
     {
-        TaskUseState.OnChange += StateHasChanged;
-        ColumnUseState.OnChange += StateHasChanged;
+        await base.OnInitializedAsync();
 
         try
         {
+            Dispatcher.Dispatch(action: new GetAllTasksAction(ColumnId: Column.Id));
             GetAllTasksResponse? response = await TaskServiceApi.GetAll(columnId: Column.Id);
+
             if (response != null)
             {
-                TaskUseState.Set(columnId: Column.Id, tasks: response.ListTasks);
+                Dispatcher.Dispatch(action: new GetAllTasksSuccessAction(Tasks: response.ListTasks));
             }
         }
-        catch { /* silently ignore load errors */ }
-        
+        catch
+        {
+            /* silently ignore load errors */
+        }
+
         _isLoading = false;
     }
 
@@ -43,7 +54,11 @@ public partial class ColumnContainer : IDisposable
 
     private void OnDragOverTask(int index)
     {
-        if (!DragTaskState.IsDragging) return;
+        if (!DragTaskState.IsDragging)
+        {
+            return;
+        }
+
         _dropIndex = index;
     }
 
@@ -55,46 +70,47 @@ public partial class ColumnContainer : IDisposable
             return;
         }
 
-        if (!DragTaskState.IsDragging) return;
+        if (!DragTaskState.IsDragging)
+        {
+            return;
+        }
 
         if (_dropIndex == -1)
+        {
             _dropIndex = 0;
+        }
     }
 
     private async Task HandleDrop()
     {
         if (DragColumnState.IsDragging)
         {
-            // Delega o swap para o Default via borbulhamento — apenas limpa o hover
             DragColumnState.SetHovered(columnId: Column.Id);
             return;
         }
 
-        if (!DragTaskState.IsDragging) return;
+        if (!DragTaskState.IsDragging)
+        {
+            return;
+        }
 
         TaskDto dragged = DragTaskState.DraggingTask!;
-        Guid sourceColumnId = DragTaskState.SourceColumnId;
         Guid targetColumnId = Column.Id;
 
-        List<TaskDto> targetTasks = TaskUseState
-            .List(columnId: targetColumnId)
+        List<TaskDto> targetTasks = TaskListState.Value.Tasks
             .OrderBy(keySelector: t => t.Order)
             .Where(predicate: t => t.Id != dragged.Id)
             .ToList();
 
-        int insertAt = Math.Clamp(value: _dropIndex == -1 ? targetTasks.Count : _dropIndex, min: 0, max: targetTasks.Count);
+        int insertAt = Math.Clamp(value: _dropIndex == -1 ? targetTasks.Count : _dropIndex, min: 0,
+            max: targetTasks.Count);
 
         targetTasks.Insert(index: insertAt, item: dragged);
-
-        if (sourceColumnId != targetColumnId)
-        {
-            TaskUseState.Remove(columnId: sourceColumnId, itemId: dragged.Id);
-        }
 
         for (int i = 0; i < targetTasks.Count; i++)
         {
             TaskDto updated = targetTasks[index: i] with { Order = i, ColumnId = targetColumnId };
-            TaskUseState.Set(columnId: targetColumnId, task: updated);
+            Dispatcher.Dispatch(action: new UpdateTaskSuccessAction(Task: updated));
         }
 
         DragTaskState.Clear();
@@ -110,12 +126,9 @@ public partial class ColumnContainer : IDisposable
                 Order = insertAt
             });
         }
-        catch { /* silently ignore — state already reflects local change */ }
-    }
-
-    public void Dispose()
-    {
-        TaskUseState.OnChange -= StateHasChanged;
-        ColumnUseState.OnChange -= StateHasChanged;
+        catch
+        {
+            /* silently ignore — state already reflects local change */
+        }
     }
 }
