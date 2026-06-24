@@ -3,13 +3,14 @@
 @using Kanban.App.Components.AddLoading
 @using Kanban.App.Pages.Default.Components.ColumnContainer
 @using Kanban.Communication.Dtos
+@inherits FluxorComponent
 
-<PageTitle>Kanban @(_currentBoard != null ? $"- {_currentBoard.Name}" : null)</PageTitle>
+<PageTitle>Kanban @(BoardState.Value.Board != null ? $"- {BoardState.Value.Board.Name}" : null)</PageTitle>
 
 <div class="columns-wrapper"
      @ondrop="@OnColumnDrop"
      @ondragover:preventDefault>
-    @if (_isBoardLoading)
+    @if (BoardState.Value.IsLoading)
     {
         <AddLoading/>
     }

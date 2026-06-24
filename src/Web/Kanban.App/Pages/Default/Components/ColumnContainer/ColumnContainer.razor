@@ -2,12 +2,12 @@
 @using Kanban.App.Pages.Default.Components.TaskCard
 @using Kanban.Communication.Dtos
 
-<div class="column @(DragColumnState.IsDragging && DragColumnState.HoveredColumnId == Column.Id && DragColumnState.DraggingColumn?.Id != Column.Id ? "column--swap-target" : "") @(DragColumnState.DraggingColumn?.Id == Column.Id ? "column--dragging" : "")"
+<div class="column @(DragColumnState.IsDragging && DragColumnState.HoveredColumnId == Column.Id && DragColumnState.DraggingColumn?.Id != Column.Id ? "column--swap-target" : string.Empty) @(DragColumnState.DraggingColumn?.Id == Column.Id ? "column--dragging" : string.Empty)"
      @ondragover:preventDefault
      @ondragover="@(OnDragOverColumn)"
      @ondrop="@HandleDrop">
 
-    <div class="column-header @(DragColumnState.DraggingColumn?.Id == Column.Id ? "column-header--dragging" : "")"
+    <div class="column-header @(DragColumnState.DraggingColumn?.Id == Column.Id ? "column-header--dragging" : string.Empty)"
          draggable="true"
          @ondragstart="@OnColumnDragStart"
          @ondragstart:stopPropagation
@@ -24,7 +24,7 @@
         TaskDto task = tasks[index: i];
         int index = i;
 
-        <div class="drop-zone @(_dropIndex == index && DragTaskState.IsDragging ? "drop-zone--active" : "")"
+        <div class="drop-zone @(_dropIndex == index && DragTaskState.IsDragging ? "drop-zone--active" : string.Empty)"
              @ondragover:preventDefault
              @ondragover="@(() => OnDragOverTask(index: index))"
              @ondragover:stopPropagation>
@@ -33,7 +33,7 @@
         <TaskCard Task="@task" ColumnId="@Column.Id"/>
     }
 
-    <div class="drop-zone @(_dropIndex == tasks.Count && DragTaskState.IsDragging ? "drop-zone--active" : "")"
+    <div class="drop-zone @(_dropIndex == tasks.Count && DragTaskState.IsDragging ? "drop-zone--active" : string.Empty)"
          @ondragover:preventDefault
          @ondragover="@(() => OnDragOverTask(index: tasks.Count))"
          @ondragover:stopPropagation>

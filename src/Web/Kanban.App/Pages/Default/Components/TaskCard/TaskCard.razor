@@ -1,4 +1,4 @@
-<div class="task-card @(DragTaskState.DraggingTask?.Id == Task.Id ? "task-card--dragging" : "")"
+<div class="task-card @(DragTaskState.DraggingTask?.Id == Task.Id ? "task-card--dragging" : string.Empty)"
      draggable="true"
      @ondragstart="@OnDragStart"
      @ondragend="@OnDragEnd"

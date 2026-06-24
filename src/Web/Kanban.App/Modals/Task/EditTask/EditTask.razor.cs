@@ -14,7 +14,7 @@ public partial class EditTask
     
     private bool _isSubmitting;
     private List<string> _listFeedbacks = [];
-    private readonly UpdateTaskRequest _taskRequest = new() { Name = "" };
+    private readonly UpdateTaskRequest _taskRequest = new() { Name = string.Empty };
     private readonly Dictionary<Guid, UpdateSubTaskRequest> _subtaskUpdateRequest = new();
     private readonly List<RegisterSubTaskRequest> _subTaskRegisterRequests = [];
 
@@ -122,7 +122,7 @@ public partial class EditTask
     }
 
     private void HandleRemoveRegisterSubTask(RegisterSubTaskRequest request) => _subTaskRegisterRequests.Remove(item: request);
-    private void HandleAddRegisterSubTask() => _subTaskRegisterRequests.Add(item: new RegisterSubTaskRequest { Name = "" });
+    private void HandleAddRegisterSubTask() => _subTaskRegisterRequests.Add(item: new RegisterSubTaskRequest { Name = string.Empty });
 
     private async Task SubmitUpdateSubTask(Guid subTaskId, UpdateSubTaskRequest request)
     {

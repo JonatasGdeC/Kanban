@@ -1,28 +1,28 @@
 @using Kanban.Adapter.Auth
 @using Kanban.Communication.Dtos
 @inject CookieAuthenticationStateProvider CookieAuth
+@inherits FluxorComponent
 
-
-<aside class="sidebar @(!_sidebarVisible ? "sidebar--hidden" : "")">
+<aside class="sidebar @(!_sidebarVisible ? "sidebar--hidden" : string.Empty)">
 
     <div class="sidebar-logo">
         <AddIcon Name="KanbanIcon.Logo"/>
         <span class="sidebar-logo-text">kanban</span>
     </div>
 
-    @if (_isLoading)
+    @if (BoardListState.Value.IsLoading)
     {
         <p class="sidebar-boards-label">@DefaultLocalizer[name: "SIDEBAR_LOADING"]</p>
     }
     else
     {
-        <p class="sidebar-boards-label">@DefaultLocalizer[name: "SIDEBAR_ALL_BOARDS"] (@BoardUseState.List().Count)</p>
+        <p class="sidebar-boards-label">@DefaultLocalizer[name: "SIDEBAR_ALL_BOARDS"] (@BoardListState.Value.Boards.Count)</p>
 
         <ul class="board-nav-list">
-            @foreach (BoardDto board in BoardUseState.List())
+            @foreach (BoardDto board in BoardListState.Value.Boards)
             {
                 <li>
-                    <button class="board-nav-item @(BoardIsActive(boardId: board.Id) ? "board-nav-item--active" : "")" @onclick="@(() => NavigateToBoard(boardId: board.Id))">
+                    <button class="board-nav-item @(BoardIsActive(boardId: board.Id) ? "board-nav-item--active" : string.Empty)" @onclick="@(() => NavigateToBoard(boardId: board.Id))">
                         <AddIcon Name="KanbanIcon.Board"/>
                         @board.Name
                     </button>
@@ -42,7 +42,7 @@
         <div class="theme-switch">
             <AddIcon Name="KanbanIcon.Sun"/>
             <button class="toggle-btn" @onclick="ToggleDark">
-                <span class="toggle-thumb @(Dark ? "toggle-thumb--right" : "")"></span>
+                <span class="toggle-thumb @(Dark ? "toggle-thumb--right" : string.Empty)"></span>
             </button>
             <AddIcon Name="KanbanIcon.Moon"/>
         </div>

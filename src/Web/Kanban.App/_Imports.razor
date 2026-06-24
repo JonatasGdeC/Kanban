@@ -24,6 +24,7 @@
 @using Kanban.App.Layout.MainLayout
 @using Kanban.App.UseState
 @using Kanban.App.Components.AddIcon
+@using Kanban.App.FluxorState.State.Board
 @using Kanban.App.Resource
 @using Kanban.App.Resource.Login
 @using Kanban.App.Resource.Default
@@ -53,3 +54,5 @@
 
 
 @inject IDispatcher Dispatcher
+@inject IState<BoardState> BoardState
+@inject IState<BoardListState> BoardListState

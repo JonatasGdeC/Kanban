@@ -70,7 +70,6 @@ public partial class EditBoard
                 Id = Board.Id,
                 Name = _boardRequest.Name
             };
-            BoardUseState.Set(board: updateBoard);
 
             int order = 0;
             foreach ((Guid id, UpdateColumnRequest req) in _columnUpdateRequest)

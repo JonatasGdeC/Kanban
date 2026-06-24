@@ -42,7 +42,7 @@
                 <input type="checkbox" class="subtask-check-input" checked="@sub.IsDone"
                        @onchange="@(async _ => await ToggleSubtask(sub: sub))"
                        @onclick:stopPropagation/>
-                <span class="subtask-check-label @(sub.IsDone ? "subtask-check-label--done" : "")">
+                <span class="subtask-check-label @(sub.IsDone ? "subtask-check-label--done" : string.Empty)">
                     @sub.Name
                 </span>
             </label>

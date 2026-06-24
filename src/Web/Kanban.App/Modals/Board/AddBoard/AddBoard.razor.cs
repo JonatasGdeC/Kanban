@@ -28,7 +28,6 @@ public partial class AddBoard
                 ColumnUseState.Set(boardId: board.Id, column: column);
             }
 
-            BoardUseState.Set(board: board);
             NavigationManager.NavigateTo(uri: $"/{board.Id}");
             ModalUseState.Board = board;
             ModalUseState.Columns = ColumnUseState.List(boardId: board.Id).ToList();

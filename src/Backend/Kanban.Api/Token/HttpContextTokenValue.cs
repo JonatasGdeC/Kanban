@@ -7,6 +7,6 @@ public class HttpContextTokenValue(IHttpContextAccessor accessor) : ITokenProvid
     public string TokenOnRequest()
     {
         string authorization = accessor.HttpContext!.Request.Headers.Authorization.ToString();
-        return authorization.Replace(oldValue: "Bearer ", newValue: "");
+        return authorization.Replace(oldValue: "Bearer ", newValue: string.Empty);
     }
 }

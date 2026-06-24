@@ -1,3 +1,4 @@
+@using Kanban.App.Components.AddLoading
 @using Kanban.App.Components.AddSetLanguage
 @inherits FluxorComponent
 
@@ -7,10 +8,18 @@
     </div>
 
     <div class="header-board-name-wrapper" @onclick="@(() => _mobileSidebar = !_mobileSidebar)">
-        <h1 class="header-board-name">
-            @(BoardState.Value.Board != null ? BoardState.Value.Board.Name : "Kanban")
-        </h1>
-        <AddIcon Name="KanbanIcon.ChevronDown" CssClass="@($"header-chevron {(_mobileSidebar ? "header-chevron--up" : "")}")"/>
+        @if (BoardState.Value.IsLoading)
+        {
+            <AddLoading WithContainer="100px" HeightContainer="100px"
+                        WidthSpin="50px" HeightSpin="50px"/>
+        }
+        else
+        {
+            <h1 class="header-board-name">
+                @(BoardState.Value.Board != null ? BoardState.Value.Board.Name : "Kanban")
+            </h1>
+        }
+        <AddIcon Name="KanbanIcon.ChevronDown" CssClass="@($"header-chevron {(_mobileSidebar ? "header-chevron--up" : string.Empty)}")"/>
     </div>
 
     <div class="header-actions">

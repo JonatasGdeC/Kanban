@@ -1,59 +1,38 @@
+using Fluxor.Blazor.Web.Components;
 using Kanban.App.FluxorState.Action.Board;
+using Kanban.App.FluxorState.Action.Board.GetById;
 using Kanban.App.UseState;
 using Kanban.Communication.Dtos;
 using Kanban.Communication.Requests.Column;
-using Kanban.Communication.Responses.Board;
 using Microsoft.AspNetCore.Components;
 
 namespace Kanban.App.Pages.Default.Main;
 
-public partial class Default : IDisposable
+public partial class Default : FluxorComponent
 {
     [Parameter] public Guid? BoardId { get; set; }
 
-    private BoardDto? _currentBoard;
     private List<ColumnDto> CurrentColumns => BoardId.HasValue ? ColumnUseState.List(boardId: BoardId.Value).ToList() : [];
 
     private Guid? _currentBoardId;
-    private bool _isBoardLoading = true;
 
-    // protected override void OnInitialized()
-    // {
-    //     BoardUseState.OnChange += StateHasChanged;
-    //     ColumnUseState.OnChange += StateHasChanged;
-    //     ModalUseState.Board = _currentBoard;
-    //     ModalUseState.Columns = CurrentColumns;
-    // }
-
-    protected override async Task OnParametersSetAsync()
+    protected override void OnParametersSet()
     {
-        _isBoardLoading = true;
-      
-        try
+        if (BoardId.HasValue && BoardId.Value != _currentBoardId)
         {
-            if (BoardId.HasValue && BoardId.Value != _currentBoardId)
-            {
-                ClearUseStates();
-                
-                Dispatcher.Dispatch(action: new LoadBoardAction(BoardId: BoardId.Value));
-                _currentBoardId = BoardId;
+            Dispatcher.Dispatch(action: new GetBoardByIdAction(BoardId: BoardId.Value));
+            _currentBoardId = BoardId;
 
-                // GetBoardByIdResponse? response = await BoardServiceApi.GetById(id: BoardId.Value);
-                // if (response != null)
-                // {
-                //     _currentBoard = response.Board;
-                //     BoardUseState.Set(board: response.Board);
-                //     ColumnUseState.Set(boardId: _currentBoard.Id, columns: response.Columns);
-                //
-                //     ModalUseState.Board = response.Board;
-                //     ModalUseState.Columns = response.Columns;
-                // }
-            }
-        }
-        catch { /* silently ignore load errors */ }
-        finally
-        {
-            _isBoardLoading = false;
+            // GetBoardByIdResponse? response = await BoardServiceApi.GetById(id: BoardId.Value);
+            // if (response != null)
+            // {
+            //     _currentBoard = response.Board;
+            //     BoardUseState.Set(board: response.Board);
+            //     ColumnUseState.Set(boardId: _currentBoard.Id, columns: response.Columns);
+            //
+            //     ModalUseState.Board = response.Board;
+            //     ModalUseState.Columns = response.Columns;
+            // }
         }
     }
 
@@ -103,21 +82,6 @@ public partial class Default : IDisposable
 
     private void OpenEditBoard()
     {
-        ModalUseState.Board = _currentBoard;
-        ModalUseState.Columns = CurrentColumns;
         ModalUseState.Open(dialog: ModalUseState.ModalType.EditBoard);
-    }
-
-    private void ClearUseStates()
-    {
-        ColumnUseState.Clear();
-        TaskUseState.Clear();
-        SubTaskUseState.Clear();
-    }
-
-    public void Dispose()
-    {
-        BoardUseState.OnChange -= StateHasChanged;
-        ColumnUseState.OnChange -= StateHasChanged;
     }
 }
