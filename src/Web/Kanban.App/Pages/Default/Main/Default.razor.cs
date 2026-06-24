@@ -51,9 +51,8 @@ public partial class Default : FluxorComponent
 
         ColumnDto dragged = DragColumnState.DraggingColumn!;
         Guid? hoveredId = DragColumnState.HoveredColumnId;
-
         DragColumnState.Clear();
-
+        
         if (hoveredId == null || hoveredId == dragged.Id)
         {
             return;
@@ -64,10 +63,7 @@ public partial class Default : FluxorComponent
         {
             return;
         }
-
-        Dispatcher.Dispatch(action: new UpdateColumnSuccessAction(Column: dragged with { Order = target.Order }));
-        Dispatcher.Dispatch(action: new UpdateColumnSuccessAction(Column: target with { Order = dragged.Order }));
-
+        
         try
         {
             await ColumnServiceApi.Update(id: dragged.Id, request: new UpdateColumnRequest
@@ -76,6 +72,9 @@ public partial class Default : FluxorComponent
                 Color = dragged.Color,
                 Order = target.Order
             });
+            
+            Dispatcher.Dispatch(action: new UpdateColumnSuccessAction(Column: dragged with { Order = target.Order }));
+            Dispatcher.Dispatch(action: new UpdateColumnSuccessAction(Column: target with { Order = dragged.Order }));
         }
         catch
         {

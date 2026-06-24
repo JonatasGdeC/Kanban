@@ -94,30 +94,19 @@ public partial class ColumnContainer : FluxorComponent
             return;
         }
 
-        TaskDto dragged = DragTaskState.DraggingTask!;
-        Guid targetColumnId = Column.Id;
-
-        List<TaskDto> targetTasks = TaskListState.Value.Tasks
-            .OrderBy(keySelector: t => t.Order)
-            .Where(predicate: t => t.Id != dragged.Id)
-            .ToList();
-
-        int insertAt = Math.Clamp(value: _dropIndex == -1 ? targetTasks.Count : _dropIndex, min: 0,
-            max: targetTasks.Count);
-
-        targetTasks.Insert(index: insertAt, item: dragged);
-
-        for (int i = 0; i < targetTasks.Count; i++)
-        {
-            TaskDto updated = targetTasks[index: i] with { Order = i, ColumnId = targetColumnId };
-            Dispatcher.Dispatch(action: new UpdateTaskSuccessAction(Task: updated));
-        }
-
-        DragTaskState.Clear();
-        _dropIndex = -1;
-
         try
         {
+            TaskDto dragged = DragTaskState.DraggingTask!;
+            Guid targetColumnId = Column.Id;
+            
+            List<TaskDto> targetTasks = TaskListState.Value.Tasks
+                .Where(predicate: t => t.ColumnId == targetColumnId && t.Id != dragged.Id)
+                .OrderBy(keySelector: t => t.Order)
+                .ToList();
+
+            int insertAt = Math.Clamp(value: _dropIndex == -1 ? targetTasks.Count : _dropIndex, min: 0,
+                max: targetTasks.Count);
+            
             await TaskServiceApi.Update(id: dragged.Id, request: new UpdateTaskRequest
             {
                 Name = dragged.Name,
@@ -125,6 +114,17 @@ public partial class ColumnContainer : FluxorComponent
                 ColumnId = targetColumnId,
                 Order = insertAt
             });
+            
+            targetTasks.Insert(index: insertAt, item: dragged);
+
+            for (int i = 0; i < targetTasks.Count; i++)
+            {
+                TaskDto updated = targetTasks[index: i] with { Order = i, ColumnId = targetColumnId };
+                Dispatcher.Dispatch(action: new UpdateTaskSuccessAction(Task: updated));
+            }
+
+            DragTaskState.Clear();
+            _dropIndex = -1;
         }
         catch
         {

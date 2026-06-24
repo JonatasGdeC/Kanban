@@ -5,7 +5,7 @@
 
 <div class="column @(DragColumnState.IsDragging && DragColumnState.HoveredColumnId == Column.Id && DragColumnState.DraggingColumn?.Id != Column.Id ? "column--swap-target" : string.Empty) @(DragColumnState.DraggingColumn?.Id == Column.Id ? "column--dragging" : string.Empty)"
      @ondragover:preventDefault
-     @ondragover="@(OnDragOverColumn)"
+     @ondragover="@OnDragOverColumn"
      @ondrop="@HandleDrop">
 
     <div class="column-header @(DragColumnState.DraggingColumn?.Id == Column.Id ? "column-header--dragging" : string.Empty)"
