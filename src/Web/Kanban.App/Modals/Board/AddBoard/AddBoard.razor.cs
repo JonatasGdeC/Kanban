@@ -1,5 +1,6 @@
 using Kanban.Adapter.Exceptions;
 using Kanban.App.FluxorState.Board.Action;
+using Kanban.App.FluxorState.Column.Action;
 using Kanban.Communication.Dtos;
 using Kanban.Communication.Requests.Board;
 using Kanban.Communication.Requests.Column;
@@ -25,8 +26,8 @@ public partial class AddBoard
 
             foreach (RegisterColumnRequest request in _columnRegisterRequest)
             {
-                // ColumnDto column = await ColumnServiceApi.Register(boardId: board.Id, request: request);
-                // ColumnUseState.Set(boardId: board.Id, column: column);
+                ColumnDto column = await ColumnServiceApi.Register(boardId: board.Id, request: request);
+                Dispatcher.Dispatch(action: new RegisterColumnSuccessAction(Column: column));
             }
 
             NavigationManager.NavigateTo(uri: $"/{board.Id}");

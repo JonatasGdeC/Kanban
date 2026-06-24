@@ -15,7 +15,6 @@ builder.RootComponents.Add<HeadOutlet>(selector: "head::after");
 
 builder.Services.AddScoped(implementationFactory: sp => new HttpClient { BaseAddress = new Uri(uriString: builder.HostEnvironment.BaseAddress) });
 builder.Services.AddScoped<ModalUseState>();
-builder.Services.AddScoped<ColumnUseState>();
 builder.Services.AddScoped<TaskUseState>();
 builder.Services.AddScoped<SubTaskUseState>();
 builder.Services.AddScoped<DragTaskState>();

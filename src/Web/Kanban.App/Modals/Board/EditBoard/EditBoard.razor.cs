@@ -1,6 +1,7 @@
 
 using Kanban.Adapter.Exceptions;
 using Kanban.App.FluxorState.Board.Action;
+using Kanban.App.FluxorState.Column.Action;
 using Kanban.Communication.Dtos;
 using Kanban.Communication.Requests.Board;
 using Kanban.Communication.Requests.Column;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 public partial class EditBoard
 {
     private BoardDto Board => BoardState.Value.Board!;
-    private List<ColumnDto> Columns => ModalUseState.Columns;
+    private List<ColumnDto> Columns => ColumnListState.Value.Columns;
 
     private bool _isSubmitting;
     private List<string> _listFeedbacks = [];
@@ -39,8 +40,7 @@ public partial class EditBoard
         if (columnId.HasValue)
         {
             await ColumnServiceApi.Delete(id: columnId.Value);
-            ColumnUseState.Remove(boardId: Board.Id, columnId: columnId.Value);
-            ModalUseState.Columns.Remove(item: Columns.First(predicate: c => c.Id == columnId.Value));
+            Dispatcher.Dispatch(action: new DeleteColumnSuccessAction(ColumnId: columnId.Value));
             _columnUpdateRequest.Remove(key: columnId.Value);
         }
 
@@ -83,16 +83,16 @@ public partial class EditBoard
                     Color = req.Color,
                     Order = req.Order
                 };
-                ColumnUseState.Set(boardId: Board.Id, column: column);
+                
+                Dispatcher.Dispatch(action: new UpdateColumnSuccessAction(Column: column));
             }
 
             foreach (RegisterColumnRequest request in _columnRegisterRequest)
             {
                 ColumnDto column = await ColumnServiceApi.Register(boardId: Board.Id, request: request);
-                ColumnUseState.Set(boardId: Board.Id, column: column);
+                Dispatcher.Dispatch(action: new RegisterColumnSuccessAction(Column: column));
             }
             
-            ModalUseState.Columns = ColumnUseState.List(boardId: Board.Id).ToList();
             ModalUseState.Close();
         }
         catch (ApiException exception) when (exception.ErrorMessages.Count > 0)

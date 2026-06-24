@@ -14,7 +14,7 @@
     {
         <AddLoading/>
     }
-    else if (!CurrentColumns.Any())
+    else if (!ColumnListState.Value.Columns.Any())
     {
         if (_currentBoardId.HasValue)
         {
@@ -37,7 +37,7 @@
     }
     else
     {
-        @foreach (ColumnDto col in CurrentColumns.OrderBy(keySelector: c => c.Order))
+        @foreach (ColumnDto col in ColumnListState.Value.Columns.OrderBy(keySelector: c => c.Order))
         {
             <ColumnContainer Column="@col"/>
         }
