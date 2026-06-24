@@ -10,7 +10,7 @@
 <div class="columns-wrapper"
      @ondrop="@OnColumnDrop"
      @ondragover:preventDefault>
-    @if (BoardState.Value.IsLoading)
+    @if (BoardState.Value.IsLoading || ColumnListState.Value.IsLoading)
     {
         <AddLoading/>
     }
