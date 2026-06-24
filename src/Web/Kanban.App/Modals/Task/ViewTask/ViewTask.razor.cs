@@ -18,7 +18,7 @@ public partial class ViewTask
     private bool _subtasksLoaded;
     
     private TaskDto Task => ModalUseState.Task!;
-    private List<ColumnDto> Columns => ModalUseState.Columns;
+    private List<ColumnDto> Columns => ColumnListState.Value.Columns;
     private List<string> _listFeedbacks = [];
 
     private Guid _columnId;

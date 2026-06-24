@@ -1,16 +1,23 @@
 using Fluxor;
 using Kanban.App.FluxorState.Task.Action;
 using Kanban.App.FluxorState.Task.State;
+using Kanban.Communication.Dtos;
 
 namespace Kanban.App.FluxorState.Task.Reducers;
 
 public static class ReducerGetAllTasks
 {
-    [ReducerMethod(actionType: typeof(GetAllTasksAction))]
-    public static TaskListState ReduceGetAllTasks(TaskListState state)
-        => new() { IsLoading = true, Tasks = state.Tasks };
+    [ReducerMethod]
+    public static TaskListState ReduceGetAllTasks(TaskListState state, GetAllTasksAction action)
+        => new() { IsLoading = true, Tasks = state.Tasks.Where(predicate: t => t.ColumnId != action.ColumnId).ToList() };
 
     [ReducerMethod]
     public static TaskListState ReduceGetAllTasksSuccess(TaskListState state, GetAllTasksSuccessAction action)
-        => new() { IsLoading = false, Tasks = action.Tasks };
+    {
+        Guid? columnId = action.Tasks.FirstOrDefault()?.ColumnId;
+        List<TaskDto> remaining = columnId.HasValue
+            ? state.Tasks.Where(predicate: t => t.ColumnId != columnId).ToList()
+            : state.Tasks;
+        return new() { IsLoading = false, Tasks = [..remaining, ..action.Tasks] };
+    }
 }

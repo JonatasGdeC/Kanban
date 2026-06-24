@@ -6,10 +6,10 @@
      @ondragend="@OnDragEnd"
      @onclick="@OpenViewTask">
     <p class="task-card-title">@Task.Name</p>
-    @if (SubTaskListState.Value.SubTasks.Any())
+    @if (TaskSubTasks.Any())
     {
         <p class="task-card-subtasks">
-            @SubTaskListState.Value.SubTasks.Count(predicate: st => st.IsDone) @DefaultLocalizer[name: "OF_LABEL"] @SubTaskListState.Value.SubTasks.Count @DefaultLocalizer[name: "SUBTASKS_COUNT"]
+            @TaskSubTasks.Count(predicate: st => st.IsDone) @DefaultLocalizer[name: "OF_LABEL"] @TaskSubTasks.Count @DefaultLocalizer[name: "SUBTASKS_COUNT"]
         </p>
     }
 </div>

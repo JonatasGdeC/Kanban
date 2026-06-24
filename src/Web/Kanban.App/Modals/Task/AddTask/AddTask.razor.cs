@@ -37,7 +37,7 @@ public partial class AddTask
             foreach (RegisterSubTaskRequest subTaskRequest in _subTaskRegisterRequests)
             {
                 SubTaskDto subTask = await SubTaskServiceApi.Register(taskId: task.Id, request: subTaskRequest);
-                Dispatcher.Dispatch(action: new RegisterSubTaskSuccessAction(SubTask: subTask));
+                Dispatcher.Dispatch(action: new RegisterSubTaskSuccessAction(TaskId: task.Id, SubTask: subTask));
             }
 
             ModalUseState.Close();

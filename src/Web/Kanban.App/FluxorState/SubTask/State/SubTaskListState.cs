@@ -7,5 +7,5 @@ namespace Kanban.App.FluxorState.SubTask.State;
 public record SubTaskListState
 {
     public bool IsLoading { get; init; }
-    public List<SubTaskDto> SubTasks { get; init; } = [];
+    public Dictionary<Guid, List<SubTaskDto>> SubTasksByTaskId { get; init; } = [];
 }

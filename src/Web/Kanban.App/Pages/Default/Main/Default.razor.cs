@@ -44,46 +44,44 @@ public partial class Default : FluxorComponent
 
     private async Task OnColumnDrop()
     {
-        // if (!DragColumnState.IsDragging || !BoardId.HasValue)
-        // {
-        //     return;
-        // }
-        //
-        // ColumnDto dragged = DragColumnState.DraggingColumn!;
-        // Guid? hoveredId = DragColumnState.HoveredColumnId;
-        //
-        // DragColumnState.Clear();
-        //
-        // if (hoveredId == null || hoveredId == dragged.Id)
-        // {
-        //     return;
-        // }
-        //
-        // ColumnDto? target = CurrentColumns.FirstOrDefault(predicate: c => c.Id == hoveredId);
-        // if (target == null)
-        // {
-        //     return;
-        // }
-        //
-        // // Swap otimista no state
-        // ColumnUseState.Set(boardId: BoardId.Value, column: dragged with { Order = target.Order });
-        // ColumnUseState.Set(boardId: BoardId.Value, column: target with { Order = dragged.Order });
-        //
-        // try
-        // {
-        //     await ColumnServiceApi.Update(id: dragged.Id, request: new UpdateColumnRequest
-        //     {
-        //         Name = dragged.Name,
-        //         Color = dragged.Color,
-        //         Order = target.Order
-        //     });
-        // }
-        // catch
-        // {
-        //     // Reverte o swap no state em caso de erro
-        //     ColumnUseState.Set(boardId: BoardId.Value, column: dragged with { Order = dragged.Order });
-        //     ColumnUseState.Set(boardId: BoardId.Value, column: target with { Order = target.Order });
-        // }
+        if (!DragColumnState.IsDragging || !BoardId.HasValue)
+        {
+            return;
+        }
+
+        ColumnDto dragged = DragColumnState.DraggingColumn!;
+        Guid? hoveredId = DragColumnState.HoveredColumnId;
+
+        DragColumnState.Clear();
+
+        if (hoveredId == null || hoveredId == dragged.Id)
+        {
+            return;
+        }
+
+        ColumnDto? target = ColumnListState.Value.Columns.FirstOrDefault(predicate: c => c.Id == hoveredId);
+        if (target == null)
+        {
+            return;
+        }
+
+        Dispatcher.Dispatch(action: new UpdateColumnSuccessAction(Column: dragged with { Order = target.Order }));
+        Dispatcher.Dispatch(action: new UpdateColumnSuccessAction(Column: target with { Order = dragged.Order }));
+
+        try
+        {
+            await ColumnServiceApi.Update(id: dragged.Id, request: new UpdateColumnRequest
+            {
+                Name = dragged.Name,
+                Color = dragged.Color,
+                Order = target.Order
+            });
+        }
+        catch
+        {
+            Dispatcher.Dispatch(action: new UpdateColumnSuccessAction(Column: dragged with { Order = dragged.Order }));
+            Dispatcher.Dispatch(action: new UpdateColumnSuccessAction(Column: target with { Order = target.Order }));
+        }
     }
 
     private void OpenEditBoard()

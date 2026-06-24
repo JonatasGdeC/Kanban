@@ -15,12 +15,12 @@
          @ondragend="@OnColumnDragEnd"
          @ondragend:stopPropagation>
         <span class="column-dot" style="background-color:@Column.Color"></span>
-        <span class="column-name">@Column.Name (@TaskListState.Value.Tasks.Count)</span>
+        <span class="column-name">@Column.Name (@ColumnTasks.Count)</span>
     </div>
 
-    @for (int i = 0; i < TaskListState.Value.Tasks.Count; i++)
+    @for (int i = 0; i < ColumnTasks.Count; i++)
     {
-        TaskDto task = TaskListState.Value.Tasks[index: i];
+        TaskDto task = ColumnTasks[index: i];
         int index = i;
 
         <div class="drop-zone @(_dropIndex == index && DragTaskState.IsDragging ? "drop-zone--active" : string.Empty)"
@@ -32,9 +32,9 @@
         <TaskCard Task="@task" ColumnId="@Column.Id"/>
     }
 
-    <div class="drop-zone @(_dropIndex == TaskListState.Value.Tasks.Count && DragTaskState.IsDragging ? "drop-zone--active" : string.Empty)"
+    <div class="drop-zone @(_dropIndex == ColumnTasks.Count && DragTaskState.IsDragging ? "drop-zone--active" : string.Empty)"
          @ondragover:preventDefault
-         @ondragover="@(() => OnDragOverTask(index: TaskListState.Value.Tasks.Count))"
+         @ondragover="@(() => OnDragOverTask(index: ColumnTasks.Count))"
          @ondragover:stopPropagation>
     </div>
     

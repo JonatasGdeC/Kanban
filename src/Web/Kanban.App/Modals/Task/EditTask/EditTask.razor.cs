@@ -109,7 +109,7 @@ public partial class EditTask
         try
         {
             SubTaskDto response = await SubTaskServiceApi.Register(taskId: Task.Id, request: request);
-            Dispatcher.Dispatch(action: new RegisterSubTaskSuccessAction(SubTask: response));
+            Dispatcher.Dispatch(action: new RegisterSubTaskSuccessAction(TaskId: Task.Id,SubTask: response));
         }
         catch (ApiException exception) when (exception.ErrorMessages.Count > 0)
         {

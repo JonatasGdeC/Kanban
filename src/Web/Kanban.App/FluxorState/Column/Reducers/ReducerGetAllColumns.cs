@@ -8,7 +8,7 @@ public class ReducerGetAllColumns
 {
     [ReducerMethod(actionType: typeof(GetAllColumnsAction))]
     public static ColumnListState ReduceGetAllColumns(ColumnListState state)
-        => new() { IsLoading = true, Columns = state.Columns };
+        => new() { IsLoading = true, Columns = [] };
 
     [ReducerMethod]
     public static ColumnListState ReduceGetAllColumnsSuccess(ColumnListState state, GetAllColumnsSuccessAction action)
