@@ -23,6 +23,11 @@
     <data name="NEW_COLUMN_BTN" xml:space="preserve"><value>+ Nueva Columna</value></data>
     <data name="SUBTASKS_COUNT" xml:space="preserve"><value>subtareas</value></data>
     <data name="OF_LABEL" xml:space="preserve"><value>de</value></data>
+    <data name="ERROR_LOADING_BOARD" xml:space="preserve"><value>No se pudo cargar el tablero. Intente nuevamente.</value></data>
+    <data name="ERROR_LOADING_TASKS" xml:space="preserve"><value>No se pudieron cargar las tareas. Intente nuevamente.</value></data>
+    <data name="ERROR_LOADING_SUBTASKS" xml:space="preserve"><value>No se pudieron cargar las subtareas. Intente nuevamente.</value></data>
+    <data name="ERROR_UPDATING_TASK" xml:space="preserve"><value>No se pudo actualizar la tarea. Intente nuevamente.</value></data>
+    <data name="ERROR_UPDATING_COLUMNS" xml:space="preserve"><value>No se pudo actualizar el orden de las columnas. Intente nuevamente.</value></data>
     <data name="NOT_FOUND_TITLE" xml:space="preserve"><value>No Encontrado</value></data>
     <data name="NOT_FOUND_MESSAGE" xml:space="preserve"><value>Lo sentimos, el contenido que busca no existe.</value></data>
 </root>

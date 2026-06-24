@@ -74,4 +74,11 @@
     <data name="DELETE_ACCOUNT_CONFIRM_PRE" xml:space="preserve"><value>Are you sure? This will permanently delete your account and all your data. This action</value></data>
     <data name="YES_DELETE_ACCOUNT_BTN" xml:space="preserve"><value>Yes, Delete My Account</value></data>
     <data name="DELETE_ACCOUNT_ERROR" xml:space="preserve"><value>Could not delete the account. Please try again.</value></data>
+    <data name="MESSAGE_BOARD_UPDATED_SUCCESS" xml:space="preserve"><value>Board updated successfully.</value></data>
+    <data name="MESSAGE_BOARD_CREATED_SUCCESS" xml:space="preserve"><value>Board created successfully.</value></data>
+    <data name="MESSAGE_BOARD_DELETED_SUCCESS" xml:space="preserve"><value>Board deleted successfully.</value></data>
+    <data name="MESSAGE_TASK_CREATED_SUCCESS" xml:space="preserve"><value>Task created successfully.</value></data>
+    <data name="MESSAGE_TASK_UPDATED_SUCCESS" xml:space="preserve"><value>Task updated successfully.</value></data>
+    <data name="MESSAGE_TASK_DELETED_SUCCESS" xml:space="preserve"><value>Task deleted successfully.</value></data>
+    <data name="MESSAGE_VIEW_TASK_LOAD_ERROR" xml:space="preserve"><value>Could not load the subtasks. Please try again.</value></data>
 </root>

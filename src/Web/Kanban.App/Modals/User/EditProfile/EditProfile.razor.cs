@@ -1,4 +1,5 @@
 using Kanban.Adapter.Exceptions;
+using Kanban.App.Services.SnackbarService;
 using Kanban.Communication.Dtos;
 using Kanban.Communication.Requests.User;
 
@@ -41,6 +42,7 @@ public partial class EditProfile
         try
         {
             await UserServiceApi.Update(request: _profileRequest);
+            SnackbarService.Show(message: ModalLocalizer[name: "PROFILE_SUCCESS"], severity: SnackbarSeverity.Success);
             _profileSaved = true;
         }
         catch (ApiException ex) when (ex.ErrorMessages.Count > 0)
@@ -102,6 +104,7 @@ public partial class EditProfile
             _passwordRequest.OldPassword = string.Empty;
             _passwordRequest.NewPassword = string.Empty;
             _confirmNewPassword = string.Empty;
+            SnackbarService.Show(message: ModalLocalizer[name: "PASSWORD_UPDATE_SUCCESS"], severity: SnackbarSeverity.Success);
         }
         catch (ApiException ex) when (ex.ErrorMessages.Count > 0)
         {

@@ -1,5 +1,6 @@
 using Fluxor.Blazor.Web.Components;
 using Kanban.App.FluxorState.Task.Action;
+using Kanban.App.Services.SnackbarService;
 using Kanban.Communication.Dtos;
 using Kanban.Communication.Requests.Task;
 using Kanban.Communication.Responses.Task;
@@ -36,7 +37,7 @@ public partial class ColumnContainer : FluxorComponent
         }
         catch
         {
-            /* silently ignore load errors */
+            SnackbarService.Show(message: DefaultLocalizer[name: "ERROR_LOADING_TASKS"], severity: SnackbarSeverity.Error);
         }
 
         _isLoading = false;
@@ -128,7 +129,7 @@ public partial class ColumnContainer : FluxorComponent
         }
         catch
         {
-            /* silently ignore — state already reflects local change */
+            SnackbarService.Show(message: DefaultLocalizer[name: "ERROR_UPDATING_TASK"], severity: SnackbarSeverity.Error);
         }
     }
 }

@@ -1,4 +1,5 @@
 using Kanban.App.FluxorState.Board.Action;
+using Kanban.App.Services.SnackbarService;
 using Kanban.Communication.Dtos;
 
 namespace Kanban.App.Modals.Board.DeleteBoard;
@@ -24,6 +25,7 @@ public partial class DeleteBoard
             Dispatcher.Dispatch(action: new DeleteBoardSuccessAction(BoardId: boardId));
             ModalUseState.Board = null;
             NavigationManager.NavigateTo(uri: "/");
+            SnackbarService.Show(message: ModalLocalizer[name: "MESSAGE_BOARD_DELETED_SUCCESS"], severity: SnackbarSeverity.Info);
             ModalUseState.Close();
         }
         catch

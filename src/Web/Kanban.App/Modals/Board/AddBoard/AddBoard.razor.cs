@@ -1,6 +1,7 @@
 using Kanban.Adapter.Exceptions;
 using Kanban.App.FluxorState.Board.Action;
 using Kanban.App.FluxorState.Column.Action;
+using Kanban.App.Services.SnackbarService;
 using Kanban.Communication.Dtos;
 using Kanban.Communication.Requests.Board;
 using Kanban.Communication.Requests.Column;
@@ -31,6 +32,7 @@ public partial class AddBoard
             }
 
             NavigationManager.NavigateTo(uri: $"/{board.Id}");
+            SnackbarService.Show(message: ModalLocalizer[name: "MESSAGE_BOARD_CREATED_SUCCESS"], severity: SnackbarSeverity.Success);
             ModalUseState.Close();
         }
         catch (ApiException exception) when (exception.ErrorMessages.Count > 0)

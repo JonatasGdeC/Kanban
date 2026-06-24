@@ -5,6 +5,7 @@ using Kanban.Adapter;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Kanban.App;
+using Kanban.App.Services.SnackbarService;
 using Kanban.App.UseState;
 using Microsoft.JSInterop;
 
@@ -14,6 +15,7 @@ builder.RootComponents.Add<App>(selector: "#app");
 builder.RootComponents.Add<HeadOutlet>(selector: "head::after");
 
 builder.Services.AddScoped(implementationFactory: sp => new HttpClient { BaseAddress = new Uri(uriString: builder.HostEnvironment.BaseAddress) });
+builder.Services.AddScoped<SnackbarService>();
 builder.Services.AddScoped<ModalUseState>();
 builder.Services.AddScoped<DragTaskState>();
 builder.Services.AddScoped<DragColumnState>();

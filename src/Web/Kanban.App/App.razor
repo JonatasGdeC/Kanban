@@ -1,4 +1,7 @@
-﻿<Fluxor.Blazor.Web.StoreInitializer/>
+﻿@using Kanban.App.Components.AddSnackbar
+
+<Fluxor.Blazor.Web.StoreInitializer/>
+<AddSnackbar/>
 <Router AppAssembly="@typeof(App).Assembly" NotFoundPage="typeof(Pages.NotFound)">
     <Found Context="routeData">
         <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)"/>

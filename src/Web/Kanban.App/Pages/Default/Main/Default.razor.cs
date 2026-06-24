@@ -1,6 +1,7 @@
 using Fluxor.Blazor.Web.Components;
 using Kanban.App.FluxorState.Board.Action;
 using Kanban.App.FluxorState.Column.Action;
+using Kanban.App.Services.SnackbarService;
 using Kanban.App.UseState;
 using Kanban.Communication.Dtos;
 using Kanban.Communication.Requests.Column;
@@ -29,16 +30,21 @@ public partial class Default : FluxorComponent
                 if (getBoardByIdResponse?.Board != null)
                 {
                     Dispatcher.Dispatch(action: new GetBoardByIdSuccessAction(Board: getBoardByIdResponse.Board));
-                    
+
                     Dispatcher.Dispatch(action: new GetAllColumnsAction(BoardId: _currentBoardId.Value));
-                    GetAllColumnsResponse? getAllColumnsResponse = await ColumnServiceApi.GetAll(boardId: _currentBoardId.Value);
+                    GetAllColumnsResponse? getAllColumnsResponse =
+                        await ColumnServiceApi.GetAll(boardId: _currentBoardId.Value);
                     if (getAllColumnsResponse != null)
                     {
-                        Dispatcher.Dispatch(action: new GetAllColumnsSuccessAction(Columns: getAllColumnsResponse.ListColumns));
+                        Dispatcher.Dispatch(
+                            action: new GetAllColumnsSuccessAction(Columns: getAllColumnsResponse.ListColumns));
                     }
                 }
             }
-            catch { /* ignored */ }
+            catch
+            {
+                SnackbarService.Show(message: DefaultLocalizer[name: "ERROR_LOADING_BOARD"], severity: SnackbarSeverity.Error);
+            }
         }
     }
 
@@ -80,6 +86,7 @@ public partial class Default : FluxorComponent
         {
             Dispatcher.Dispatch(action: new UpdateColumnSuccessAction(Column: dragged with { Order = dragged.Order }));
             Dispatcher.Dispatch(action: new UpdateColumnSuccessAction(Column: target with { Order = target.Order }));
+            SnackbarService.Show(message: DefaultLocalizer[name: "ERROR_UPDATING_COLUMNS"], severity: SnackbarSeverity.Error);
         }
     }
 

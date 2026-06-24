@@ -1,6 +1,7 @@
 using Kanban.Adapter.Exceptions;
 using Kanban.App.FluxorState.SubTask.Action;
 using Kanban.App.FluxorState.Task.Action;
+using Kanban.App.Services.SnackbarService;
 using Kanban.Communication.Dtos;
 using Kanban.Communication.Requests.SubTask;
 using Kanban.Communication.Requests.Task;
@@ -25,11 +26,19 @@ public partial class ViewTask
 
     protected override async Task OnInitializedAsync()
     {
-        GetAllSubTasksResponse? response = await SubTaskServiceApi.GetAll(taskId: Task.Id);
-        _subtasks = response?.ListSubTasks ?? [];
-        _columnId = Task.ColumnId;
-        _subtasksLoaded = true;
-        StateHasChanged();
+        try
+        {
+            GetAllSubTasksResponse? response = await SubTaskServiceApi.GetAll(taskId: Task.Id);
+            _subtasks = response?.ListSubTasks ?? [];
+            _columnId = Task.ColumnId;
+            _subtasksLoaded = true;
+            StateHasChanged();
+        }
+        catch (Exception e)
+        {
+            SnackbarService.Show(message: ModalLocalizer[name: "MESSAGE_VIEW_TASK_LOAD_ERROR"], severity: SnackbarSeverity.Error);
+            throw;
+        }
     }
 
     private async Task ToggleSubtask(SubTaskDto sub)

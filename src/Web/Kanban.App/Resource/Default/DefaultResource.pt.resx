@@ -23,6 +23,11 @@
     <data name="NEW_COLUMN_BTN" xml:space="preserve"><value>+ Nova Coluna</value></data>
     <data name="SUBTASKS_COUNT" xml:space="preserve"><value>subtarefas</value></data>
     <data name="OF_LABEL" xml:space="preserve"><value>de</value></data>
+    <data name="ERROR_LOADING_BOARD" xml:space="preserve"><value>Não foi possível carregar o quadro. Tente novamente.</value></data>
+    <data name="ERROR_LOADING_TASKS" xml:space="preserve"><value>Não foi possível carregar as tarefas. Tente novamente.</value></data>
+    <data name="ERROR_LOADING_SUBTASKS" xml:space="preserve"><value>Não foi possível carregar as subtarefas. Tente novamente.</value></data>
+    <data name="ERROR_UPDATING_TASK" xml:space="preserve"><value>Não foi possível atualizar a tarefa. Tente novamente.</value></data>
+    <data name="ERROR_UPDATING_COLUMNS" xml:space="preserve"><value>Não foi possível atualizar a ordem das colunas. Tente novamente.</value></data>
     <data name="NOT_FOUND_TITLE" xml:space="preserve"><value>Não Encontrado</value></data>
     <data name="NOT_FOUND_MESSAGE" xml:space="preserve"><value>Desculpe, o conteúdo que você procura não existe.</value></data>
 </root>
