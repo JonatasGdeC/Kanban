@@ -1,6 +1,7 @@
 using Fluxor.Blazor.Web.Components;
 using Kanban.App.FluxorState.Board.Action;
 using Kanban.App.FluxorState.Column.Action;
+using Kanban.App.Services.SnackbarService;
 using Kanban.App.UseState;
 using Kanban.Communication.Dtos;
 using Kanban.Communication.Requests.Column;
@@ -29,16 +30,21 @@ public partial class Default : FluxorComponent
                 if (getBoardByIdResponse?.Board != null)
                 {
                     Dispatcher.Dispatch(action: new GetBoardByIdSuccessAction(Board: getBoardByIdResponse.Board));
-                    
+
                     Dispatcher.Dispatch(action: new GetAllColumnsAction(BoardId: _currentBoardId.Value));
-                    GetAllColumnsResponse? getAllColumnsResponse = await ColumnServiceApi.GetAll(boardId: _currentBoardId.Value);
+                    GetAllColumnsResponse? getAllColumnsResponse =
+                        await ColumnServiceApi.GetAll(boardId: _currentBoardId.Value);
                     if (getAllColumnsResponse != null)
                     {
-                        Dispatcher.Dispatch(action: new GetAllColumnsSuccessAction(Columns: getAllColumnsResponse.ListColumns));
+                        Dispatcher.Dispatch(
+                            action: new GetAllColumnsSuccessAction(Columns: getAllColumnsResponse.ListColumns));
                     }
                 }
             }
-            catch { /* ignored */ }
+            catch
+            {
+                SnackbarService.Show(message: DefaultLocalizer[name: "ERROR_LOADING_BOARD"], severity: SnackbarSeverity.Error);
+            }
         }
     }
 
@@ -51,9 +57,8 @@ public partial class Default : FluxorComponent
 
         ColumnDto dragged = DragColumnState.DraggingColumn!;
         Guid? hoveredId = DragColumnState.HoveredColumnId;
-
         DragColumnState.Clear();
-
+        
         if (hoveredId == null || hoveredId == dragged.Id)
         {
             return;
@@ -64,10 +69,7 @@ public partial class Default : FluxorComponent
         {
             return;
         }
-
-        Dispatcher.Dispatch(action: new UpdateColumnSuccessAction(Column: dragged with { Order = target.Order }));
-        Dispatcher.Dispatch(action: new UpdateColumnSuccessAction(Column: target with { Order = dragged.Order }));
-
+        
         try
         {
             await ColumnServiceApi.Update(id: dragged.Id, request: new UpdateColumnRequest
@@ -76,11 +78,15 @@ public partial class Default : FluxorComponent
                 Color = dragged.Color,
                 Order = target.Order
             });
+            
+            Dispatcher.Dispatch(action: new UpdateColumnSuccessAction(Column: dragged with { Order = target.Order }));
+            Dispatcher.Dispatch(action: new UpdateColumnSuccessAction(Column: target with { Order = dragged.Order }));
         }
         catch
         {
             Dispatcher.Dispatch(action: new UpdateColumnSuccessAction(Column: dragged with { Order = dragged.Order }));
             Dispatcher.Dispatch(action: new UpdateColumnSuccessAction(Column: target with { Order = target.Order }));
+            SnackbarService.Show(message: DefaultLocalizer[name: "ERROR_UPDATING_COLUMNS"], severity: SnackbarSeverity.Error);
         }
     }
 

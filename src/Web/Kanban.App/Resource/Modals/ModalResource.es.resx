@@ -70,4 +70,11 @@
     <data name="DELETE_ACCOUNT_CONFIRM_PRE" xml:space="preserve"><value>¿Está seguro? Esto eliminará permanentemente su cuenta y todos sus datos. Esta acción</value></data>
     <data name="YES_DELETE_ACCOUNT_BTN" xml:space="preserve"><value>Sí, Eliminar Mi Cuenta</value></data>
     <data name="DELETE_ACCOUNT_ERROR" xml:space="preserve"><value>No se pudo eliminar la cuenta. Intente nuevamente.</value></data>
+    <data name="MESSAGE_BOARD_UPDATED_SUCCESS" xml:space="preserve"><value>Tablero actualizado con éxito.</value></data>
+    <data name="MESSAGE_BOARD_CREATED_SUCCESS" xml:space="preserve"><value>Tablero creado con éxito.</value></data>
+    <data name="MESSAGE_BOARD_DELETED_SUCCESS" xml:space="preserve"><value>Tablero eliminado con éxito.</value></data>
+    <data name="MESSAGE_TASK_CREATED_SUCCESS" xml:space="preserve"><value>Tarea creada con éxito.</value></data>
+    <data name="MESSAGE_TASK_UPDATED_SUCCESS" xml:space="preserve"><value>Tarea actualizada con éxito.</value></data>
+    <data name="MESSAGE_TASK_DELETED_SUCCESS" xml:space="preserve"><value>Tarea eliminada con éxito.</value></data>
+    <data name="MESSAGE_VIEW_TASK_LOAD_ERROR" xml:space="preserve"><value>No se pudieron cargar las subtareas. Intente nuevamente.</value></data>
 </root>

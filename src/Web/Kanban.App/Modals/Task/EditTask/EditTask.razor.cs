@@ -2,6 +2,7 @@ using Kanban.Adapter.Exceptions;
 using Kanban.App.FluxorState.Board.Action;
 using Kanban.App.FluxorState.SubTask.Action;
 using Kanban.App.FluxorState.Task.Action;
+using Kanban.App.Services.SnackbarService;
 using Kanban.App.UseState;
 using Kanban.Communication.Dtos;
 using Kanban.Communication.Requests.SubTask;
@@ -54,6 +55,7 @@ public partial class EditTask
                 }
             }
 
+            SnackbarService.Show(message: ModalLocalizer[name: "MESSAGE_TASK_UPDATED_SUCCESS"], severity: SnackbarSeverity.Success);
             ModalUseState.Close();
         }
         finally

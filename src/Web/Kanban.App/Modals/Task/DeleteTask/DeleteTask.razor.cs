@@ -1,4 +1,5 @@
 using Kanban.App.FluxorState.Task.Action;
+using Kanban.App.Services.SnackbarService;
 using Kanban.Communication.Dtos;
 
 namespace Kanban.App.Modals.Task.DeleteTask;
@@ -20,6 +21,7 @@ public partial class DeleteTask
         {
             await TaskServiceApi.Delete(id: Task.Id);
             Dispatcher.Dispatch(action: new DeleteTaskSuccessAction(TaskId: Task.Id));
+            SnackbarService.Show(message: ModalLocalizer[name: "MESSAGE_TASK_DELETED_SUCCESS"], severity: SnackbarSeverity.Info);
             ModalUseState.Close();
         }
         catch

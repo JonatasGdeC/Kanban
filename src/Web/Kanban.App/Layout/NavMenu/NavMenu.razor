@@ -1,4 +1,5 @@
 @using Kanban.Adapter.Auth
+@using Kanban.App.Components.AddLoading
 @using Kanban.Communication.Dtos
 @inject CookieAuthenticationStateProvider CookieAuth
 @inherits FluxorComponent
@@ -12,7 +13,8 @@
 
     @if (BoardListState.Value.IsLoading)
     {
-        <p class="sidebar-boards-label">@DefaultLocalizer[name: "SIDEBAR_LOADING"]</p>
+        <AddLoading WithContainer="80px" HeightContainer="80px"
+                    WidthSpin="50px" HeightSpin="50px"/>
     }
     else
     {

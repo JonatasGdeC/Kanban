@@ -32,7 +32,9 @@
 @using Kanban.App.Resource.Login
 @using Kanban.App.Resource.Default
 @using Kanban.App.Resource.Modals
+@using Kanban.App.Services.SnackbarService
 @using Microsoft.Extensions.Localization
+@using Kanban.App.Services.SnackbarService
 
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JsRuntime
@@ -46,10 +48,11 @@
 @inject TaskServiceApi TaskServiceApi
 @inject SubTaskServiceApi SubTaskServiceApi
 
+
 @inject ModalUseState ModalUseState
 @inject DragTaskState DragTaskState
 @inject DragColumnState DragColumnState
-
+@inject SnackbarService SnackbarService
 
 @inject IDispatcher Dispatcher
 @inject IState<BoardState> BoardState

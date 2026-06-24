@@ -38,7 +38,7 @@ public partial class NavMenu : FluxorComponent
     private async Task HandleLogout()
     {
         await CookieAuth.RemoveTokenAsync();
-        NavigationManager.NavigateTo(uri: "/", forceLoad: true);
+        NavigationManager.NavigateTo(uri: "/");
     }
 
     private void ToggleSidebar() 

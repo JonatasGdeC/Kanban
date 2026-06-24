@@ -1,3 +1,4 @@
+@using Kanban.App.Components.AddLoading
 @using Kanban.Communication.Dtos
 
 <div class="modal" @onclick:stopPropagation>
@@ -29,7 +30,8 @@
 
     @if (!_subtasksLoaded)
     {
-        <p class="modal-body-text" style="margin-bottom:16px;">@ModalLocalizer[name: "VIEW_TASK_LOADING"]</p>
+        <AddLoading WithContainer="50px" HeightContainer="50px"
+                    WidthSpin="25px" HeightSpin="25px"/>
     }
     else if (_subtasks.Count > 0)
     {

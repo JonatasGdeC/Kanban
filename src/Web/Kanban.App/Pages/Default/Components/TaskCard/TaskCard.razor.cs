@@ -1,5 +1,6 @@
 using Fluxor.Blazor.Web.Components;
 using Kanban.App.FluxorState.SubTask.Action;
+using Kanban.App.Services.SnackbarService;
 using Kanban.App.UseState;
 using Kanban.Communication.Dtos;
 using Kanban.Communication.Responses.SubTask;
@@ -27,10 +28,14 @@ public partial class TaskCard : FluxorComponent
 
             if (getAllSubTasksResponse != null)
             {
-                Dispatcher.Dispatch(action: new GetAllSubTasksSuccessAction(TaskId: Task.Id, SubTasks: getAllSubTasksResponse.ListSubTasks));
+                Dispatcher.Dispatch(action: new GetAllSubTasksSuccessAction(TaskId: Task.Id,
+                    SubTasks: getAllSubTasksResponse.ListSubTasks));
             }
         }
-        catch { /* silently ignore load errors */ }
+        catch
+        {
+            SnackbarService.Show(message: DefaultLocalizer[name: "ERROR_LOADING_SUBTASKS"], severity: SnackbarSeverity.Error);
+        }
     }
 
     private void OnDragStart(DragEventArgs e)

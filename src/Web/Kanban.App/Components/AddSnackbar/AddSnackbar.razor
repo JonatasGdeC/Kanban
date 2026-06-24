@@ -1,0 +1,13 @@
+@using Kanban.App.Services.SnackbarService
+
+<div class="snackbar-container">
+    @foreach (SnackbarItem item in SnackbarService.Items)
+    {
+        <div class="snackbar snackbar--@item.Severity.ToString().ToLower() @(item.IsLeaving ? "snackbar--leave" : "snackbar--enter")"
+             @key="item.Id">
+            <span class="snackbar-icon">@GetIcon(severity: item.Severity)</span>
+            <span class="snackbar-message">@item.Message</span>
+            <button class="snackbar-close" @onclick="@(() => Dismiss(item: item))">✕</button>
+        </div>
+    }
+</div>
