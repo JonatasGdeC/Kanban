@@ -11,7 +11,7 @@
         <span class="sidebar-logo-text">kanban</span>
     </div>
 
-    @if (BoardListState.Value.IsLoading)
+    @if (_isLoading)
     {
         <AddLoading WithContainer="80px" HeightContainer="80px"
                     WidthSpin="50px" HeightSpin="50px"/>

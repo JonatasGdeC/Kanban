@@ -10,13 +10,13 @@
 <div class="columns-wrapper"
      @ondrop="@OnColumnDrop"
      @ondragover:preventDefault>
-    @if (BoardState.Value.IsLoading || ColumnListState.Value.IsLoading)
+    @if (_isLoading)
     {
         <AddLoading/>
     }
-    else if (!ColumnListState.Value.Columns.Any())
+    else if (!ColumnListState.Value.Columns.Any() || !BoardId.HasValue)
     {
-        if (_currentBoardId.HasValue)
+        if (BoardId.HasValue)
         {
             <div class="empty-board">
                 <p class="empty-board-text">@DefaultLocalizer[name: "EMPTY_BOARD_NO_COLUMNS"]</p>

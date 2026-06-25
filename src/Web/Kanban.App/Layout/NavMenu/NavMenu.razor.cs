@@ -11,6 +11,7 @@ public partial class NavMenu : FluxorComponent
     [Parameter] public EventCallback<bool> DarkOnChanged { get; set; }
 
     private bool _sidebarVisible = true;
+    private bool _isLoading = true;
 
     protected override async Task OnInitializedAsync()
     {
@@ -24,6 +25,8 @@ public partial class NavMenu : FluxorComponent
             {
                 Dispatcher.Dispatch(action: new GetAllBoardsSuccessAction(Boards: response.ListBoards));
             }
+            
+            _isLoading = false;
         }
         catch { /* ignored */ }
     }
