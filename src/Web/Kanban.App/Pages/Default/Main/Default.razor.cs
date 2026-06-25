@@ -16,22 +16,24 @@ public partial class Default : FluxorComponent
     [Parameter] public Guid? BoardId { get; set; }
     
     private Guid? _currentBoardId;
+    private bool _isLoading;
 
     protected override async Task OnParametersSetAsync()
     {
         if (BoardId.HasValue && BoardId.Value != _currentBoardId)
         {
             _currentBoardId = BoardId;
-            Dispatcher.Dispatch(action: new GetBoardByIdAction(BoardId: BoardId.Value));
 
             try
             {
+                _isLoading = true;
+                
                 GetBoardByIdResponse? getBoardByIdResponse = await BoardServiceApi.GetById(id: BoardId.Value);
+                
                 if (getBoardByIdResponse?.Board != null)
                 {
                     Dispatcher.Dispatch(action: new GetBoardByIdSuccessAction(Board: getBoardByIdResponse.Board));
 
-                    Dispatcher.Dispatch(action: new GetAllColumnsAction(BoardId: _currentBoardId.Value));
                     GetAllColumnsResponse? getAllColumnsResponse =
                         await ColumnServiceApi.GetAll(boardId: _currentBoardId.Value);
                     if (getAllColumnsResponse != null)
@@ -40,6 +42,8 @@ public partial class Default : FluxorComponent
                             action: new GetAllColumnsSuccessAction(Columns: getAllColumnsResponse.ListColumns));
                     }
                 }
+                
+                _isLoading = false;
             }
             catch
             {
