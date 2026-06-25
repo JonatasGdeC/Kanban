@@ -97,6 +97,38 @@ src
 > É necessário ter o [PostgreSQL](https://www.postgresql.org/download/) instalado e rodando na máquina para executar a API localmente.
 
 
+### Configurar o appsettings
+
+Crie o arquivo `src/Backend/Kanban.Api/appsettings.Development.json` com o seguinte conteúdo:
+
+```json
+{
+  "ConnectionStrings": {
+    "connection": "Host=localhost;Database=KanbanDb;Username=postgres;Password=sua_senha"
+  },
+  "Settings": {
+    "Jwt": {
+      "SigningKey": "sua_chave_secreta_jwt",
+      "ExpiresMinutes": 1000
+    },
+    "PasswordResetToken": {
+      "ExpiresMinutes": 15
+    }
+  },
+  "EmailSettings": {
+    "Host": "smtp.gmail.com",
+    "Port": 587,
+    "Username": "seuemail@gmail.com",
+    "Password": "sua_app_password",
+    "From": "seuemail@gmail.com"
+  }
+}
+```
+
+> Para o envio de e-mails, é necessário uma **App Password** do Gmail. Para gerar uma, acesse [myaccount.google.com/apppasswords](https://myaccount.google.com/apppasswords) (requer verificação em duas etapas ativa na conta).
+
+---
+
 ### Clonar o repositório
 
 ```bash
