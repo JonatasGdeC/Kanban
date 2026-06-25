@@ -96,6 +96,21 @@ src
 
 > É necessário ter o [PostgreSQL](https://www.postgresql.org/download/) instalado e rodando na máquina para executar a API localmente.
 
+### Clonar o repositório
+
+```bash
+git clone https://github.com/JonatasGdeC/Kanban.git
+```
+
+```bash
+cd Kanban
+```
+
+### Restaurar dependências
+
+```bash
+dotnet restore Kanban.sln
+```
 
 ### Configurar o appsettings
 
@@ -128,22 +143,6 @@ Crie o arquivo `src/Backend/Kanban.Api/appsettings.Development.json` com o segui
 > Para o envio de e-mails, é necessário uma **App Password** do Gmail. Para gerar uma, acesse [myaccount.google.com/apppasswords](https://myaccount.google.com/apppasswords) (requer verificação em duas etapas ativa na conta).
 
 ---
-
-### Clonar o repositório
-
-```bash
-git clone https://github.com/JonatasGdeC/Kanban.git
-```
-
-```bash
-cd Kanban
-```
-
-### Restaurar dependências
-
-```bash
-dotnet restore Kanban.sln
-```
 
 ### Executar API
 
