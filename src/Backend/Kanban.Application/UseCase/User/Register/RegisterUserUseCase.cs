@@ -33,7 +33,11 @@ public class RegisterUserUseCase(
         await writeRepository.Add(user: user);
         await unitOfWork.Commit();
 
-        await emailService.SendWelcomeEmail(to: user.Email, userName: user.Name);
+        try
+        {
+            await emailService.SendWelcomeEmail(to: user.Email, userName: user.Name);
+        }
+        catch { /*Do nothing*/ }
         
         return new RegisteredUserResponse
         {
