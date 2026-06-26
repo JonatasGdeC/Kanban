@@ -1,7 +1,7 @@
 using Bogus;
 using Kanban.Communication.Requests.User;
 
-namespace CommomTestsUtilies.Requests;
+namespace CommomTestsUtilies.Requests.User;
 
 public static class RegisterUserRequestBuilder
 {

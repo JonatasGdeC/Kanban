@@ -32,6 +32,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommomTestsUtilies", "tests
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Validators.Tests", "tests\Backend\Validators.Tests\Validators.Tests.csproj", "{D12113C9-17D0-4D15-A63E-3616703EA24B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UseCases.Tests", "tests\Backend\UseCases.Tests\UseCases.Tests.csproj", "{BA979C65-3EFA-4906-9544-7A0FDB5D2797}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -162,6 +164,18 @@ Global
 		{D12113C9-17D0-4D15-A63E-3616703EA24B}.Release|x64.Build.0 = Release|Any CPU
 		{D12113C9-17D0-4D15-A63E-3616703EA24B}.Release|x86.ActiveCfg = Release|Any CPU
 		{D12113C9-17D0-4D15-A63E-3616703EA24B}.Release|x86.Build.0 = Release|Any CPU
+		{BA979C65-3EFA-4906-9544-7A0FDB5D2797}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA979C65-3EFA-4906-9544-7A0FDB5D2797}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA979C65-3EFA-4906-9544-7A0FDB5D2797}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{BA979C65-3EFA-4906-9544-7A0FDB5D2797}.Debug|x64.Build.0 = Debug|Any CPU
+		{BA979C65-3EFA-4906-9544-7A0FDB5D2797}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BA979C65-3EFA-4906-9544-7A0FDB5D2797}.Debug|x86.Build.0 = Debug|Any CPU
+		{BA979C65-3EFA-4906-9544-7A0FDB5D2797}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA979C65-3EFA-4906-9544-7A0FDB5D2797}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA979C65-3EFA-4906-9544-7A0FDB5D2797}.Release|x64.ActiveCfg = Release|Any CPU
+		{BA979C65-3EFA-4906-9544-7A0FDB5D2797}.Release|x64.Build.0 = Release|Any CPU
+		{BA979C65-3EFA-4906-9544-7A0FDB5D2797}.Release|x86.ActiveCfg = Release|Any CPU
+		{BA979C65-3EFA-4906-9544-7A0FDB5D2797}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -181,5 +195,6 @@ Global
 		{D78F8CFC-7EDD-4D4B-A0EF-A0A6767C0479} = {2AE39CA8-FDC7-4187-811E-3ECC9B63F51B}
 		{56C0ED4A-4ED2-452D-A6AA-DC85E2F561AB} = {D78F8CFC-7EDD-4D4B-A0EF-A0A6767C0479}
 		{D12113C9-17D0-4D15-A63E-3616703EA24B} = {D78F8CFC-7EDD-4D4B-A0EF-A0A6767C0479}
+		{BA979C65-3EFA-4906-9544-7A0FDB5D2797} = {D78F8CFC-7EDD-4D4B-A0EF-A0A6767C0479}
 	EndGlobalSection
 EndGlobal

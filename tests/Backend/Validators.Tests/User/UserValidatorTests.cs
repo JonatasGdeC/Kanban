@@ -1,4 +1,5 @@
 using CommomTestsUtilies.Requests;
+using CommomTestsUtilies.Requests.User;
 using CommomTestsUtilies.Utils.Validators;
 using FluentAssertions;
 using FluentValidation.Results;
