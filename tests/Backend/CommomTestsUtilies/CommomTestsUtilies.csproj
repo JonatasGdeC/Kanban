@@ -9,10 +9,12 @@
     <ItemGroup>
       <PackageReference Include="Bogus" Version="35.6.5" />
       <PackageReference Include="FluentAssertions" Version="8.10.0" />
+      <PackageReference Include="FluentValidation" Version="12.1.1" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\..\..\src\Shared\Kanban.Communication\Kanban.Communication.csproj" />
+      <ProjectReference Include="..\..\..\src\Shared\Kanban.Exception\Kanban.Exception.csproj" />
     </ItemGroup>
 
 </Project>

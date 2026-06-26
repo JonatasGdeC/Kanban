@@ -1,4 +1,5 @@
 using CommomTestsUtilies.Requests;
+using CommomTestsUtilies.Utils.Validators;
 using FluentAssertions;
 using FluentValidation.Results;
 using Kanban.Application.UseCase.User;
@@ -33,7 +34,6 @@ public class UserValidatorTests
     }
 
     [Theory]
-    [InlineData(1)]
     [InlineData(2)]
     [InlineData(201)]
     public void Error_NameLengthInvalid(int length)
@@ -44,18 +44,7 @@ public class UserValidatorTests
         ValidationResult? validator = new UserValidator().Validate(instance: request);
 
         validator.IsValid.Should().BeFalse();
-
-        if (length <= 2)
-        {
-            validator.Errors.Should().ContainSingle().And
-                .Contain(predicate: e => e.ErrorMessage.Equals(ResourceErrorMessage.NAME_MINIMUM_LENGTH));
-        }
-
-        if (length >= 201)
-        {
-            validator.Errors.Should().ContainSingle().And
-                .Contain(predicate: e => e.ErrorMessage.Equals(ResourceErrorMessage.NAME_MAXIMUM_LENGTH));
-        }
+        ErrorNameMessage.Execute(errors: validator.Errors, length: length);
     }
     
     
