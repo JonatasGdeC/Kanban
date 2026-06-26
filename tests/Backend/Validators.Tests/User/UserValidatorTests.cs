@@ -29,8 +29,7 @@ public class UserValidatorTests
         ValidationResult? validator = new UserValidator().Validate(instance: request);
 
         validator.IsValid.Should().BeFalse();
-        validator.Errors.Should().ContainSingle().And
-            .Contain(predicate: e => e.ErrorMessage.Equals(ResourceErrorMessage.NAME_IS_REQUIRED));
+        ErrorNameMessage.Execute(errors: validator.Errors, name: name);
     }
 
     [Theory]

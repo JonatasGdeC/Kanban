@@ -4,7 +4,6 @@ using FluentAssertions;
 using FluentValidation.Results;
 using Kanban.Application.UseCase.Board;
 using Kanban.Communication.Requests.Board;
-using Kanban.Exception;
 
 namespace Validators.Tests.Board;
 
@@ -27,11 +26,10 @@ public class BoardValidatorTests
     {
         RegisterBoardRequest request = RegisterBoardRequestBuilder.Build();
         request.Name = name;
-        ValidationResult? validate = new BoardValidator().Validate(instance: request);
+        ValidationResult? validator = new BoardValidator().Validate(instance: request);
         
-        validate.IsValid.Should().BeFalse();
-        validate.Errors.Should().ContainSingle().And
-            .Contain(predicate: e => e.ErrorMessage.Equals(ResourceErrorMessage.NAME_IS_REQUIRED));
+        validator.IsValid.Should().BeFalse();
+        ErrorNameMessage.Execute(errors: validator.Errors, name: name);
     }
 
     [Theory]

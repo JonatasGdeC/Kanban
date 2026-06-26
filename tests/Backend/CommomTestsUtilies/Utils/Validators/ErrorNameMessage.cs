@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations;
 using FluentAssertions;
 using FluentValidation.Results;
 using Kanban.Exception;
@@ -13,6 +12,7 @@ public static class ErrorNameMessage
         {
             errors.Should().ContainSingle().And
                 .Contain(predicate: e => e.ErrorMessage.Equals(ResourceErrorMessage.NAME_MINIMUM_LENGTH));
+            return;
         }
 
         if (length >= 201)
@@ -20,5 +20,11 @@ public static class ErrorNameMessage
             errors.Should().ContainSingle().And
                 .Contain(predicate: e => e.ErrorMessage.Equals(ResourceErrorMessage.NAME_MAXIMUM_LENGTH));
         }
+    }
+    
+    public static void Execute(List<ValidationFailure> errors, string name)
+    {
+        errors.Should().ContainSingle().And
+            .Contain(predicate: e => e.ErrorMessage.Equals(ResourceErrorMessage.NAME_IS_REQUIRED));
     }
 }
