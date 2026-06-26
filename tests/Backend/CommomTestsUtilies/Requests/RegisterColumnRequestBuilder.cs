@@ -11,7 +11,7 @@ public static class RegisterColumnRequestBuilder
 
         return new RegisterColumnRequest
         {
-            Name = faker.Random.String(minLength: 1, maxLength: 200),
+            Name = faker.Random.String(minLength: 3, maxLength: 200),
             Color = faker.Internet.Color()
         };
     }

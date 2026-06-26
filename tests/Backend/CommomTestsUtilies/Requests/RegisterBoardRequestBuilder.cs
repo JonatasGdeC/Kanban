@@ -11,7 +11,7 @@ public static class RegisterBoardRequestBuilder
 
         return new RegisterBoardRequest
         {
-            Name = faker.Random.String(minChar: (char)3, maxChar: (char)200),
+            Name = faker.Random.String(minLength: 3, maxLength: 200),
         };
     }
 }
