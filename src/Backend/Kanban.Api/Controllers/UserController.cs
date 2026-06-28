@@ -13,6 +13,7 @@ using Kanban.Communication.Responses;
 using Kanban.Communication.Responses.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace Kanban.Api.Controllers;
 
@@ -32,6 +33,7 @@ public class UserController : ControllerBase
 
     [HttpPost]
     [Route(template: "login")]
+    [EnableRateLimiting(policyName: "login")]
     [AllowAnonymous]
     [ProducesResponseType(type: typeof(LoginResponse), statusCode: StatusCodes.Status200OK)]
     [ProducesResponseType(type: typeof(ErrorResponse), statusCode: StatusCodes.Status401Unauthorized)]
@@ -43,6 +45,7 @@ public class UserController : ControllerBase
     
     [HttpPost]
     [Route(template: "forgot-password")]
+    [EnableRateLimiting(policyName: "forgot-password")]
     [AllowAnonymous]
     [ProducesResponseType(statusCode: StatusCodes.Status204NoContent)]
     public async Task<IActionResult> ForgotPassword([FromServices] IForgotPassword useCase, [FromBody] ForgotPasswordRequest request)
