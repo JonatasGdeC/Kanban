@@ -19,7 +19,7 @@ using Kanban.Exception.ExceptionBase;
 namespace UseCases.Tests.User;
 using Kanban.Domain.Entities;
 
-public class LoginUseCaseTest
+public class LoginUseCaseTests
 {
     [Fact]
     public async Task Success()

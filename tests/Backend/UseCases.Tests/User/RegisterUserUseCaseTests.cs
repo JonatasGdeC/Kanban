@@ -21,7 +21,7 @@ using Kanban.Exception.ExceptionBase;
 namespace UseCases.Tests.User;
 using Kanban.Domain.Entities;
 
-public class RegisterUserUseCaseTest
+public class RegisterUserUseCaseTests
 {
     [Fact]
     public async Task Success()

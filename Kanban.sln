@@ -27,6 +27,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{2AE39CA8-FDC7-4187-811E-3ECC9B63F51B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{D78F8CFC-7EDD-4D4B-A0EF-A0A6767C0479}"
+	ProjectSection(SolutionItems) = preProject
+		tests\Backend\LoggedUser\LoggedUserBuilder.cs = tests\Backend\LoggedUser\LoggedUserBuilder.cs
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommomTestsUtilies", "tests\Backend\CommomTestsUtilies\CommomTestsUtilies.csproj", "{56C0ED4A-4ED2-452D-A6AA-DC85E2F561AB}"
 EndProject
