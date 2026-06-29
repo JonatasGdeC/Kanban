@@ -22,7 +22,7 @@ public class UserValidatorTests
     [InlineData("")]
     [InlineData("      ")]
     [InlineData(data: null)]
-    public void Error_NameIsRequired(string name)
+    public void Error_Name_Is_Required(string name)
     {
         RegisterUserRequest request = RegisterUserRequestBuilder.Build();
         request.Name = name;
@@ -36,7 +36,7 @@ public class UserValidatorTests
     [Theory]
     [InlineData(2)]
     [InlineData(201)]
-    public void Error_NameLengthInvalid(int length)
+    public void Error_Name_Length_Invalid(int length)
     {
         RegisterUserRequest request = RegisterUserRequestBuilder.Build();
         request.Name = new string(c: 'a', count: length);
@@ -52,7 +52,7 @@ public class UserValidatorTests
     [InlineData("")]
     [InlineData("      ")]
     [InlineData(data: null)]
-    public void Error_EmailIsRequired(string email)
+    public void Error_Email_Is_Required(string email)
     {
         RegisterUserRequest request = RegisterUserRequestBuilder.Build();
         request.Email = email;

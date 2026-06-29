@@ -23,7 +23,7 @@ public class SubTaskValidatorTests
     [InlineData("")]
     [InlineData("      ")]
     [InlineData(data: null)]
-    public void Error_NameIsEmpty(string name)
+    public void Error_Name_Is_Empty(string name)
     {
         RegisterSubTaskRequest request = RegisterSubTaskRequestBuilder.Build();
         request.Name = name;
@@ -36,7 +36,7 @@ public class SubTaskValidatorTests
     [Theory]
     [InlineData(2)]
     [InlineData(201)]
-    public void Error_NameLengthIsInvalid(int length)
+    public void Error_Name_Length_Is_Invalid(int length)
     {
         RegisterSubTaskRequest request = RegisterSubTaskRequestBuilder.Build();
         request.Name = new string(c: 'a', count: length);

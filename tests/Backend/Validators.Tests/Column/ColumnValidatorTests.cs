@@ -23,7 +23,7 @@ public class ColumnValidatorTests
     [InlineData("")]
     [InlineData("      ")]
     [InlineData(data: null)]
-    public void Error_NameIsEmpty(string name)
+    public void Error_Name_Is_Empty(string name)
     {
         RegisterColumnRequest request = RegisterColumnRequestBuilder.Build();
         request.Name = name;
@@ -36,7 +36,7 @@ public class ColumnValidatorTests
     [Theory]
     [InlineData(2)]
     [InlineData(201)]
-    public void Error_NameLengthIsInvalid(int length)
+    public void Error_Name_Length_Is_Invalid(int length)
     {
         RegisterColumnRequest request = RegisterColumnRequestBuilder.Build();
         request.Name = new string(c: 'a', count: length);
@@ -51,7 +51,7 @@ public class ColumnValidatorTests
     [InlineData("")]
     [InlineData("      ")]
     [InlineData(data: null)]
-    public void Error_ColorIsEmpty(string color)
+    public void Error_Color_Is_Empty(string color)
     {
         RegisterColumnRequest request = RegisterColumnRequestBuilder.Build();
         request.Color = color;
@@ -66,7 +66,7 @@ public class ColumnValidatorTests
     [InlineData("000000")]
     [InlineData("#0000000")]
     [InlineData("#00%000")]
-    public void Error_ColorIsInvalid(string color)
+    public void Error_Color_Is_Invalid(string color)
     {
         RegisterColumnRequest request = RegisterColumnRequestBuilder.Build();
         request.Color = color;

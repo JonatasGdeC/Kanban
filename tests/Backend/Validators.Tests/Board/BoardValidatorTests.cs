@@ -22,7 +22,7 @@ public class BoardValidatorTests
     [InlineData("")]
     [InlineData("      ")]
     [InlineData(data: null)]
-    public void Error_NameIsEmpty(string name)
+    public void Error_Name_Is_Empty(string name)
     {
         RegisterBoardRequest request = RegisterBoardRequestBuilder.Build();
         request.Name = name;
@@ -35,7 +35,7 @@ public class BoardValidatorTests
     [Theory]
     [InlineData(2)]
     [InlineData(201)]
-    public void Error_NameLengthIsInvalid(int length)
+    public void Error_Name_Length_Is_Invalid(int length)
     {
         RegisterBoardRequest request = RegisterBoardRequestBuilder.Build();
         request.Name = new string(c: 'a', count: length);
