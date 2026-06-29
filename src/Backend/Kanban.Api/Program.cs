@@ -30,7 +30,7 @@ builder.Services.AddCors(setupAction: options =>
     });
 });
 
-
+builder.Services.KanbanApiRateLimiting();
 builder.Services.AddOpenApi();
 builder.Services.AddInfrastructure(configurationManager: builder.Configuration);
 builder.Services.AddApplication();
@@ -93,6 +93,7 @@ app.UseMiddleware<CultureMiddleware>();
 
 app.UseCors(policyName: corsPolicyName);
 
+app.UseRateLimiter(); 
 app.UseAuthentication();
 app.UseAuthorization();
 
