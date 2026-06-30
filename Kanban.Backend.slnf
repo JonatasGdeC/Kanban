@@ -1,0 +1,16 @@
+{
+  "solution": {
+    "path": "Kanban.sln",
+    "projects": [
+      "src\\Backend\\Kanban.Api\\Kanban.Api.csproj",
+      "src\\Backend\\Kanban.Application\\Kanban.Application.csproj",
+      "src\\Backend\\Kanban.Domain\\Kanban.Domain.csproj",
+      "src\\Backend\\Kanban.Infrastructure\\Kanban.Infrastructure.csproj",
+      "src\\Shared\\Kanban.Communication\\Kanban.Communication.csproj",
+      "src\\Shared\\Kanban.Exception\\Kanban.Exception.csproj",
+      "tests\\Backend\\CommomTestsUtilies\\CommomTestsUtilies.csproj",
+      "tests\\Backend\\Validators.Tests\\Validators.Tests.csproj",
+      "tests\\Backend\\UseCases.Tests\\UseCases.Tests.csproj"
+    ]
+  }
+}
