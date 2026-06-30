@@ -12,7 +12,6 @@ namespace Kanban.Application.UseCase.Board.Register;
 using Domain.Entities;
 
 public class RegisterBoardUseCase(
-    IBoardReadRepository readRepository, 
     IBoardWriteRepository whiteRepository,
     IUnitOfWork unitOfWork,
     IMapper mapper,
@@ -37,7 +36,7 @@ public class RegisterBoardUseCase(
         BoardValidator boardValidator = new();
         ValidationResult? result = await boardValidator.ValidateAsync(instance: request);
 
-        Board? boardExists = await readRepository.GetByTitle(title: request.Name, userId: userId);
+        Board? boardExists = await whiteRepository.GetByTitle(title: request.Name, userId: userId);
         if (boardExists != null)
         {
             result.Errors.Add(item: new ValidationFailure(propertyName: string.Empty, errorMessage: ResourceErrorMessage.BOARD_ALREADY_EXISTS));

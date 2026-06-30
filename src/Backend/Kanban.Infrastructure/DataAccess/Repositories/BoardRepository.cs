@@ -31,10 +31,10 @@ public class BoardRepository(KanbanDbContext context) : IBoardReadRepository, IB
         return await context.Boards.FirstOrDefaultAsync(predicate: board => board.Id == id && board.UserId == userId);
     }
 
-    public async Task<Board?> GetByTitle(string title, Guid userId)
+    public async Task<Board?> GetByTitle(string title, Guid userId, Guid? ignoreBoardId = null)
     {
         return await context.Boards.AsNoTracking().FirstOrDefaultAsync(predicate: board =>
-            board.Name == title && board.UserId == userId);
+            board.Name == title && board.UserId == userId && (!ignoreBoardId.HasValue || ignoreBoardId.Value != board.Id));
     }
 
     async Task<Board?> IBoardReadRepository.GetById(Guid id, Guid userId)
