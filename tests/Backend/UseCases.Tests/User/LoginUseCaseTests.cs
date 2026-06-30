@@ -53,8 +53,7 @@ public class LoginUseCaseTests
     public async Task Error_Password_Not_Match()
     {
         User user = UserBuilder.Build();
-        LoginRequest request = LoginRequestBuilder.Build();
-        request.Email = user.Email;
+        LoginRequest request = LoginRequestBuilder.Build(email: user.Email);
         LoginUseCase useCase = CreateUseCase(user: user);
     
         Func<Task<LoginResponse>> act = async () => await useCase.Execute(request: request);

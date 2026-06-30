@@ -25,15 +25,16 @@ public class UpdateUserUseCaseTests
         UpdateUserUseCase useCase = CreateUseCase(user: user);
         UpdateUserRequest request = UpdateUserRequestBuilder.Build();
         
-        await useCase.Execute(request: request);
+        Func<Task> act = async () => await useCase.Execute(request: request);
+
+       await act.Should().NotThrowAsync();
     }
     
     [Fact]
     public async Task Error_Email_Already_Exists()
     {
-        UpdateUserRequest request = UpdateUserRequestBuilder.Build();
         User user = UserBuilder.Build();
-        user.Email = request.Email;
+        UpdateUserRequest request = UpdateUserRequestBuilder.Build(email: user.Email);
         UpdateUserUseCase useCase = CreateUseCase(user: user, email: request.Email);
         
         Func<Task> act = async () => await useCase.Execute(request: request);
@@ -52,7 +53,7 @@ public class UpdateUserUseCaseTests
 
         if (!string.IsNullOrEmpty(value: email))
         {
-            readRepository.GetByEmail(user: UserBuilder.Build());
+            readRepository.GetByEmail(user: user);
         }
         
         return new UpdateUserUseCase(

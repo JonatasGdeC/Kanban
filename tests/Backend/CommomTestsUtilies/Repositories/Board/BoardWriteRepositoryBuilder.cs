@@ -12,7 +12,13 @@ public class BoardWriteRepositoryBuilder
     
     public BoardWriteRepositoryBuilder GetByTitle(Board board)
     {
-        _repositoryMock.Setup(expression: repository => repository.GetByTitle(board.Name, board.UserId)).ReturnsAsync(value: board);
+        _repositoryMock.Setup(expression: repository => repository.GetByTitle(board.Name, board.UserId, ignoreBoardId: It.IsAny<Guid?>())).ReturnsAsync(value: board);
+        return this;
+    }
+    
+    public BoardWriteRepositoryBuilder GetById(Board board)
+    {
+        _repositoryMock.Setup(expression: repository => repository.GetById(board.Id, userId: board.UserId)).ReturnsAsync(value: board);
         return this;
     }
     

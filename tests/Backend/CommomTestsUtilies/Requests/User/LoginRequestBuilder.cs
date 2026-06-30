@@ -5,13 +5,13 @@ namespace CommomTestsUtilies.Requests.User;
 
 public static class LoginRequestBuilder
 {
-    public static LoginRequest Build()
+    public static LoginRequest Build(string? email = null)
     {
         Faker faker = new();
 
         return new LoginRequest
         {
-            Email = faker.Internet.Email(),
+            Email = email ?? faker.Internet.Email(),
             Password = faker.Internet.Password(prefix: "!Aa1")
         };
     }

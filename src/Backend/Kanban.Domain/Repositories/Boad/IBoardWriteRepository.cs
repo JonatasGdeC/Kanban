@@ -9,5 +9,5 @@ public interface IBoardWriteRepository
     void Update(Board board);
     void Delete(Board board);
     Task<Board?> GetById(Guid id, Guid userId);
-    Task<Board?> GetByTitle(string title, Guid userId);
+    Task<Board?> GetByTitle(string title, Guid userId, Guid? ignoreBoardId = null);
 }

@@ -28,13 +28,20 @@ public class UpdateBoardUseCase(
         BoardValidator validator = new();
         ValidationResult? result = await validator.ValidateAsync(instance: request);
         
+        User user = await loggedUser.Get();
+        
+        Board? boardExists = await writeRepository.GetByTitle(title: request.Name, userId: user.Id, ignoreBoardId: id);
+        if (boardExists != null)
+        {
+            result.Errors.Add(item: new ValidationFailure(propertyName: string.Empty, errorMessage: ResourceErrorMessage.BOARD_ALREADY_EXISTS));
+        }
+        
         if (!result.IsValid)
         {
             List<string> errors = result.Errors.Select(selector: error => error.ErrorMessage).ToList();
             throw new ErrorOnValidationException(errorsMessages: errors); 
         }
         
-        User user = await loggedUser.Get();
         Board? board = await writeRepository.GetById(id: id, userId: user.Id);
         if (board == null)
         {
