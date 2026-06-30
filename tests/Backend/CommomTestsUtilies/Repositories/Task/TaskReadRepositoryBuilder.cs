@@ -12,9 +12,13 @@ public class TaskReadRepositoryBuilder
 
     public TaskReadRepositoryBuilder GetAll(Guid columnId, Guid userId, List<TaskEntity>? tasks = null)
     {
-        _repositoryMock
-            .Setup(expression: repository => repository.GetAll(columnId, userId))
-            .ReturnsAsync(value: tasks ?? []);
+        _repositoryMock.Setup(expression: repository => repository.GetAll(columnId, userId)).ReturnsAsync(value: tasks ?? []);
+        return this;
+    }
+
+    public TaskReadRepositoryBuilder GetById(TaskEntity task)
+    {
+        _repositoryMock.Setup(expression: repository => repository.GetById(task.Id, It.IsAny<Guid>())).ReturnsAsync(value: task);
         return this;
     }
 
