@@ -20,6 +20,7 @@ using Kanban.Exception.ExceptionBase;
 
 namespace UseCases.Tests.Column;
 using Kanban.Domain.Entities;
+using System.Threading.Tasks;
 
 public class RegisterColumnUseCaseTests
 {

@@ -18,6 +18,7 @@ using Kanban.Exception.ExceptionBase;
 
 namespace UseCases.Tests.Board;
 using Kanban.Domain.Entities;
+using System.Threading.Tasks;
 
 public class RegisterBoardUseCaseTests
 {

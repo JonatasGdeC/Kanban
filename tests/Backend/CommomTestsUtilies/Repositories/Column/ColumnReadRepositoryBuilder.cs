@@ -16,5 +16,13 @@ public class ColumnReadRepositoryBuilder
         return this;
     }
 
+    public ColumnReadRepositoryBuilder GetById(Column column)
+    {
+        _repositoryMock
+            .Setup(expression: repository => repository.GetById(column.Id, It.IsAny<Guid>()))
+            .ReturnsAsync(value: column);
+        return this;
+    }
+
     public IColumnReadRepository Build() => _repositoryMock.Object;
 }
