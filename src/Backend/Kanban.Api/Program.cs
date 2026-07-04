@@ -6,6 +6,7 @@ using Kanban.Application;
 using Kanban.Domain.Security.Tokens;
 using Kanban.Infrastructure;
 using Kanban.Infrastructure.DataAccess.Migrations;
+using Kanban.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
@@ -118,7 +119,10 @@ app.MapHealthChecks(pattern: "/Health", options: new HealthCheckOptions
 
 app.MapControllers();
 
-await MigrateDatabase(); 
+if (!builder.Configuration.IsTestEnvironment())
+{
+    await MigrateDatabase();
+}
 
 app.Run();
 
