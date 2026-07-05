@@ -1,5 +1,4 @@
 using CommomTestsUtilies.Entities;
-using Kanban.Domain.Entities;
 using Kanban.Domain.Security.Cryptography;
 using Kanban.Domain.Security.Tokens;
 using Kanban.Infrastructure.DataAccess;
@@ -12,10 +11,9 @@ namespace WebApi.Tests;
 
 public class CustomWebApplicationFactory : WebApplicationFactory<Program>
 {
-    public User User { get; private set; } = null!;
-    public string UserPassword { get; private set; } = null!;
+    public Kanban.Domain.Entities.User User { get; private set; } = null!;
     public string Token { get; private set; } = null!;
-    
+
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
         builder.UseEnvironment(environment: "Test").ConfigureServices(configureServices: services =>
@@ -48,7 +46,15 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
     private void AddUser(KanbanDbContext dbContext, IEncrypter encrypter)
     {
         User = UserBuilder.Build();
-        User.Password = encrypter.Encrypt(value: User.Password);
-        dbContext.Users.Add(entity: User);
+
+        Kanban.Domain.Entities.User persistedUser = new()
+        {
+            Id = User.Id,
+            Name = User.Name,
+            Email = User.Email,
+            Password = encrypter.Encrypt(value: User.Password)
+        };
+
+        dbContext.Users.Add(entity: persistedUser);
     }
 }

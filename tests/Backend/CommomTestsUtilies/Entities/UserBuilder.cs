@@ -15,7 +15,7 @@ public class UserBuilder
             .RuleFor(property: u => u.Id, value: Guid.NewGuid())
             .RuleFor(property: u => u.Name, setter: faker => faker.Person.FirstName)
             .RuleFor(property: u => u.Email, setter: (faker, user) => faker.Internet.Email(firstName: user.Name))
-            .RuleFor(property: u => u.Password, setter: (_, user) => passwordEncripter.Encrypt(value: user.Password));
+            .RuleFor(property: u => u.Password, setter: (_, user) => "Tests@123");
 
         return user;
     }

@@ -32,4 +32,8 @@
       <ProjectReference Include="..\CommomTestsUtilies\CommomTestsUtilies.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="User\" />
+    </ItemGroup>
+
 </Project>
