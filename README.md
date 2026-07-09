@@ -4,6 +4,10 @@ Aplicação Full Stack para gerenciamento de tarefas em formato Kanban, desenvol
 
 O sistema permite organizar quadros (boards), colunas e tarefas, com suporte a subtarefas, autenticação de usuários e recuperação de senha por e-mail.
 
+Desafio proposto pela plataforma [Frontend Mentor](https://www.frontendmentor.io/challenges/kanban-task-management-web-app-wgQLt-HlbB).
+
+![Preview da aplicação Kanban](images/preview.jpg)
+
 ## Demonstração
 
 **Aplicação:** [https://kanban-jgc.vercel.app/](https://kanban-jgc.vercel.app/)
@@ -154,6 +158,35 @@ dotnet run --project src/Backend/Kanban.Api/Kanban.Api.csproj
 
 ```bash
 dotnet run --project src/Web/Kanban.App/Kanban.App.csproj
+```
+
+---
+
+## Testes
+
+O backend possui testes automatizados cobrindo validadores e casos de uso (use cases) das principais entidades do domínio: `Board`, `Column`, `Task` e `SubTask`, além do fluxo de usuário (registro, login e atualização).
+
+### Ferramentas
+
+* xUnit
+* Moq
+* Bogus
+* FluentAssertions
+
+### Estrutura
+
+```text
+tests
+└── Backend
+    ├── CommomTestsUtilies   # Builders e utilitários compartilhados entre os testes
+    ├── UseCases.Tests       # Testes dos casos de uso da aplicação
+    └── Validators.Tests     # Testes das regras de validação (FluentValidation)
+```
+
+### Executar os testes
+
+```bash
+dotnet test Kanban.sln
 ```
 
 ---
